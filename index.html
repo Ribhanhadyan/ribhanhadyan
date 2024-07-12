@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hadyan</title>
+    <!-- Bootstrap CSS -->
+    <link href="bootstrap-5.3.3-dist/bootstrap-5.3.3-dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary shadow">
+      <div class="container">
+        <a class="navbar-brand" href="#">Ribhan Hadiyan</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About Me</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Certificate</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Project</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- akhir navbar -->
+
+    <!-- Jumbotron -->
+    <section class="jumbotron text-center">
+      <img src="img/ribhanhadiyan.png" alt="ribhanhadiyan" width="200" class="rounded" />
+      <h1 class="display-4">Muhammad Ribhan Hadiyan</h1>
+      <p class="lead">A fresh graduate from Padjadjaran University majoring Mathematics</p>
+    <!-- akhir Jumbotron -->
+    
+    <!-- about -->
+    <section id="about">
+      <div class="container">
+        <h2>About Me</h2>
+        <p>Hello, my name is Ribhan. I graduated with a Bachelor's degree in Mathematics from Universitas Padjadjaran. I have two years of experience as a laboratory assistant at the Faculty of Mathematics and Natural Sciences, Universitas Padjadjaran, where I served as a coordinator and instructor for practical courses in several subjects. Additionally, I participated in independent study at Bangkit Academy in 2023 and successfully obtained a Tensorflow certification. I am proficient in several programming languages including Python, R, C++, and SQL.</p>
+      </div>
+    </section>
+    <!-- akhir about -->
+
+    <!-- Certificate -->
+    <section id="Certificate" style="margin-top: 50px;">
+      <h2 class="text-center">Certificate</h2>
+      <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 5"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="5" aria-label="Slide 6"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="img/sertifikat1.jpg" class="w-50" alt="Tensorflow Developer Certification">
+          </div>
+          <div class="carousel-item">
+            <img src="img/sertifikat2.jpg" class="w-50" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="img/sertifikat3.jpg" class="w-50" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="img/sertifikat4.jpg" class="w-50" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="img/sertifikat5.jpg" class="w-50" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="img/sertifikat6.jpg" class="w-50" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </section>
+    <!-- Akhir Certificate -->
+
+    <!-- Projects -->
+    <section id="projects">
+      <div class="container-fluid" style="margin-top: 50px;">
+        <div class="row" >
+            <h2>Projects</h2>
+        </div>
+        <div class="row">
+          <select class="form-select" id="project-select">
+              <option selected disabled>Choose Project</option>
+              <option disabled>- Lecture Projects -</option>
+              <option value="lp1">1. Administration Hospital Program </option>
+              <option value="lp2">2. Air Traffic Control Simulation</option>
+              <option disabled>- Others Projects -</option>
+              <option value="img/ig_astlab.jpg">1. PGAS Stock Prediction</option>
+              <option value="v2">2. eksporinaja.id</option>
+              <option value="img/0330.gif">3. LiFit</option>
+          </select>
+          <p style="margin-top: 15px;">
+              <h5><b id="title_project">Title</b></h5>
+              <p id="desc_project">
+                  Description
+              </p>
+          </p>
+        </div>
+        <div class="row">
+          <div id="project-content" class="text-center">
+              <img id="project-image" src="img/project/Search-rafiki.png" class="rounded mx-auto d-block" width="80%" >
+        </div>
+        </div>
+    </div>
+    </section>
+    <!-- Akhir projects -->
+    
+  <div class="container-fluid" style="margin-top: 50px;">
+      <hr>
+      <div class="row text-center">
+          <span class="c-circle-fill"> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-c-circle" viewBox="0 0 16 16">
+              <path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.146 4.992c-1.212 0-1.927.92-1.927 2.502v1.06c0 1.571.703 2.462 1.927 2.462.979 0 1.641-.586 1.729-1.418h1.295v.093c-.1 1.448-1.354 2.467-3.03 2.467-2.091 0-3.269-1.336-3.269-3.603V7.482c0-2.261 1.201-3.638 3.27-3.638 1.681 0 2.935 1.054 3.029 2.572v.088H9.875c-.088-.879-.768-1.512-1.729-1.512"/>
+            </svg>
+            2024 Muhammad Ribhan Hadiyan
+          </span>
+          <p>All Rights Reserved</p>
+      </div>
+  </div>
+    <script src="bootstrap-5.3.3-dist/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
+  <script>
+    // Get references to the select element and content container
+    const selectElement = document.getElementById('project-select');
+    const contentContainer = document.getElementById('project-content');
+    const titleProject = document.getElementById('title_project');
+    const descProject = document.getElementById('desc_project');
+
+    // Add event listener to the select element to detect changes
+    selectElement.addEventListener('change', function() {
+        // Get the selected option value
+        const selectedOptionValue = selectElement.value;
+        
+        switch(selectedOptionValue) {
+            case 'lp1':
+                titleProject.innerHTML = 'Administration Hospital Program';
+                descProject.innerHTML = `This program was created as a project in the programming algorithms course to simulate administrative processes in hospitals.
+                                        <br><br>
+                                        <a href="https://github.com/Ribhanhadyan/administration-hospital-program" target="_blank" class="icon-link" style="color: inherit; text-decoration: none;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/>
+</svg>
+                                        </a>`;
+                contentContainer.innerHTML = `<div class="holds-the-iframe"><iframe src="img/project/ahp/ezgif.com-video-to-gif-converter.gif" width="100%" height="500px" frameborder="0">This is an embedded <a target="_blank" href="https://office.com">Microsoft Office</a> presentation, powered by <a target="_blank" href="https://office.com/webapps">Office</a>.</iframe></div>`;
+                break;
+            case 'lp2':
+                titleProject.innerHTML = 'Air Traffic Control Simulation';
+                descProject.innerHTML = `This program is called "Air Traffic Control Simulator", a simple simulation program from ATC which makes the user act as an Air Traffic Controller who controls air traffic at an airport.
+                                        <br><br>
+                                        <a href="https://github.com/Ribhanhadyan/air-traffic-contol-simulation" target="_blank" class="icon-link" style="color: inherit; text-decoration: none;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/>
+</svg>
+                                        </a>`;
+                contentContainer.innerHTML = `<div class="holds-the-iframe"><iframe src="img/project/atcs/simulation.gif" width="100%" height="500px" frameborder="0">This is an embedded <a target="_blank" href="https://office.com">Microsoft Office</a> presentation, powered by <a target="_blank" href="https://office.com/webapps">Office</a>.</iframe></div>`;
+                break;
+            case 'img/ig_astlab.jpg':
+                titleProject.innerHTML = 'Laboratory Assistant\'s Instagram Feeds';
+                descProject.innerHTML = `I designed laboratory assistant instagram feeds to provide practicum information and open recruitment of new laboratory assistants.
+                                        <br><br>
+                                        <a href="https://www.instagram.com/astlabmatematikaunpad/" target="_blank" class="icon-link" style="color: inherit; text-decoration: none;">
+                                            <i class="bi bi-instagram" style="font-size: 25px; margin-right: 5px;"></i>
+                                        </a>`;
+                contentContainer.innerHTML = `<img src="${selectedOptionValue}" class="rounded mx-auto d-block" height="500px">`;
+                break;
+            case 'img/0330.gif':
+                titleProject.innerHTML = 'Crazy Rich Poly';
+                descProject.innerHTML = `Crazy Rich Poly is a game adapted from a real-world monopoly game created using the C++ programming language.
+                                            <br><br>
+                                            <a href="https://github.com/tegarridwansyah/CPP-Games" target="_blank" class="icon-link" style="color: inherit; text-decoration: none;">
+                                                <i class="bi bi-github" style="font-size: 25px; margin-right: 5px;"></i>
+                                            </a>`;
+                contentContainer.innerHTML = `<img src="${selectedOptionValue}" class="rounded mx-auto d-block" height="500px">`;
+                break;
+            case 'img/0330(1).gif':
+                titleProject.innerHTML = 'Maze: U\'s Exit Plan';
+                descProject.innerHTML = `Maze: U's Exit Plan is an adventure genre game that tells the story of a character U trapped in a maze. The labyrinth has many obstacles that he must face. Not only that, in it there are three destinations that you must pass. U must be able to pass all the destinations and obstacles in order to get out of the maze.
+                                            <br><br>
+                                            <a href="https://github.com/tegarridwansyah/CPP-Games" target="_blank" class="icon-link" style="color: inherit; text-decoration: none;">
+                                                <i class="bi bi-github" style="font-size: 25px; margin-right: 5px;"></i>
+                                            </a>`;
+                contentContainer.innerHTML = `<img src="${selectedOptionValue}" class="rounded mx-auto d-block" height="500px">`;
+                break;
+            case 'v2':
+                titleProject.innerHTML = 'Infographic';
+                descProject.innerHTML = 'I created infographics on Amazon SageMaker, Geospatial Data and Analytics, and a simple implementation of Flask on LinkedIn.';
+                contentContainer.innerHTML = `<div class="container">
+                                            <div class="row justify-content-center">
+                                                <div class="col-md-6">
+                                                    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" style="max-width: fit-content;">
+                                                        <div class="carousel-inner">
+                                                            <div class="carousel-item active">
+                                                                <img src="img/September - Tegar.png" class="d-block" alt="..." height="500px">
+                                                            </div>
+                                                            <div class="carousel-item">
+                                                                <img src="img/Oktober - Tegar.png" class="d-block" alt="..." height="500px">
+                                                            </div>
+                                                            <div class="carousel-item">
+                                                                <img src="img/November - Tegar.png" class="d-block" alt="..." height="500px">
+                                                            </div>
+                                                            <div class="carousel-item">
+                                                                <img src="img/Desember - Tegar.png" class="d-block" alt="..." height="500px">
+                                                            </div>
+                                                        </div>
+                                                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                            <span class="visually-hidden">Previous</span>
+                                                        </button>
+                                                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                            <span class="visually-hidden">Next</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>`
+                break;
+        }        
+    });
+  </script>
+</html>
