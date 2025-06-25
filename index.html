@@ -17,7 +17,6 @@
             --text-light: #6b7280;
             --bg-light: #f8fafc;
             --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             --shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
 
@@ -29,11 +28,12 @@
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
             color: var(--text-dark);
+            background-color: var(--bg-light);
         }
 
         /* Navigation */
         .navbar {
-            background: rgba(255, 255, 255, 0.95) !important;
+            background: rgba(255, 255, 255, 0.9) !important;
             backdrop-filter: blur(10px);
             transition: all 0.3s ease;
             padding: 1rem 0;
@@ -91,11 +91,12 @@
             bottom: 0;
             background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><defs><radialGradient id="a" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="white" stop-opacity=".1"/><stop offset="100%" stop-color="white" stop-opacity="0"/></radialGradient></defs><circle cx="10" cy="10" r="10" fill="url(%23a)"/></svg>');
             opacity: 0.1;
+            animation: move-bubbles 20s linear infinite;
         }
 
-        .hero-content {
-            position: relative;
-            z-index: 2;
+        @keyframes move-bubbles {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100px); }
         }
 
         .profile-img {
@@ -104,24 +105,23 @@
             object-fit: cover;
             border: 5px solid rgba(255,255,255,0.2);
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
 
         .profile-img:hover {
-            transform: scale(1.05);
+            transform: scale(1.05) rotate(3deg);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
         }
 
         .hero h1 {
             font-size: 3.5rem;
             font-weight: 700;
-            margin-bottom: 1rem;
-            animation: fadeInUp 0.8s ease;
         }
 
         .hero .lead {
             font-size: 1.3rem;
             opacity: 0.9;
-            animation: fadeInUp 0.8s ease 0.2s both;
+            min-height: 50px; /* Allocate space for typing text */
         }
 
         .btn-cta {
@@ -131,25 +131,25 @@
             padding: 12px 30px;
             font-weight: 600;
             transition: all 0.3s ease;
-            animation: fadeInUp 0.8s ease 0.4s both;
         }
 
         .btn-cta:hover {
             background: white;
             color: var(--primary-color);
-            transform: translateY(-2px);
+            transform: translateY(-3px) scale(1.05);
         }
 
         /* Sections */
         section {
             padding: 80px 0;
+            overflow: hidden; /* For scroll animations */
         }
 
         .section-title {
             font-size: 2.5rem;
             font-weight: 700;
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
             position: relative;
         }
 
@@ -159,35 +159,36 @@
             height: 4px;
             background: var(--gradient-1);
             position: absolute;
-            bottom: -10px;
+            bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
             border-radius: 2px;
         }
 
         /* About Section */
-        .about {
-            background: var(--bg-light);
-        }
-
         .skill-item {
             background: white;
-            padding: 20px;
+            padding: 25px;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             text-align: center;
             margin-bottom: 20px;
         }
 
         .skill-item:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.1);
         }
 
         .skill-icon {
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: var(--primary-color);
             margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+        .skill-item:hover .skill-icon {
+            transform: scale(1.2);
         }
 
         /* Certificate Section */
@@ -196,19 +197,45 @@
             border-radius: 15px;
             overflow: hidden;
             box-shadow: var(--shadow);
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             height: 100%;
+            cursor: pointer;
         }
 
-        .certificate-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        .certificate-card .certificate-img-wrapper {
+            overflow: hidden;
+            position: relative;
         }
-
+        
         .certificate-img {
             width: 100%;
             height: 200px;
             object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .certificate-card:hover .certificate-img {
+            transform: scale(1.1);
+        }
+        
+        .certificate-card .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .certificate-card:hover .overlay {
+            opacity: 1;
         }
 
         .certificate-body {
@@ -221,72 +248,48 @@
             border-radius: 15px;
             overflow: hidden;
             box-shadow: var(--shadow);
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             height: 100%;
         }
-
+        
         .project-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.2);
         }
 
         .project-img {
             width: 100%;
             height: 250px;
             object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .project-card:hover .project-img {
+            transform: scale(1.05);
         }
 
-        .project-body {
-            padding: 25px;
-        }
-
-        .project-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--text-dark);
-        }
-
-        .project-desc {
-            color: var(--text-light);
-            margin-bottom: 20px;
-            font-size: 0.95rem;
-        }
-
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
-        .tech-tag {
-            background: var(--bg-light);
-            color: var(--primary-color);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
+        .project-body { padding: 25px; }
+        .project-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 10px; color: var(--text-dark); }
+        .project-desc { color: var(--text-light); margin-bottom: 20px; font-size: 0.95rem; }
+        .project-tech { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+        .tech-tag { background: var(--bg-light); color: var(--primary-color); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 500; }
+        
         .project-links a {
             color: var(--primary-color);
             text-decoration: none;
             margin-right: 15px;
-            font-weight: 500;
+            font-weight: 600;
             transition: color 0.3s ease;
         }
 
         .project-links a:hover {
             color: var(--secondary-color);
+            text-decoration: underline;
         }
 
         /* Contact Section */
-        .contact {
-            background: var(--gradient-1);
-            color: white;
-        }
-
+        .contact { background: var(--gradient-1); color: white; }
+        
         .contact-item {
             text-align: center;
             padding: 30px 20px;
@@ -294,65 +297,69 @@
             border-radius: 15px;
             transition: all 0.3s ease;
             margin-bottom: 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .contact-item:hover {
             background: rgba(255,255,255,0.2);
             transform: translateY(-5px);
         }
-
-        .contact-icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
+        
+        .contact-item a { color: white; text-decoration: none; }
+        .contact-icon { font-size: 2.5rem; margin-bottom: 15px; }
+        
+        .copy-btn {
+            background-color: rgba(255,255,255,0.3);
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+            font-size: 0.9rem;
         }
 
         /* Footer */
         footer {
             background: var(--text-dark);
-            color: white;
+            color: #adb5bd;
             padding: 40px 0;
             text-align: center;
         }
+        footer p { margin-bottom: 0.5rem; }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* Animation */
+        .animated-element {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
         }
 
-        .fade-in {
-            animation: fadeInUp 0.8s ease;
+        .animated-element.is-visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        /* Modal for Certificates */
+        .modal-img {
+            max-width: 100%;
+            height: auto;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero .lead {
-                font-size: 1.1rem;
-            }
-            
-            section {
-                padding: 60px 0;
-            }
+            .hero h1 { font-size: 2.5rem; }
+            .hero .lead { font-size: 1.1rem; min-height: 80px; }
+            section { padding: 60px 0; }
         }
-
-        /* Smooth scroll offset */
-        html {
-            scroll-padding-top: 80px;
-        }
+        
+        html { scroll-padding-top: 80px; }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="navbar navbar-expand-lg fixed-top" id="navbar">
         <div class="container">
             <a class="navbar-brand" href="#home">
@@ -364,125 +371,85 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#home">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#certificates">Certificates</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#projects">Projects</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#certificates">Certificates</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero d-flex align-items-center">
+    <section id="home" class="hero d-flex align-items-center text-center text-lg-start">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-4 text-center mb-4 mb-lg-0">
+                <div class="col-lg-4 text-center mb-4 mb-lg-0 animated-element">
                     <img src="img/ribhanhadiyan.png" alt="Muhammad Ribhan Hadiyan" class="profile-img rounded-circle">
                 </div>
-                <div class="col-lg-8">
-                    <div class="hero-content">
-                        <h1>Muhammad Ribhan Hadiyan</h1>
-                        <p class="lead mb-4">Data Scientist & Mathematics Graduate passionate about Machine Learning and Statistical Analysis</p>
-                        <a href="#about" class="btn btn-cta rounded-pill">Learn More About Me</a>
-                    </div>
+                <div class="col-lg-8 animated-element" style="transition-delay: 0.2s;">
+                    <h1>Muhammad Ribhan Hadiyan</h1>
+                    <p class="lead mb-4"><span id="typing-text"></span></p>
+                    <a href="#projects" class="btn btn-cta rounded-pill">View My Work</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
     <section id="about" class="about">
         <div class="container">
+            <h2 class="section-title animated-element">About Me</h2>
             <div class="row">
-                <div class="col-lg-8 mx-auto">
-                    <h2 class="section-title">About Me</h2>
+                <div class="col-lg-8 mx-auto animated-element">
                     <p class="text-center mb-5" style="font-size: 1.1rem; color: var(--text-light);">
-                        I'm a dedicated Mathematics graduate from Universitas Padjadjaran with expertise in data science and machine learning. 
-                        With two years of experience as a laboratory assistant and a TensorFlow certification from Bangkit Academy 2023, 
-                        I bring both theoretical knowledge and practical skills to solve complex problems through data-driven solutions.
+                        PT BFI Finance Indonesia benefits from contributions to asset management strategies as a Data Science and Modeling Specialist. Expertise includes Python and SQL for data processing, modeling, and optimization. Collaborated on initiatives to streamline operations through advanced mathematical techniques and data-driven approaches. 
+                        Universitas Padjadjaran shaped analytical and technical foundations through a Mathematics degree. Supported academic projects as a Research Assistant, focusing on Operations Research and Optimization. Developed materials, led tutorials, and produced research manuscripts. Passionate about creating impactful, data-driven solutions that align with organizational goals.
                     </p>
                 </div>
             </div>
-            
             <div class="row">
-                <div class="col-md-3 col-sm-6">
-                    <div class="skill-item">
-                        <div class="skill-icon">
-                            <i class="fab fa-python"></i>
-                        </div>
-                        <h5>Python</h5>
-                        <p>Data Analysis & ML</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="skill-item">
-                        <div class="skill-icon">
-                            <i class="fab fa-r-project"></i>
-                        </div>
-                        <h5>R</h5>
-                        <p>Statistical Computing</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="skill-item">
-                        <div class="skill-icon">
-                            <i class="fas fa-database"></i>
-                        </div>
-                        <h5>SQL</h5>
-                        <p>Database Management</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="skill-item">
-                        <div class="skill-icon">
-                            <i class="fas fa-brain"></i>
-                        </div>
-                        <h5>TensorFlow</h5>
-                        <p>Deep Learning</p>
-                    </div>
-                </div>
+                <div class="col-md-3 col-sm-6 animated-element" style="transition-delay: 0.1s;"><div class="skill-item"><div class="skill-icon"><i class="fab fa-python"></i></div><h5>Python</h5><p>Data Analysis & ML</p></div></div>
+                <div class="col-md-3 col-sm-6 animated-element" style="transition-delay: 0.2s;"><div class="skill-item"><div class="skill-icon"><i class="fab fa-r-project"></i></div><h5>R</h5><p>Statistical Computing</p></div></div>
+                <div class="col-md-3 col-sm-6 animated-element" style="transition-delay: 0.3s;"><div class="skill-item"><div class="skill-icon"><i class="fas fa-database"></i></div><h5>SQL</h5><p>Database Management</p></div></div>
+                <div class="col-md-3 col-sm-6 animated-element" style="transition-delay: 0.4s;"><div class="skill-item"><div class="skill-icon"><i class="fas fa-brain"></i></div><h5>TensorFlow</h5><p>Deep Learning</p></div></div>
             </div>
         </div>
     </section>
 
-    <!-- Certificates Section -->
     <section id="certificates">
         <div class="container">
-            <h2 class="section-title">Certificates</h2>
+            <h2 class="section-title animated-element">Certificates</h2>
             <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="certificate-card">
-                        <img src="img/sertifikat1.jpg" alt="TensorFlow Developer Certificate" class="certificate-img">
+                <div class="col-lg-4 col-md-6 mb-4 animated-element">
+                    <div class="certificate-card" data-bs-toggle="modal" data-bs-target="#certificateModal" data-img-src="img/sertifikat1.jpg">
+                        <div class="certificate-img-wrapper">
+                            <img src="img/sertifikat1.jpg" alt="TensorFlow Developer Certificate" class="certificate-img">
+                            <div class="overlay"><i class="fas fa-eye"></i></div>
+                        </div>
                         <div class="certificate-body">
                             <h5>TensorFlow Developer Certificate</h5>
                             <p class="text-muted">Google - Bangkit Academy 2023</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="certificate-card">
-                        <img src="img/sertifikat2.jpg" alt="Certificate 2" class="certificate-img">
+                <div class="col-lg-4 col-md-6 mb-4 animated-element" style="transition-delay: 0.2s;">
+                    <div class="certificate-card" data-bs-toggle="modal" data-bs-target="#certificateModal" data-img-src="img/sertifikat2.jpg">
+                         <div class="certificate-img-wrapper">
+                            <img src="img/sertifikat2.jpg" alt="Machine Learning Certificate" class="certificate-img">
+                             <div class="overlay"><i class="fas fa-eye"></i></div>
+                        </div>
                         <div class="certificate-body">
                             <h5>Machine Learning Certificate</h5>
                             <p class="text-muted">Professional Development</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="certificate-card">
-                        <img src="img/sertifikat3.jpg" alt="Certificate 3" class="certificate-img">
+                <div class="col-lg-4 col-md-6 mb-4 animated-element" style="transition-delay: 0.4s;">
+                    <div class="certificate-card" data-bs-toggle="modal" data-bs-target="#certificateModal" data-img-src="img/sertifikat3.jpg">
+                         <div class="certificate-img-wrapper">
+                            <img src="img/sertifikat3.jpg" alt="Data Analysis Certificate" class="certificate-img">
+                             <div class="overlay"><i class="fas fa-eye"></i></div>
+                        </div>
                         <div class="certificate-body">
                             <h5>Data Analysis Certificate</h5>
                             <p class="text-muted">Professional Development</p>
@@ -493,229 +460,104 @@
         </div>
     </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="about">
+    <section id="projects" class="bg-light">
         <div class="container">
-            <h2 class="section-title">Featured Projects</h2>
+            <h2 class="section-title animated-element">Featured Projects</h2>
             <div class="row">
-                <!-- Project 1 -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="project-card">
-                        <img src="img/project/megatrusht/Sentiment_distribution.png" alt="Sentiment Analysis Project" class="project-img">
-                        <div class="project-body">
-                            <h5 class="project-title">Sentiment Analysis - Megathrust</h5>
-                            <p class="project-desc">
-                                Analyzed public sentiment on Twitter regarding megathrust earthquakes using Indonesia-BERT model, processing 548 tweets with 55.29% neutral, 34.31% negative, and 10.40% positive sentiments.
-                            </p>
-                            <div class="project-tech">
-                                <span class="tech-tag">Python</span>
-                                <span class="tech-tag">BERT</span>
-                                <span class="tech-tag">NLP</span>
-                                <span class="tech-tag">Twitter API</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://github.com/Ribhanhadyan/Sentiment-Analysis-Megatrusht" target="_blank">
-                                    <i class="fab fa-github"></i> Code
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 2 -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="project-card">
-                        <img src="img/project/lifit/lifit.gif" alt="LiFit App" class="project-img">
-                        <div class="project-body">
-                            <h5 class="project-title">LiFit - BMI Detection App</h5>
-                            <p class="project-desc">
-                                Capstone project for Bangkit Academy developing a mobile application for BMI detection and health tracking with personalized recommendations.
-                            </p>
-                            <div class="project-tech">
-                                <span class="tech-tag">Android</span>
-                                <span class="tech-tag">Kotlin</span>
-                                <span class="tech-tag">TensorFlow</span>
-                                <span class="tech-tag">Firebase</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://github.com/Ribhanhadyan/LiFit" target="_blank">
-                                    <i class="fab fa-github"></i> Code
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 3 -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="project-card">
-                        <img src="img/project/ahp/ezgif.com-video-to-gif-converter.gif" alt="Hospital Administration System" class="project-img">
-                        <div class="project-body">
-                            <h5 class="project-title">Hospital Administration Program</h5>
-                            <p class="project-desc">
-                                A comprehensive hospital management system developed for programming algorithms course, simulating administrative processes in healthcare facilities.
-                            </p>
-                            <div class="project-tech">
-                                <span class="tech-tag">C++</span>
-                                <span class="tech-tag">Data Structures</span>
-                                <span class="tech-tag">Algorithms</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://github.com/Ribhanhadyan/administration-hospital-program" target="_blank">
-                                    <i class="fab fa-github"></i> Code
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 4 -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="project-card">
-                        <img src="img/project/atcs/simulation.gif" alt="Air Traffic Control" class="project-img">
-                        <div class="project-body">
-                            <h5 class="project-title">Air Traffic Control Simulation</h5>
-                            <p class="project-desc">
-                                Interactive simulation program allowing users to act as Air Traffic Controllers, managing aircraft movements and airport operations.
-                            </p>
-                            <div class="project-tech">
-                                <span class="tech-tag">C++</span>
-                                <span class="tech-tag">Simulation</span>
-                                <span class="tech-tag">GUI</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://github.com/Ribhanhadyan/air-traffic-contol-simulation" target="_blank">
-                                    <i class="fab fa-github"></i> Code
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 5 -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="project-card">
-                        <img src="img/project/eksporinaja/eksporinaja.gif" alt="Eksporinaja Platform" class="project-img">
-                        <div class="project-body">
-                            <h5 class="project-title">Eksporinaja.id Prototype</h5>
-                            <p class="project-desc">
-                                Digital business education platform focused on export-import consultancy to enhance Indonesia's export commodities and support entrepreneurs.
-                            </p>
-                            <div class="project-tech">
-                                <span class="tech-tag">HTML</span>
-                                <span class="tech-tag">CSS</span>
-                                <span class="tech-tag">JavaScript</span>
-                                <span class="tech-tag">Bootstrap</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://ribhanhadyan.github.io/eksporinaja.github.io/" target="_blank">
-                                    <i class="fas fa-external-link-alt"></i> Live Demo
-                                </a>
-                                <a href="https://github.com/Ribhanhadyan/eksporinaja.github.io" target="_blank">
-                                    <i class="fab fa-github"></i> Code
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 6 -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="project-card">
-                        <img src="img/project/mooc/mooc.gif" alt="MOOC Numeric Methods" class="project-img">
-                        <div class="project-body">
-                            <h5 class="project-title">MOOC Numeric Methods</h5>
-                            <p class="project-desc">
-                                Educational video series teaching numerical methods using Python, covering various mathematical computation techniques and implementations.
-                            </p>
-                            <div class="project-tech">
-                                <span class="tech-tag">Python</span>
-                                <span class="tech-tag">NumPy</span>
-                                <span class="tech-tag">Education</span>
-                                <span class="tech-tag">Video Content</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://www.youtube.com/playlist?list=PLMa8P5cWqfQcnYmC7XbwHyoNtIAw6cPZH" target="_blank">
-                                    <i class="fab fa-youtube"></i> Watch
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div class="col-lg-4 col-md-6 mb-4 animated-element"><div class="project-card"><img src="img/project/megatrusht/Sentiment_distribution.png" alt="Sentiment Analysis Project" class="project-img"><div class="project-body"><h5 class="project-title">Sentiment Analysis - Megathrust</h5><p class="project-desc">Analyzed public sentiment on Twitter regarding megathrust earthquakes using Indonesia-BERT model.</p><div class="project-tech"><span class="tech-tag">Python</span><span class="tech-tag">BERT</span><span class="tech-tag">NLP</span></div><div class="project-links"><a href="https://github.com/Ribhanhadyan/Sentiment-Analysis-Megatrusht" target="_blank"><i class="fab fa-github"></i> Code</a></div></div></div></div>
+                <div class="col-lg-4 col-md-6 mb-4 animated-element" style="transition-delay: 0.2s;"><div class="project-card"><img src="img/project/lifit/lifit.gif" alt="LiFit App" class="project-img"><div class="project-body"><h5 class="project-title">LiFit - BMI Detection App</h5><p class="project-desc">Capstone project developing a mobile app for BMI detection and health tracking with personalized recommendations.</p><div class="project-tech"><span class="tech-tag">Kotlin</span><span class="tech-tag">TensorFlow</span><span class="tech-tag">Firebase</span></div><div class="project-links"><a href="https://github.com/Ribhanhadyan/LiFit" target="_blank"><i class="fab fa-github"></i> Code</a></div></div></div></div>
+                <div class="col-lg-4 col-md-6 mb-4 animated-element" style="transition-delay: 0.4s;"><div class="project-card"><img src="img/project/ahp/ezgif.com-video-to-gif-converter.gif" alt="Hospital Administration System" class="project-img"><div class="project-body"><h5 class="project-title">Hospital Administration Program</h5><p class="project-desc">A comprehensive hospital management system developed for programming algorithms course.</p><div class="project-tech"><span class="tech-tag">C++</span><span class="tech-tag">Data Structures</span></div><div class="project-links"><a href="https://github.com/Ribhanhadyan/administration-hospital-program" target="_blank"><i class="fab fa-github"></i> Code</a></div></div></div></div>
+                <div class="col-lg-4 col-md-6 mb-4 animated-element"><div class="project-card"><img src="img/project/atcs/simulation.gif" alt="Air Traffic Control" class="project-img"><div class="project-body"><h5 class="project-title">Air Traffic Control Simulation</h5><p class="project-desc">Interactive simulation program allowing users to act as Air Traffic Controllers and manage airport operations.</p><div class="project-tech"><span class="tech-tag">C++</span><span class="tech-tag">Simulation</span><span class="tech-tag">GUI</span></div><div class="project-links"><a href="https://github.com/Ribhanhadyan/air-traffic-contol-simulation" target="_blank"><i class="fab fa-github"></i> Code</a></div></div></div></div>
+                <div class="col-lg-4 col-md-6 mb-4 animated-element" style="transition-delay: 0.2s;"><div class="project-card"><img src="img/project/eksporinaja/eksporinaja.gif" alt="Eksporinaja Platform" class="project-img"><div class="project-body"><h5 class="project-title">Eksporinaja.id Prototype</h5><p class="project-desc">Digital business education platform focused on export-import consultancy to enhance Indonesia's export commodities.</p><div class="project-tech"><span class="tech-tag">HTML</span><span class="tech-tag">CSS</span><span class="tech-tag">Bootstrap</span></div><div class="project-links"><a href="https://ribhanhadyan.github.io/eksporinaja.github.io/" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a><a href="https://github.com/Ribhanhadyan/eksporinaja.github.io" target="_blank"><i class="fab fa-github"></i> Code</a></div></div></div></div>
+                <div class="col-lg-4 col-md-6 mb-4 animated-element" style="transition-delay: 0.4s;"><div class="project-card"><img src="img/project/mooc/mooc.gif" alt="MOOC Numeric Methods" class="project-img"><div class="project-body"><h5 class="project-title">MOOC Numeric Methods</h5><p class="project-desc">Educational video series teaching numerical methods using Python and various mathematical computation techniques.</p><div class="project-tech"><span class="tech-tag">Python</span><span class="tech-tag">NumPy</span><span class="tech-tag">Education</span></div><div class="project-links"><a href="https://www.youtube.com/playlist?list=PLMa8P5cWqfQcnYmC7XbwHyoNtIAw6cPZH" target="_blank"><i class="fab fa-youtube"></i> Watch</a></div></div></div></div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">
-            <h2 class="section-title text-white">Get In Touch</h2>
-            <div class="row">
-                <div class="col-lg-4 mb-4">
+            <h2 class="section-title text-white animated-element">Get In Touch</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-6 mb-4 animated-element" style="transition-delay: 0.1s;">
                     <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
                         <h5>Email</h5>
-                        <p>ribhanhadyan@gmail.com</p>
+                        <p>
+                            <span id="email-text">ribhanhadyan@gmail.com</span>
+                            <button class="copy-btn" id="copy-email-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy to clipboard">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </p>
                     </div>
                 </div>
-                <div class="col-lg-4 mb-4">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fab fa-linkedin"></i>
+                <div class="col-lg-4 col-md-6 mb-4 animated-element" style="transition-delay: 0.2s;">
+                    <a href="https://www.linkedin.com/in/ribhanhadyan/" target="_blank">
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fab fa-linkedin"></i></div>
+                            <h5>LinkedIn</h5>
+                            <p>Connect with me</p>
                         </div>
-                        <h5>LinkedIn</h5>
-                        <p></p>
-                    </div>
+                    </a>
                 </div>
-                <div class="col-lg-4 mb-4">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fab fa-github"></i>
+                <div class="col-lg-4 col-md-6 mb-4 animated-element" style="transition-delay: 0.3s;">
+                    <a href="https://github.com/Ribhanhadyan" target="_blank">
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fab fa-github"></i></div>
+                            <h5>GitHub</h5>
+                            <p>Check out my projects</p>
                         </div>
-                        <h5>GitHub</h5> 
-                        <p><a href="https://github.com/Ribhanhadyan">Check out my projects</a></p>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <p>&copy; 2024 Muhammad Ribhan Hadiyan. All Rights Reserved.</p>
-                    <p class="mb-0">Built with passion for data science and mathematics</p>
-                </div>
-            </div>
+            <p>© 2024 Muhammad Ribhan Hadiyan. All Rights Reserved.</p>
+            <p>Built with <i class="fas fa-heart" style="color: #e25555;"></i> for data science and mathematics</p>
         </div>
     </footer>
 
+    <div class="modal fade" id="certificateModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img src="" id="modalImage" class="modal-img" alt="Certificate">
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
 
-        // Active nav link on scroll
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+
+        // --- Navbar Scroll Effect ---
+        const navbar = document.getElementById('navbar');
+        if (navbar) {
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+        }
+
+        // --- Active Nav Link on Scroll ---
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
         window.addEventListener('scroll', function() {
-            const sections = document.querySelectorAll('section[id]');
-            const navLinks = document.querySelectorAll('.nav-link');
-            
             let current = '';
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (scrollY >= (sectionTop - 200)) {
+                if (scrollY >= (sectionTop - 150)) {
                     current = section.getAttribute('id');
                 }
             });
@@ -728,38 +570,65 @@
             });
         });
 
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+        // --- Typing Effect ---
+        const typingText = document.getElementById('typing-text');
+        if (typingText) {
+            new Typed('#typing-text', {
+                strings: ['Data Scientist @PT BFI Finance Indonesia, Tbk', 'Mathematics Graduate', 'AI Enthusiast'],
+                typeSpeed: 50,
+                backSpeed: 30,
+                backDelay: 2000,
+                loop: true,
+                smartBackspace: true
             });
-        });
+        }
 
-        // Animate elements on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
+        // --- Animate Elements on Scroll ---
+        const animatedElements = document.querySelectorAll('.animated-element');
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in');
+                    entry.target.classList.add('is-visible');
                 }
             });
-        }, observerOptions);
-
-        // Observe elements for animation
-        document.querySelectorAll('.skill-item, .certificate-card, .project-card, .contact-item').forEach(el => {
-            observer.observe(el);
+        }, {
+            threshold: 0.1
         });
+        animatedElements.forEach(el => observer.observe(el));
+        
+        // --- Certificate Modal Logic ---
+        const certificateModal = document.getElementById('certificateModal');
+        if (certificateModal) {
+            certificateModal.addEventListener('show.bs.modal', function (event) {
+                const button = event.relatedTarget;
+                const imgSrc = button.getAttribute('data-img-src');
+                const modalImage = document.getElementById('modalImage');
+                modalImage.src = imgSrc;
+            });
+        }
+        
+        // --- Copy to Clipboard for Email ---
+        const copyBtn = document.getElementById('copy-email-btn');
+        const emailText = document.getElementById('email-text');
+        
+        // Initialize tooltip
+        const tooltip = new bootstrap.Tooltip(copyBtn, {
+            title: 'Copied!',
+            trigger: 'manual'
+        });
+
+        if (copyBtn && emailText) {
+            copyBtn.addEventListener('click', function() {
+                navigator.clipboard.writeText(emailText.innerText).then(() => {
+                    tooltip.show();
+                    setTimeout(() => tooltip.hide(), 2000);
+                }).catch(err => {
+                    console.error('Failed to copy text: ', err);
+                });
+            });
+        }
+
+    });
     </script>
 </body>
 </html>
