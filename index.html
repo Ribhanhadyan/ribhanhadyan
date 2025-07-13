@@ -8,8 +8,7 @@
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css"/>
-
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
@@ -29,6 +28,7 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
                     <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
                     <li class="nav-item"><a class="nav-link" href="#certificates">Certificates</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
@@ -40,21 +40,20 @@
     <section id="home" class="hero">
         <div id="particles-js"></div>
         <div class="hero-content container text-center">
-            <div id="tour-step-1">
+            <div>
                 <img src="img/ribhanhadiyan.png" alt="Muhammad Ribhan Hadiyan" class="profile-img rounded-circle mb-4">
                 <h1 class="display-4">Muhammad Ribhan Hadiyan</h1>
                 <p class="lead"><span id="typing-text"></span></p>
             </div>
             <div class="mt-4">
                 <a href="#projects" class="btn btn-cta-primary rounded-pill me-2">View My Projects</a>
-                <button id="tour-button" class="btn btn-cta-secondary rounded-pill"><i class="fas fa-route me-2"></i>Take a Guided Tour</button>
             </div>
         </div>
     </section>
 
     <section id="about" class="about">
         <div class="container">
-            <h2 class="section-title" id="tour-step-2">About Me</h2>
+            <h2 class="section-title">About Me</h2>
             <div class="row align-items-center">
                 <div class="col-lg-7">
                     <h3 class="about-subtitle">My Journey in Data</h3>
@@ -65,7 +64,7 @@
                         During my time as a Research Assistant, I delved into Operations Research and Optimization, honing my skills in translating complex problems into actionable solutions. I am passionate about crafting elegant, impactful models that solve real-world challenges and align perfectly with organizational goals.
                     </p>
                 </div>
-                <div class="col-lg-5" id="tour-step-3">
+                <div class="col-lg-5">
                      <h3 class="about-subtitle">Core Skills</h3>
                     <div class="skill-grid">
                         <div class="skill-item"><i class="fab fa-python"></i> Python</div>
@@ -80,9 +79,44 @@
         </div>
     </section>
 
+    <section id="experience" class="experience">
+        <div class="container">
+            <h2 class="section-title">Work Experience</h2>
+            <div class="timeline-container">
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h4>Asset Management Data Science & Modelling Specialist</h4>
+                        <h5 class="company">PT BFI Finance Indonesia, Tbk</h5>
+                        <p class="date"><i class="fas fa-calendar-alt me-2"></i>November 2024 - Present (9 bulan)</p>
+                        <p class="location"><i class="fas fa-map-marker-alt me-2"></i>Tangerang, Banten, Indonesia</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h4>Research Assistant for Academic Leadership Grant</h4>
+                        <h5 class="company">Universitas Padjadjaran</h5>
+                        <p class="date"><i class="fas fa-calendar-alt me-2"></i>Juli 2024 - November 2024 (5 bulan)</p>
+                        <p class="location"><i class="fas fa-map-marker-alt me-2"></i>Kecamatan Jatinangor, West Java, Indonesia</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h4>Laboratory Assistant</h4>
+                        <h5 class="company">Asisten Laboratorium Matematika Unpad</h5>
+                        <p class="date"><i class="fas fa-calendar-alt me-2"></i>Januari 2022 - Desember 2023 (2 tahun)</p>
+                        <p class="location"><i class="fas fa-map-marker-alt me-2"></i>Jatinangor, Jawa Barat, Indonesia</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
     <section id="projects" class="bg-light">
         <div class="container">
-            <h2 class="section-title" id="tour-step-4">Featured Projects</h2>
+            <h2 class="section-title">Featured Projects</h2>
             <div class="row">
                  <div class="col-lg-4 col-md-6 mb-4"><div class="project-card"><img src="img/project/dsc/dashboard_fraud_ewalet.gif" alt="Predictive E-wallet Fraud" class="project-img"><div class="project-body"><h5 class="project-title">Predictive E-wallet Fraud</h5><p class="project-desc">This project, "Predictive E-wallet Fraud," aims to develop a real-time interactive dashboard for detecting and analyzing fraudulent e-wallet transactions.</p><div class="project-tech"><span class="tech-tag">Python</span><span class="tech-tag">Dash</span><span class="tech-tag">Shap</span></div><div class="project-links"><a href="https://github.com/WibiAnto/AstlaM-DSC2024" target="_blank"><i class="fab fa-github"></i> Code</a></div></div></div></div>
                  <div class="col-lg-4 col-md-6 mb-4"><div class="project-card"><img src="img/project/megatrusht/Sentiment_distribution.png" alt="Sentiment Analysis Project" class="project-img"><div class="project-body"><h5 class="project-title">Sentiment Analysis - Megathrust</h5><p class="project-desc">Analyzed public sentiment on Twitter regarding megathrust earthquakes using Indonesia-BERT model.</p><div class="project-tech"><span class="tech-tag">Python</span><span class="tech-tag">BERT</span><span class="tech-tag">NLP</span></div><div class="project-links"><a href="https://github.com/Ribhanhadyan/Sentiment-Analysis-Megatrusht" target="_blank"><i class="fab fa-github"></i> Code</a></div></div></div></div>
@@ -94,7 +128,7 @@
     <section id="certificates">
         <div class="container">
             <h2 class="section-title">Certificates</h2>
-            <div class="row">
+             <div class="row">
                 <div class="col-lg-4 col-md-6 mb-4"><div class="certificate-card" data-bs-toggle="modal" data-bs-target="#certificateModal" data-img-src="img/sertifikat1.jpg"><div class="certificate-img-wrapper"><img src="img/sertifikat1.jpg" alt="TensorFlow Developer Certificate" class="certificate-img"><div class="overlay"><i class="fas fa-eye"></i></div></div><div class="certificate-body"><h5>TensorFlow Developer Certificate</h5><p class="text-muted">Google - Bangkit Academy 2023</p></div></div></div>
                 <div class="col-lg-4 col-md-6 mb-4"><div class="certificate-card" data-bs-toggle="modal" data-bs-target="#certificateModal" data-img-src="img/sertifikat2.jpg"><div class="certificate-img-wrapper"><img src="img/sertifikat2.jpg" alt="Laboratory Assistant Certificate" class="certificate-img"><div class="overlay"><i class="fas fa-eye"></i></div></div><div class="certificate-body"><h5>Laboratory Assistant Certificate</h5><p class="text-muted">Professional Development</p></div></div></div>
                 <div class="col-lg-4 col-md-6 mb-4"><div class="certificate-card" data-bs-toggle="modal" data-bs-target="#certificateModal" data-img-src="img/sertifikat3.jpg"><div class="certificate-img-wrapper"><img src="img/sertifikat3.jpg" alt="Pekan Kreativitas Mahasiswa Certificate" class="certificate-img"><div class="overlay"><i class="fas fa-eye"></i></div></div><div class="certificate-body"><h5>Pekan Kreativitas Mahasiswa Certificate</h5><p class="text-muted">Professional Development</p></div></div></div>
@@ -104,7 +138,7 @@
 
     <section id="contact" class="contact">
         <div class="container text-center">
-            <h2 class="section-title" id="tour-step-5">Get In Touch</h2>
+            <h2 class="section-title">Get In Touch</h2>
             <p class="lead mb-5">I'm always open to discussing new projects, creative ideas, or opportunities to be part of an ambitious vision. <br>Let's connect and build something amazing together.</p>
             <div class="social-links">
                 <a href="mailto:ribhanhadyan@gmail.com" class="social-icon" data-bs-toggle="tooltip" title="Email"><i class="fas fa-envelope"></i></a>
@@ -129,7 +163,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.js.iife.js"></script>
     <script src="script.js"></script>
 
 </body>
