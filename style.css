@@ -1,11 +1,11 @@
 :root {
-    --primary-color: #2563eb;
-    --secondary-color: #1e40af;
-    --accent-color: #3b82f6;
-    --text-dark: #1f2937;
+    --primary-color: #374151;
+    --secondary-color: #1f2937;
+    --accent-color: #6b7280;
+    --text-dark: #111827;
     --text-light: #6b7280;
-    --bg-light: #f8fafc;
-    --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --bg-light: #f9fafb;
+    --gradient-1: linear-gradient(135deg, #4b5563 0%, #374151 100%);
     --shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
 
@@ -243,7 +243,7 @@ section {
 
 .project-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(37, 99, 235, 0.2);
+    box-shadow: 0 20px 40px rgba(55, 65, 81, 0.2);
 }
 
 .project-img {
