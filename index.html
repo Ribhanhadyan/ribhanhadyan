@@ -5,9 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Muhammad Ribhan Hadiyan - Data Scientist & Mathematician</title>
     <link rel="icon" href="img/logo_hadyan.png" type="image/x-icon">
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css"/>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -24,87 +29,51 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#certificates">Certificates</a></li>
                     <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#certificates">Certificates</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <section id="home" class="hero d-flex align-items-center text-center text-lg-start">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-4 text-center mb-4 mb-lg-0 animated-element">
-                    <img src="img/ribhanhadiyan.png" alt="Muhammad Ribhan Hadiyan" class="profile-img rounded-circle">
-                </div>
-                <div class="col-lg-8 animated-element" style="transition-delay: 0.2s;">
-                    <h1>Muhammad Ribhan Hadiyan</h1>
-                    <p class="lead mb-4"><span id="typing-text"></span></p>
-                    <a href="#projects" class="btn btn-cta rounded-pill">View My Work</a>
-                </div>
+    <section id="home" class="hero">
+        <div id="particles-js"></div>
+        <div class="hero-content container text-center">
+            <div id="tour-step-1">
+                <img src="img/ribhanhadiyan.png" alt="Muhammad Ribhan Hadiyan" class="profile-img rounded-circle mb-4">
+                <h1 class="display-4">Muhammad Ribhan Hadiyan</h1>
+                <p class="lead"><span id="typing-text"></span></p>
+            </div>
+            <div class="mt-4">
+                <a href="#projects" class="btn btn-cta-primary rounded-pill me-2">View My Projects</a>
+                <button id="tour-button" class="btn btn-cta-secondary rounded-pill"><i class="fas fa-route me-2"></i>Take a Guided Tour</button>
             </div>
         </div>
     </section>
 
     <section id="about" class="about">
         <div class="container">
-            <h2 class="section-title animated-element">About Me</h2>
-            <div class="row">
-                <div class="col-lg-8 mx-auto animated-element">
-                    <p class="text-center mb-5" style="font-size: 1.1rem; color: var(--text-light);">
-                        PT BFI Finance Indonesia benefits from contributions to asset management strategies as a Data Science and Modeling Specialist. Expertise includes Python and SQL for data processing, modeling, and optimization. Collaborated on initiatives to streamline operations through advanced mathematical techniques and data-driven approaches. 
-                        Universitas Padjadjaran shaped analytical and technical foundations through a Mathematics degree. Supported academic projects as a Research Assistant, focusing on Operations Research and Optimization. Developed materials, led tutorials, and produced research manuscripts. Passionate about creating impactful, data-driven solutions that align with organizational goals.
+            <h2 class="section-title" id="tour-step-2">About Me</h2>
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <h3 class="about-subtitle">My Journey in Data</h3>
+                    <p>
+                        As a Data Science and Modeling Specialist at PT BFI Finance Indonesia, I leverage Python and SQL to architect asset management strategies, driving operational efficiency through data-driven optimization. My journey began at Universitas Padjadjaran, where a degree in Mathematics forged my analytical mindset.
+                    </p>
+                    <p>
+                        During my time as a Research Assistant, I delved into Operations Research and Optimization, honing my skills in translating complex problems into actionable solutions. I am passionate about crafting elegant, impactful models that solve real-world challenges and align perfectly with organizational goals.
                     </p>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3 col-sm-6 animated-element" style="transition-delay: 0.1s;"><div class="skill-item"><div class="skill-icon"><i class="fab fa-python"></i></div><h5>Python</h5><p>Data Analysis & ML</p></div></div>
-                <div class="col-md-3 col-sm-6 animated-element" style="transition-delay: 0.2s;"><div class="skill-item"><div class="skill-icon"><i class="fab fa-r-project"></i></div><h5>R</h5><p>Statistical Computing</p></div></div>
-                <div class="col-md-3 col-sm-6 animated-element" style="transition-delay: 0.3s;"><div class="skill-item"><div class="skill-icon"><i class="fas fa-database"></i></div><h5>SQL</h5><p>Database Management</p></div></div>
-                <div class="col-md-3 col-sm-6 animated-element" style="transition-delay: 0.4s;"><div class="skill-item"><div class="skill-icon"><i class="fas fa-brain"></i></div><h5>TensorFlow</h5><p>Deep Learning</p></div></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="certificates">
-        <div class="container">
-            <h2 class="section-title animated-element">Certificates</h2>
-            <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4 animated-element">
-                    <div class="certificate-card" data-bs-toggle="modal" data-bs-target="#certificateModal" data-img-src="img/sertifikat1.jpg">
-                        <div class="certificate-img-wrapper">
-                            <img src="img/sertifikat1.jpg" alt="TensorFlow Developer Certificate" class="certificate-img">
-                            <div class="overlay"><i class="fas fa-eye"></i></div>
-                        </div>
-                        <div class="certificate-body">
-                            <h5>TensorFlow Developer Certificate</h5>
-                            <p class="text-muted">Google - Bangkit Academy 2023</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4 animated-element" style="transition-delay: 0.2s;">
-                    <div class="certificate-card" data-bs-toggle="modal" data-bs-target="#certificateModal" data-img-src="img/sertifikat2.jpg">
-                         <div class="certificate-img-wrapper">
-                            <img src="img/sertifikat2.jpg" alt="Laboratory Assistant Certificate" class="certificate-img">
-                             <div class="overlay"><i class="fas fa-eye"></i></div>
-                        </div>
-                        <div class="certificate-body">
-                            <h5>Laboratory Assistant Certificate</h5>
-                            <p class="text-muted">Professional Development</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4 animated-element" style="transition-delay: 0.4s;">
-                    <div class="certificate-card" data-bs-toggle="modal" data-bs-target="#certificateModal" data-img-src="img/sertifikat3.jpg">
-                         <div class="certificate-img-wrapper">
-                            <img src="img/sertifikat3.jpg" alt="Pekan Kreativitas Mahasiswa Certificate" class="certificate-img">
-                             <div class="overlay"><i class="fas fa-eye"></i></div>
-                        </div>
-                        <div class="certificate-body">
-                            <h5>Pekan Kreativitas Mahasiswa Certificate</h5>
-                            <p class="text-muted">Professional Development</p>
-                        </div>
+                <div class="col-lg-5" id="tour-step-3">
+                     <h3 class="about-subtitle">Core Skills</h3>
+                    <div class="skill-grid">
+                        <div class="skill-item"><i class="fab fa-python"></i> Python</div>
+                        <div class="skill-item"><i class="fas fa-database"></i> SQL</div>
+                        <div class="skill-item"><i class="fab fa-r-project"></i> R</div>
+                        <div class="skill-item"><i class="fas fa-brain"></i> TensorFlow</div>
+                        <div class="skill-item"><i class="fas fa-chart-line"></i> Data Modeling</div>
+                        <div class="skill-item"><i class="fas fa-cogs"></i> Optimization</div>
                     </div>
                 </div>
             </div>
@@ -113,92 +82,55 @@
 
     <section id="projects" class="bg-light">
         <div class="container">
-            <h2 class="section-title animated-element">Featured Projects</h2>
+            <h2 class="section-title" id="tour-step-4">Featured Projects</h2>
             <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4 animated-element"><div class="project-card"><img src="img/project/dsc/dashboard_fraud_ewalet.gif" alt="Predictive E-wallet Fraud" class="project-img"><div class="project-body"><h5 class="project-title">Predictive E-wallet Fraud</h5><p class="project-desc">This project, "Predictive E-wallet Fraud," aims to develop a real-time interactive dashboard for detecting and analyzing fraudulent e-wallet transactions.</p><div class="project-tech"><span class="tech-tag">Python</span><span class="tech-tag">Dash</span><span class="tech-tag">Shap</span></div><div class="project-links"><a href="https://github.com/WibiAnto/AstlaM-DSC2024" target="_blank"><i class="fab fa-github"></i> Code</a></div></div></div></div>
-                <div class="col-lg-4 col-md-6 mb-4 animated-element"><div class="project-card"><img src="img/project/megatrusht/Sentiment_distribution.png" alt="Sentiment Analysis Project" class="project-img"><div class="project-body"><h5 class="project-title">Sentiment Analysis - Megathrust</h5><p class="project-desc">Analyzed public sentiment on Twitter regarding megathrust earthquakes using Indonesia-BERT model.</p><div class="project-tech"><span class="tech-tag">Python</span><span class="tech-tag">BERT</span><span class="tech-tag">NLP</span></div><div class="project-links"><a href="https://github.com/Ribhanhadyan/Sentiment-Analysis-Megatrusht" target="_blank"><i class="fab fa-github"></i> Code</a></div></div></div></div>
-                <div class="col-lg-4 col-md-6 mb-4 animated-element" style="transition-delay: 0.2s;"><div class="project-card"><img src="img/project/lifit/lifit.gif" alt="LiFit App" class="project-img"><div class="project-body"><h5 class="project-title">LiFit - BMI Detection App</h5><p class="project-desc">Capstone project developing a mobile app for BMI detection and health tracking with personalized recommendations.</p><div class="project-tech"><span class="tech-tag">Kotlin</span><span class="tech-tag">TensorFlow</span><span class="tech-tag">Firebase</span></div><div class="project-links"><a href="https://github.com/Ribhanhadyan/LiFit" target="_blank"><i class="fab fa-github"></i> Code</a></div></div></div></div>
-                <div class="col-lg-4 col-md-6 mb-4 animated-element" style="transition-delay: 0.4s;"><div class="project-card"><img src="img/project/ahp/ezgif.com-video-to-gif-converter.gif" alt="Hospital Administration System" class="project-img"><div class="project-body"><h5 class="project-title">Hospital Administration Program</h5><p class="project-desc">A comprehensive hospital management system developed for programming algorithms course.</p><div class="project-tech"><span class="tech-tag">C++</span><span class="tech-tag">Data Structures</span></div><div class="project-links"><a href="https://github.com/Ribhanhadyan/administration-hospital-program" target="_blank"><i class="fab fa-github"></i> Code</a></div></div></div></div>
-                <div class="col-lg-4 col-md-6 mb-4 animated-element"><div class="project-card"><img src="img/project/atcs/simulation.gif" alt="Air Traffic Control" class="project-img"><div class="project-body"><h5 class="project-title">Air Traffic Control Simulation</h5><p class="project-desc">Interactive simulation program allowing users to act as Air Traffic Controllers and manage airport operations.</p><div class="project-tech"><span class="tech-tag">C++</span><span class="tech-tag">Simulation</span><span class="tech-tag">GUI</span></div><div class="project-links"><a href="https://github.com/Ribhanhadyan/air-traffic-contol-simulation" target="_blank"><i class="fab fa-github"></i> Code</a></div></div></div></div>
-                <div class="col-lg-4 col-md-6 mb-4 animated-element" style="transition-delay: 0.2s;"><div class="project-card"><img src="img/project/eksporinaja/eksporinaja.gif" alt="Eksporinaja Platform" class="project-img"><div class="project-body"><h5 class="project-title">Eksporinaja.id Prototype</h5><p class="project-desc">Digital business education platform focused on export-import consultancy to enhance Indonesia's export commodities.</p><div class="project-tech"><span class="tech-tag">HTML</span><span class="tech-tag">CSS</span><span class="tech-tag">Bootstrap</span></div><div class="project-links"><a href="https://ribhanhadyan.github.io/eksporinaja.github.io/" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a><a href="https://github.com/Ribhanhadyan/eksporinaja.github.io" target="_blank"><i class="fab fa-github"></i> Code</a></div></div></div></div>
-                <div class="col-lg-4 col-md-6 mb-4 animated-element" style="transition-delay: 0.4s;"><div class="project-card"><img src="img/project/mooc/mooc.gif" alt="MOOC Numeric Methods" class="project-img"><div class="project-body"><h5 class="project-title">MOOC Numeric Methods</h5><p class="project-desc">Educational video series teaching numerical methods using Python and various mathematical computation techniques.</p><div class="project-tech"><span class="tech-tag">Python</span><span class="tech-tag">NumPy</span><span class="tech-tag">Education</span></div><div class="project-links"><a href="https://www.youtube.com/playlist?list=PLMa8P5cWqfQcnYmC7XbwHyoNtIAw6cPZH" target="_blank"><i class="fab fa-youtube"></i> Watch</a></div></div></div></div>
+                 <div class="col-lg-4 col-md-6 mb-4"><div class="project-card"><img src="img/project/dsc/dashboard_fraud_ewalet.gif" alt="Predictive E-wallet Fraud" class="project-img"><div class="project-body"><h5 class="project-title">Predictive E-wallet Fraud</h5><p class="project-desc">This project, "Predictive E-wallet Fraud," aims to develop a real-time interactive dashboard for detecting and analyzing fraudulent e-wallet transactions.</p><div class="project-tech"><span class="tech-tag">Python</span><span class="tech-tag">Dash</span><span class="tech-tag">Shap</span></div><div class="project-links"><a href="https://github.com/WibiAnto/AstlaM-DSC2024" target="_blank"><i class="fab fa-github"></i> Code</a></div></div></div></div>
+                 <div class="col-lg-4 col-md-6 mb-4"><div class="project-card"><img src="img/project/megatrusht/Sentiment_distribution.png" alt="Sentiment Analysis Project" class="project-img"><div class="project-body"><h5 class="project-title">Sentiment Analysis - Megathrust</h5><p class="project-desc">Analyzed public sentiment on Twitter regarding megathrust earthquakes using Indonesia-BERT model.</p><div class="project-tech"><span class="tech-tag">Python</span><span class="tech-tag">BERT</span><span class="tech-tag">NLP</span></div><div class="project-links"><a href="https://github.com/Ribhanhadyan/Sentiment-Analysis-Megatrusht" target="_blank"><i class="fab fa-github"></i> Code</a></div></div></div></div>
+                 <div class="col-lg-4 col-md-6 mb-4"><div class="project-card"><img src="img/project/lifit/lifit.gif" alt="LiFit App" class="project-img"><div class="project-body"><h5 class="project-title">LiFit - BMI Detection App</h5><p class="project-desc">Capstone project developing a mobile app for BMI detection and health tracking with personalized recommendations.</p><div class="project-tech"><span class="tech-tag">Kotlin</span><span class="tech-tag">TensorFlow</span><span class="tech-tag">Firebase</span></div><div class="project-links"><a href="https://github.com/Ribhanhadyan/LiFit" target="_blank"><i class="fab fa-github"></i> Code</a></div></div></div></div>
+             </div>
+        </div>
+    </section>
+    
+    <section id="certificates">
+        <div class="container">
+            <h2 class="section-title">Certificates</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4"><div class="certificate-card" data-bs-toggle="modal" data-bs-target="#certificateModal" data-img-src="img/sertifikat1.jpg"><div class="certificate-img-wrapper"><img src="img/sertifikat1.jpg" alt="TensorFlow Developer Certificate" class="certificate-img"><div class="overlay"><i class="fas fa-eye"></i></div></div><div class="certificate-body"><h5>TensorFlow Developer Certificate</h5><p class="text-muted">Google - Bangkit Academy 2023</p></div></div></div>
+                <div class="col-lg-4 col-md-6 mb-4"><div class="certificate-card" data-bs-toggle="modal" data-bs-target="#certificateModal" data-img-src="img/sertifikat2.jpg"><div class="certificate-img-wrapper"><img src="img/sertifikat2.jpg" alt="Laboratory Assistant Certificate" class="certificate-img"><div class="overlay"><i class="fas fa-eye"></i></div></div><div class="certificate-body"><h5>Laboratory Assistant Certificate</h5><p class="text-muted">Professional Development</p></div></div></div>
+                <div class="col-lg-4 col-md-6 mb-4"><div class="certificate-card" data-bs-toggle="modal" data-bs-target="#certificateModal" data-img-src="img/sertifikat3.jpg"><div class="certificate-img-wrapper"><img src="img/sertifikat3.jpg" alt="Pekan Kreativitas Mahasiswa Certificate" class="certificate-img"><div class="overlay"><i class="fas fa-eye"></i></div></div><div class="certificate-body"><h5>Pekan Kreativitas Mahasiswa Certificate</h5><p class="text-muted">Professional Development</p></div></div></div>
             </div>
         </div>
     </section>
 
     <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title text-white animated-element">Get In Touch</h2>
-            <div class="row justify-content-center">
-                <div class="col-lg-4 col-md-6 mb-4 animated-element" style="transition-delay: 0.1s;">
-                    <div class="contact-item">
-                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-                        <h5>Email</h5>
-                        <p>
-                            <span id="email-text">ribhanhadyan@gmail.com</span>
-                            <button class="copy-btn" id="copy-email-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy to clipboard">
-                                <i class="fas fa-copy"></i>
-                            </button>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4 animated-element" style="transition-delay: 0.2s;">
-                    <a href="https://www.linkedin.com/in/ribhanhadyan/" target="_blank">
-                        <div class="contact-item">
-                            <div class="contact-icon" style="color: white !important;"><i class="fab fa-linkedin"></i></div>
-                            <h5 style="color: white !important;">LinkedIn</h5>
-                            <p style="color: white !important;">Connect with me</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4 animated-element" style="transition-delay: 0.3s;">
-                    <a href="https://github.com/Ribhanhadyan" target="_blank">
-                        <div class="contact-item">
-                            <div class="contact-icon" style="color: white !important;"><i class="fab fa-github"></i></div>
-                            <h5 style="color: white !important;">GitHub</h5>
-                            <p style="color: white !important;">Check out my projects</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4 animated-element" style="transition-delay: 0.3s;">
-                    <a href="https://linktr.ee/rhadiyan" target="_blank">
-                        <div class="contact-item">
-                            <div class="contact-icon" style="color: white !important;"><i class="fas fa-tree"></i></div> <h5 style="color: white !important;">Linktree</h5>
-                            <p style="color: white !important;">Connect with me on all my platforms</p>
-                        </div>
-                    </a>
-                </div>
+        <div class="container text-center">
+            <h2 class="section-title" id="tour-step-5">Get In Touch</h2>
+            <p class="lead mb-5">I'm always open to discussing new projects, creative ideas, or opportunities to be part of an ambitious vision. <br>Let's connect and build something amazing together.</p>
+            <div class="social-links">
+                <a href="mailto:ribhanhadyan@gmail.com" class="social-icon" data-bs-toggle="tooltip" title="Email"><i class="fas fa-envelope"></i></a>
+                <a href="https://www.linkedin.com/in/ribhanhadyan/" target="_blank" class="social-icon" data-bs-toggle="tooltip" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/Ribhanhadyan" target="_blank" class="social-icon" data-bs-toggle="tooltip" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://linktr.ee/rhadiyan" target="_blank" class="social-icon" data-bs-toggle="tooltip" title="Linktree"><i class="fas fa-tree"></i></a>
             </div>
         </div>
     </section>
 
     <footer>
         <div class="container">
-            <p>© 2024 Muhammad Ribhan Hadiyan. All Rights Reserved.</p>
-            <p>Built with <i class="fas fa-heart" style="color: #e25555;"></i> for data science and mathematics</p>
-            
-            <div class="mt-3" style="color: black;">
-                 <a href='http://www.freevisitorcounters.com'>Free Visitor Counters</a> <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=ddc50948f486f288e5cea59fc1f0ac5c78c1b243'></script>
-                <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1355986/t/5"></script>
-            </div>
+            <p>© 2025 Muhammad Ribhan Hadiyan. All Rights Reserved.</p>
+            <p>Designed with <i class="fas fa-atom"></i> and built with <i class="fas fa-code"></i></p>
         </div>
     </footer>
 
     <div class="modal fade" id="certificateModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center">
-                    <img src="" id="modalImage" class="modal-img" alt="Certificate">
-                </div>
-            </div>
-        </div>
+        <div class="modal-dialog modal-dialog-centered modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div><div class="modal-body text-center"><img src="" id="modalImage" class="modal-img" alt="Certificate"></div></div></div>
     </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.js.iife.js"></script>
     <script src="script.js"></script>
+
 </body>
 </html>
