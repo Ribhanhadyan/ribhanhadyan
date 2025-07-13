@@ -373,6 +373,11 @@ footer i { color: var(--primary); }
 /* Modal */
 .modal-content { background-color: var(--secondary); }
 .modal-header { border-bottom-color: var(--border-color); }
+.modal-img {
+    max-width: 100%;
+    max-height: 80vh; /* Limits height to 80% of the viewport's height */
+    height: auto; /* Maintains aspect ratio */
+}
 .btn-close { filter: invert(1); }
 
 /* --- Responsive Design --- */
