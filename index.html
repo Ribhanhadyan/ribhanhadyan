@@ -3,25 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muhammad Ribhan Hadiyan - Data Scientist & Mathematician</title>
+    <title>Muhammad Ribhan Hadiyan — Data Scientist & Mathematician</title>
     <link rel="icon" href="img/logo_hadyan.png" type="image/x-icon">
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+    <!-- ── Navbar ── -->
     <nav class="navbar navbar-expand-lg fixed-top" id="navbar">
         <div class="container">
             <a class="navbar-brand" href="#home">
-                <img src="img/logo_hadyan.png" alt="Logo" width="30" class="me-2">
+                <img src="img/logo_hadyan.png" alt="Logo">
                 Ribhan Hadiyan
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -37,133 +38,327 @@
         </div>
     </nav>
 
+    <!-- ── Hero ── -->
     <section id="home" class="hero">
         <div id="particles-js"></div>
-        <div class="hero-content container text-center">
-            <div>
-                <img src="img/ribhanhadiyan.png" alt="Muhammad Ribhan Hadiyan" class="profile-img rounded-circle mb-4">
-                <h1 class="display-4">Muhammad Ribhan Hadiyan</h1>
-                <p class="lead"><span id="typing-text"></span></p>
+        <div class="container hero-content">
+            <div class="hero-left">
+                <span class="hero-eyebrow">Portfolio · 2025</span>
+                <h1 class="hero-name">
+                    Muhammad<br>
+                    <span class="hero-name-line">Ribhan Hadiyan</span>
+                </h1>
+                <p class="hero-role"><span id="typing-text"></span></p>
+                <div class="hero-divider"></div>
+                <p class="hero-desc">
+                    Data Scientist & Mathematician at PT BFI Finance Indonesia. Passionate about translating complex problems into elegant, data-driven solutions.
+                </p>
+                <div class="hero-actions">
+                    <a href="#projects" class="btn-primary-outline">View Projects</a>
+                    <a href="#contact" class="btn-text-link">Let's connect →</a>
+                </div>
             </div>
-            <div class="mt-4">
-                <a href="#projects" class="btn btn-cta-primary rounded-pill me-2">View My Projects</a>
+            <div class="hero-right">
+                <div class="profile-img-frame">
+                    <img src="img/ribhanhadiyan.png" alt="Muhammad Ribhan Hadiyan" class="profile-img">
+                </div>
             </div>
+        </div>
+        <div class="hero-scroll-hint">
+            <span class="scroll-text">Scroll</span>
+            <div class="scroll-line"></div>
         </div>
     </section>
 
+    <!-- ── About ── -->
     <section id="about" class="about">
         <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="row align-items-center">
-                <div class="col-lg-7">
-                    <h3 class="about-subtitle">My Journey in Data</h3>
-                    <p>
-                        As a Data Science and Modeling Specialist at PT BFI Finance Indonesia, I leverage Python and SQL to architect asset management strategies, driving operational efficiency through data-driven optimization. My journey began at Universitas Padjadjaran, where a degree in Mathematics forged my analytical mindset.
-                    </p>
-                    <p>
-                        During my time as a Research Assistant, I delved into Operations Research and Optimization, honing my skills in translating complex problems into actionable solutions. I am passionate about crafting elegant, impactful models that solve real-world challenges and align perfectly with organizational goals.
-                    </p>
+            <div class="section-header">
+                <div>
+                    <span class="section-label">01 — About</span>
+                    <h2 class="section-title">My Journey<br><em>in Data</em></h2>
                 </div>
-                <div class="col-lg-5">
-                     <h3 class="about-subtitle">Core Skills</h3>
-                    <div class="skill-grid">
-                        <div class="skill-item"><i class="fab fa-python"></i> Python</div>
-                        <div class="skill-item"><i class="fas fa-database"></i> SQL</div>
-                        <div class="skill-item"><i class="fab fa-r-project"></i> R</div>
-                        <div class="skill-item"><i class="fas fa-brain"></i> TensorFlow</div>
-                        <div class="skill-item"><i class="fas fa-chart-line"></i> Data Modeling</div>
-                        <div class="skill-item"><i class="fas fa-cogs"></i> Optimization</div>
+            </div>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>
+                        As a Data Science and Modeling Specialist at PT BFI Finance Indonesia, I leverage Python and SQL to architect asset management strategies, driving operational efficiency through data-driven optimization.
+                    </p>
+                    <p>
+                        My journey began at Universitas Padjadjaran, where a degree in Mathematics forged my analytical mindset. During my time as a Research Assistant, I delved into Operations Research and Optimization, honing my skills in translating complex problems into actionable solutions.
+                    </p>
+                    <p>
+                        I am passionate about crafting elegant, impactful models that solve real-world challenges and align perfectly with organizational goals.
+                    </p>
+                    <div class="about-stat-row">
+                        <div class="stat-item">
+                            <span class="stat-number">3+</span>
+                            <span class="stat-label">Years Experience</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">10+</span>
+                            <span class="stat-label">Projects Built</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">6</span>
+                            <span class="stat-label">Core Skills</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-skills">
+                    <span class="skills-label">Core Competencies</span>
+                    <div class="skill-list">
+                        <div class="skill-row">
+                            <span class="skill-name"><i class="fab fa-python skill-icon me-3"></i>Python</span>
+                            <i class="fas fa-arrow-right skill-icon"></i>
+                        </div>
+                        <div class="skill-row">
+                            <span class="skill-name"><i class="fas fa-database skill-icon me-3"></i>SQL</span>
+                            <i class="fas fa-arrow-right skill-icon"></i>
+                        </div>
+                        <div class="skill-row">
+                            <span class="skill-name"><i class="fab fa-r-project skill-icon me-3"></i>R Language</span>
+                            <i class="fas fa-arrow-right skill-icon"></i>
+                        </div>
+                        <div class="skill-row">
+                            <span class="skill-name"><i class="fas fa-brain skill-icon me-3"></i>TensorFlow</span>
+                            <i class="fas fa-arrow-right skill-icon"></i>
+                        </div>
+                        <div class="skill-row">
+                            <span class="skill-name"><i class="fas fa-chart-line skill-icon me-3"></i>Data Modeling</span>
+                            <i class="fas fa-arrow-right skill-icon"></i>
+                        </div>
+                        <div class="skill-row">
+                            <span class="skill-name"><i class="fas fa-cogs skill-icon me-3"></i>Optimization</span>
+                            <i class="fas fa-arrow-right skill-icon"></i>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- ── Experience ── -->
     <section id="experience" class="experience">
         <div class="container">
-            <h2 class="section-title">Work Experience</h2>
-            <div class="timeline-container">
+            <div class="section-header">
+                <div>
+                    <span class="section-label">02 — Experience</span>
+                    <h2 class="section-title">Work<br><em>History</em></h2>
+                </div>
+            </div>
+            <div class="exp-list">
 
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h4>Asset Management Data Science & Modelling Specialist</h4>
-                        <h5 class="company">PT BFI Finance Indonesia, Tbk</h5>
-                        <p class="date"><i class="fas fa-calendar-alt me-2"></i>November 2024 - Present (9 bulan)</p>
-                        <p class="location"><i class="fas fa-map-marker-alt me-2"></i>Tangerang, Banten, Indonesia</p>
+                <div class="exp-item timeline-item">
+                    <div class="exp-meta">
+                        <span class="exp-period">Nov 2024 — Present</span>
+                        <span class="exp-index">01</span>
+                    </div>
+                    <div class="exp-body">
+                        <h4 class="exp-role">Asset Management Data Science &amp; Modelling Specialist</h4>
+                        <p class="exp-company">PT BFI Finance Indonesia, Tbk</p>
+                        <p class="exp-location"><i class="fas fa-map-marker-alt me-2"></i>Tangerang, Banten, Indonesia</p>
                     </div>
                 </div>
 
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h4>Research Assistant for Academic Leadership Grant</h4>
-                        <h5 class="company">Universitas Padjadjaran</h5>
-                        <p class="date"><i class="fas fa-calendar-alt me-2"></i>Juli 2024 - November 2024 (5 bulan)</p>
-                        <p class="location"><i class="fas fa-map-marker-alt me-2"></i>Kecamatan Jatinangor, West Java, Indonesia</p>
+                <div class="exp-item timeline-item">
+                    <div class="exp-meta">
+                        <span class="exp-period">Jul 2024 — Nov 2024</span>
+                        <span class="exp-index">02</span>
+                    </div>
+                    <div class="exp-body">
+                        <h4 class="exp-role">Research Assistant for Academic Leadership Grant</h4>
+                        <p class="exp-company">Universitas Padjadjaran</p>
+                        <p class="exp-location"><i class="fas fa-map-marker-alt me-2"></i>Jatinangor, West Java, Indonesia</p>
                     </div>
                 </div>
 
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h4>Laboratory Assistant</h4>
-                        <h5 class="company">Asisten Laboratorium Matematika Unpad</h5>
-                        <p class="date"><i class="fas fa-calendar-alt me-2"></i>Januari 2022 - Desember 2023 (2 tahun)</p>
-                        <p class="location"><i class="fas fa-map-marker-alt me-2"></i>Jatinangor, Jawa Barat, Indonesia</p>
+                <div class="exp-item timeline-item">
+                    <div class="exp-meta">
+                        <span class="exp-period">Jan 2022 — Dec 2023</span>
+                        <span class="exp-index">03</span>
+                    </div>
+                    <div class="exp-body">
+                        <h4 class="exp-role">Laboratory Assistant</h4>
+                        <p class="exp-company">Asisten Laboratorium Matematika Unpad</p>
+                        <p class="exp-location"><i class="fas fa-map-marker-alt me-2"></i>Jatinangor, Jawa Barat, Indonesia</p>
                     </div>
                 </div>
 
             </div>
         </div>
     </section>
-    <section id="projects" class="bg-light">
+
+    <!-- ── Projects ── -->
+    <section id="projects">
         <div class="container">
-            <h2 class="section-title">Featured Projects</h2>
-            <div class="row">
-                 <div class="col-lg-4 col-md-6 mb-4"><div class="project-card"><img src="img/project/dsc/dashboard_fraud_ewalet.gif" alt="Predictive E-wallet Fraud" class="project-img"><div class="project-body"><h5 class="project-title">Predictive E-wallet Fraud</h5><p class="project-desc">This project, "Predictive E-wallet Fraud," aims to develop a real-time interactive dashboard for detecting and analyzing fraudulent e-wallet transactions.</p><div class="project-tech"><span class="tech-tag">Python</span><span class="tech-tag">Dash</span><span class="tech-tag">Shap</span></div><div class="project-links"><a href="https://github.com/WibiAnto/AstlaM-DSC2024" target="_blank"><i class="fab fa-github"></i> Code</a></div></div></div></div>
-                 <div class="col-lg-4 col-md-6 mb-4"><div class="project-card"><img src="img/project/megatrusht/Sentiment_distribution.png" alt="Sentiment Analysis Project" class="project-img"><div class="project-body"><h5 class="project-title">Sentiment Analysis - Megathrust</h5><p class="project-desc">Analyzed public sentiment on Twitter regarding megathrust earthquakes using Indonesia-BERT model.</p><div class="project-tech"><span class="tech-tag">Python</span><span class="tech-tag">BERT</span><span class="tech-tag">NLP</span></div><div class="project-links"><a href="https://github.com/Ribhanhadyan/Sentiment-Analysis-Megatrusht" target="_blank"><i class="fab fa-github"></i> Code</a></div></div></div></div>
-                 <div class="col-lg-4 col-md-6 mb-4"><div class="project-card"><img src="img/project/lifit/lifit.gif" alt="LiFit App" class="project-img"><div class="project-body"><h5 class="project-title">LiFit - BMI Detection App</h5><p class="project-desc">Capstone project developing a mobile app for BMI detection and health tracking with personalized recommendations.</p><div class="project-tech"><span class="tech-tag">Kotlin</span><span class="tech-tag">TensorFlow</span><span class="tech-tag">Firebase</span></div><div class="project-links"><a href="https://github.com/Ribhanhadyan/LiFit" target="_blank"><i class="fab fa-github"></i> Code</a></div></div></div></div>
-             </div>
+            <div class="section-header">
+                <div>
+                    <span class="section-label">03 — Work</span>
+                    <h2 class="section-title">Featured<br><em>Projects</em></h2>
+                </div>
+            </div>
+            <div class="projects-grid">
+
+                <div class="project-card">
+                    <div class="project-img-wrap">
+                        <img src="img/project/dsc/dashboard_fraud_ewalet.gif" alt="Predictive E-wallet Fraud" class="project-img">
+                    </div>
+                    <div class="project-body">
+                        <span class="project-num">Project / 001</span>
+                        <h5 class="project-title">Predictive E-wallet Fraud</h5>
+                        <p class="project-desc">A real-time interactive dashboard for detecting and analyzing fraudulent e-wallet transactions using machine learning and explainable AI.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Dash</span>
+                            <span class="tech-tag">SHAP</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/WibiAnto/AstlaM-DSC2024" target="_blank"><i class="fab fa-github"></i> View on GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-img-wrap">
+                        <img src="img/project/megatrusht/Sentiment_distribution.png" alt="Sentiment Analysis" class="project-img">
+                    </div>
+                    <div class="project-body">
+                        <span class="project-num">Project / 002</span>
+                        <h5 class="project-title">Sentiment Analysis — Megathrust</h5>
+                        <p class="project-desc">Analyzed public sentiment on Twitter regarding megathrust earthquakes using the Indonesia-BERT model and NLP techniques.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">BERT</span>
+                            <span class="tech-tag">NLP</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/Ribhanhadyan/Sentiment-Analysis-Megatrusht" target="_blank"><i class="fab fa-github"></i> View on GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-img-wrap">
+                        <img src="img/project/lifit/lifit.gif" alt="LiFit App" class="project-img">
+                    </div>
+                    <div class="project-body">
+                        <span class="project-num">Project / 003</span>
+                        <h5 class="project-title">LiFit — BMI Detection App</h5>
+                        <p class="project-desc">Capstone mobile app for BMI detection and health tracking with personalized recommendations powered by machine learning.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Kotlin</span>
+                            <span class="tech-tag">TensorFlow</span>
+                            <span class="tech-tag">Firebase</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/Ribhanhadyan/LiFit" target="_blank"><i class="fab fa-github"></i> View on GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </section>
-    
+
+    <!-- ── Certificates ── -->
     <section id="certificates">
         <div class="container">
-            <h2 class="section-title">Certificates</h2>
-             <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4"><div class="certificate-card" data-bs-toggle="modal" data-bs-target="#certificateModal" data-img-src="img/sertifikat1.jpg"><div class="certificate-img-wrapper"><img src="img/sertifikat1.jpg" alt="TensorFlow Developer Certificate" class="certificate-img"><div class="overlay"><i class="fas fa-eye"></i></div></div><div class="certificate-body"><h5>TensorFlow Developer Certificate</h5><p class="text-muted">Google - Bangkit Academy 2023</p></div></div></div>
-                <div class="col-lg-4 col-md-6 mb-4"><div class="certificate-card" data-bs-toggle="modal" data-bs-target="#certificateModal" data-img-src="img/sertifikat2.jpg"><div class="certificate-img-wrapper"><img src="img/sertifikat2.jpg" alt="Laboratory Assistant Certificate" class="certificate-img"><div class="overlay"><i class="fas fa-eye"></i></div></div><div class="certificate-body"><h5>Laboratory Assistant Certificate</h5><p class="text-muted">Professional Development</p></div></div></div>
-                <div class="col-lg-4 col-md-6 mb-4"><div class="certificate-card" data-bs-toggle="modal" data-bs-target="#certificateModal" data-img-src="img/sertifikat3.jpg"><div class="certificate-img-wrapper"><img src="img/sertifikat3.jpg" alt="Pekan Kreativitas Mahasiswa Certificate" class="certificate-img"><div class="overlay"><i class="fas fa-eye"></i></div></div><div class="certificate-body"><h5>Pekan Kreativitas Mahasiswa Certificate</h5><p class="text-muted">Professional Development</p></div></div></div>
+            <div class="section-header">
+                <div>
+                    <span class="section-label">04 — Credentials</span>
+                    <h2 class="section-title">Certificates<br><em>&amp; Awards</em></h2>
+                </div>
+            </div>
+            <div class="certs-grid">
+                <div class="certificate-card" data-bs-toggle="modal" data-bs-target="#certificateModal" data-img-src="img/sertifikat1.jpg">
+                    <div class="certificate-img-wrapper">
+                        <img src="img/sertifikat1.jpg" alt="TensorFlow Developer Certificate" class="certificate-img">
+                        <div class="overlay"><i class="fas fa-expand"></i></div>
+                    </div>
+                    <div class="certificate-body">
+                        <h5>TensorFlow Developer Certificate</h5>
+                        <p>Google · Bangkit Academy 2023</p>
+                    </div>
+                </div>
+                <div class="certificate-card" data-bs-toggle="modal" data-bs-target="#certificateModal" data-img-src="img/sertifikat2.jpg">
+                    <div class="certificate-img-wrapper">
+                        <img src="img/sertifikat2.jpg" alt="Laboratory Assistant Certificate" class="certificate-img">
+                        <div class="overlay"><i class="fas fa-expand"></i></div>
+                    </div>
+                    <div class="certificate-body">
+                        <h5>Laboratory Assistant Certificate</h5>
+                        <p>Professional Development</p>
+                    </div>
+                </div>
+                <div class="certificate-card" data-bs-toggle="modal" data-bs-target="#certificateModal" data-img-src="img/sertifikat3.jpg">
+                    <div class="certificate-img-wrapper">
+                        <img src="img/sertifikat3.jpg" alt="Pekan Kreativitas Mahasiswa" class="certificate-img">
+                        <div class="overlay"><i class="fas fa-expand"></i></div>
+                    </div>
+                    <div class="certificate-body">
+                        <h5>Pekan Kreativitas Mahasiswa</h5>
+                        <p>Professional Development</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- ── Contact ── -->
     <section id="contact" class="contact">
-        <div class="container text-center">
-            <h2 class="section-title">Get In Touch</h2>
-            <p class="lead mb-5">I'm always open to discussing new projects, creative ideas, or opportunities to be part of an ambitious vision. <br>Let's connect and build something amazing together.</p>
-            <div class="social-links">
-                <a href="mailto:ribhanhadyan@gmail.com" class="social-icon" data-bs-toggle="tooltip" title="Email"><i class="fas fa-envelope"></i></a>
-                <a href="https://www.linkedin.com/in/ribhanhadyan/" target="_blank" class="social-icon" data-bs-toggle="tooltip" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="https://github.com/Ribhanhadyan" target="_blank" class="social-icon" data-bs-toggle="tooltip" title="GitHub"><i class="fab fa-github"></i></a>
-                <a href="https://linktr.ee/rhadiyan" target="_blank" class="social-icon" data-bs-toggle="tooltip" title="Linktree"><i class="fas fa-tree"></i></a>
+        <div class="container">
+            <span class="section-label">05 — Contact</span>
+            <h2 class="section-title">Get In<br><em>Touch</em></h2>
+            <div class="contact-inner">
+                <p class="contact-tagline">
+                    Always open to discussing <strong>new projects</strong>, creative ideas, or <strong>opportunities</strong> to build something remarkable.
+                </p>
+                <div>
+                    <a href="mailto:ribhanhadyan@gmail.com" class="contact-email">ribhanhadyan@gmail.com</a>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/ribhanhadyan/" target="_blank" class="social-icon">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </a>
+                        <a href="https://github.com/Ribhanhadyan" target="_blank" class="social-icon">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                        <a href="https://linktr.ee/rhadiyan" target="_blank" class="social-icon">
+                            <i class="fas fa-tree"></i> Linktree
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- ── Footer ── -->
     <footer>
         <div class="container">
-            <p>© 2025 Muhammad Ribhan Hadiyan. All Rights Reserved.</p>
-            <p>Designed with <i class="fas fa-atom"></i> and built with <i class="fas fa-code"></i></p>
+            <div class="footer-inner">
+                <span class="footer-copy">© 2025 Muhammad Ribhan Hadiyan. All Rights Reserved.</span>
+                <span class="footer-copy">Designed with <i class="fas fa-heart"></i> &amp; built with <i class="fas fa-code"></i></span>
+            </div>
         </div>
     </footer>
 
+    <!-- ── Certificate Modal ── -->
     <div class="modal fade" id="certificateModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div><div class="modal-body text-center"><img src="" id="modalImage" class="modal-img" alt="Certificate"></div></div></div>
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img src="" id="modalImage" class="modal-img" alt="Certificate">
+                </div>
+            </div>
+        </div>
     </div>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="script.js"></script>
-
 </body>
 </html>
