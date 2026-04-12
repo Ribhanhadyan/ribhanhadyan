@@ -1,28 +1,54 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
 
-    // --- Typed.js for Hero Section ---
+    // ── Typed.js ──────────────────────────────────────────────
     new Typed('#typing-text', {
-        strings: ["A Data Scientist", "A Mathematician", "An Operations Research Enthusiast", "A Problem Solver"],
-        typeSpeed: 50,
-        backSpeed: 25,
-        backDelay: 2000,
-        loop: true
+        strings: [
+            "Data Scientist",
+            "Mathematician",
+            "Operations Research Enthusiast",
+            "Problem Solver"
+        ],
+        typeSpeed: 55,
+        backSpeed: 30,
+        backDelay: 2200,
+        loop: true,
+        cursorChar: '|',
     });
 
-    // --- Navbar Styling on Scroll ---
+    // ── Navbar on scroll ──────────────────────────────────────
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
+        if (window.scrollY > 40) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
     });
-    
-    // --- Certificate Modal ---
+
+    // ── Active nav link on scroll ─────────────────────────────
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${id}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    }, { threshold: 0.4 });
+
+    sections.forEach(section => sectionObserver.observe(section));
+
+    // ── Certificate Modal ─────────────────────────────────────
     const certificateModal = document.getElementById('certificateModal');
     const modalImage = document.getElementById('modalImage');
-    if(certificateModal) {
+    if (certificateModal) {
         certificateModal.addEventListener('show.bs.modal', function (event) {
             const card = event.relatedTarget;
             const imgSrc = card.getAttribute('data-img-src');
@@ -30,35 +56,85 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // --- Bootstrap Tooltips for Social Icons ---
-    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-    });
+    // ── Bootstrap Tooltips ────────────────────────────────────
+    const tooltipTriggerList = [].slice.call(
+        document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    );
+    tooltipTriggerList.map(el => new bootstrap.Tooltip(el));
 
-    // --- Particles.js Configuration ---
-    if(document.getElementById('particles-js')) {
+    // ── Particles.js ──────────────────────────────────────────
+    if (document.getElementById('particles-js')) {
         particlesJS('particles-js', {
-            "particles": {"number":{"value":80,"density":{"enable":true,"value_area":800}},"color":{"value":"#ffffff"},"shape":{"type":"circle","stroke":{"width":0,"color":"#000000"}},"opacity":{"value":0.5,"random":false},"size":{"value":3,"random":true},"line_linked":{"enable":true,"distance":150,"color":"#0a84ff","opacity":0.4,"width":1},"move":{"enable":true,"speed":2,"direction":"none","random":false,"straight":false,"out_mode":"out","bounce":false}},
-            "interactivity": {"detect_on":"canvas","events":{"onhover":{"enable":true,"mode":"grab"},"onclick":{"enable":true,"mode":"push"},"resize":true},"modes":{"grab":{"distance":140,"line_linked":{"opacity":1}},"push":{"particles_nb":4}}},
-            "retina_detect": true
+            particles: {
+                number: { value: 40, density: { enable: true, value_area: 1000 } },
+                color: { value: "#111110" },
+                shape: { type: "circle" },
+                opacity: { value: 0.15, random: true },
+                size: { value: 2, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 160,
+                    color: "#111110",
+                    opacity: 0.06,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 0.8,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "grab" },
+                    onclick: { enable: false },
+                    resize: true
+                },
+                modes: {
+                    grab: { distance: 140, line_linked: { opacity: 0.15 } }
+                }
+            },
+            retina_detect: true
         });
     }
 
-    // --- Animate elements on scroll ---
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+    // ── Scroll reveal for experience items ────────────────────
+    const revealItems = document.querySelectorAll('.timeline-item');
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
+                setTimeout(() => {
+                    entry.target.classList.add('is-visible');
+                }, i * 80);
             }
         });
-    }, {
-        threshold: 0.1
-    });
+    }, { threshold: 0.1 });
 
-    const timelineItems = document.querySelectorAll('.timeline-item');
-    timelineItems.forEach(item => {
-        observer.observe(item);
+    revealItems.forEach(item => revealObserver.observe(item));
+
+    // ── Smooth scroll for anchor links ───────────────────────
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                const offset = 80;
+                const top = target.getBoundingClientRect().top + window.scrollY - offset;
+                window.scrollTo({ top, behavior: 'smooth' });
+
+                // close mobile nav if open
+                const navCollapse = document.getElementById('navbarNav');
+                if (navCollapse && navCollapse.classList.contains('show')) {
+                    const bsCollapse = bootstrap.Collapse.getInstance(navCollapse);
+                    if (bsCollapse) bsCollapse.hide();
+                }
+            }
+        });
     });
 
 });
