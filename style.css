@@ -1047,3 +1047,18 @@ footer i {
     color: var(--ink);
     font-weight: 500;
 }
+
+/* ── Project Image Placeholder ──────────────────────────── */
+
+.project-img-placeholder {
+    background-color: var(--paper);
+    aspect-ratio: 4/3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.project-img-icon {
+    font-size: 3rem;
+    color: var(--ink-faint);
+}
