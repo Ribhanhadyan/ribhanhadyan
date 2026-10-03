@@ -1,530 +1,208 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Muhammad Ribhan Hadiyan — Data Scientist & Mathematician</title>
-    <link rel="icon" href="img/logo_hadyan.png" type="image/x-icon">
+    <link rel="icon" href="img/logo_hadyan.png" type="image/x-icon" />
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <!-- ── Navbar ── -->
     <nav class="navbar navbar-expand-lg fixed-top" id="navbar">
-        <div class="container">
-            <a class="navbar-brand" href="#home">
-                <img src="img/logo_hadyan.png" alt="Logo">
-                Ribhan Hadiyan
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#publications">Publications</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#certificates">Certificates</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                </ul>
-            </div>
+      <div class="container">
+        <a class="navbar-brand" href="#home">
+          <img id="brandLogo" src="" alt="Logo" />
+          <span id="brandName"></span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto" id="navMenu"></ul>
         </div>
+      </div>
     </nav>
 
     <!-- ── Hero ── -->
     <section id="home" class="hero">
-        <div id="particles-js"></div>
-        <div class="container hero-content">
-            <div class="hero-left">
-                <span class="hero-eyebrow">Portfolio · 2025</span>
-                <h1 class="hero-name">
-                    Muhammad<br>
-                    <span class="hero-name-line">Ribhan Hadiyan</span>
-                </h1>
-                <p class="hero-role"><span id="typing-text"></span></p>
-                <div class="hero-divider"></div>
-                <p class="hero-desc">
-                    Data Science &amp; Modelling Specialist at BFI Finance with a Mathematics background (GPA 3.88/4.00). Expert in the full ML lifecycle — from feature engineering to model deployment and monitoring.
-                </p>
-                <div class="hero-actions">
-                    <a href="#projects" class="btn-primary-outline">View Projects</a>
-                    <a href="#contact" class="btn-text-link">Let's connect →</a>
-                </div>
-            </div>
-            <div class="hero-right">
-                <div class="profile-img-frame">
-                    <img src="img/ribhanhadiyan.png" alt="Muhammad Ribhan Hadiyan" class="profile-img">
-                </div>
-            </div>
+      <div id="particles-js"></div>
+      <div class="container hero-content">
+        <div class="hero-left">
+          <span class="hero-eyebrow" id="heroEyebrow"></span>
+          <h1 class="hero-name" id="heroName"></h1>
+          <p class="hero-role"><span id="typing-text"></span></p>
+          <div class="hero-divider"></div>
+          <p class="hero-desc" id="heroDesc"></p>
+          <div class="hero-actions" id="heroActions"></div>
         </div>
-        <div class="hero-scroll-hint">
-            <span class="scroll-text">Scroll</span>
-            <div class="scroll-line"></div>
+        <div class="hero-right">
+          <div class="profile-img-frame">
+            <img id="heroPhoto" src="" alt="Profile" class="profile-img" />
+          </div>
         </div>
+      </div>
+      <div class="hero-scroll-hint">
+        <span class="scroll-text">Scroll</span>
+        <div class="scroll-line"></div>
+      </div>
     </section>
 
     <!-- ── About ── -->
     <section id="about" class="about">
-        <div class="container">
-            <div class="section-header">
-                <div>
-                    <span class="section-label">01 — About</span>
-                    <h2 class="section-title">My Journey<br><em>in Data</em></h2>
-                </div>
-            </div>
-            <div class="about-grid">
-                <div class="about-text">
-                    <p>
-                        Analytical and impact-driven <strong>Data Science &amp; Modelling Specialist</strong> at BFI Finance with a strong Mathematics background (GPA 3.88/4.00). Expert in the full ML lifecycle — from engineering complex features in Trino/ODPS to deploying predictive models for mortgage and retail assets.
-                    </p>
-                    <p>
-                        Proven track record in automating Daily Model Monitoring systems and real-time data infrastructure alerts via G-Chat integration. Certified TensorFlow Developer skilled at bridging advanced research (Fuzzy RBM, Deep Learning) with scalable financial solutions that optimize collection strategies and operational efficiency.
-                    </p>
-                    <p>
-                        My academic journey at Universitas Padjadjaran forged a rigorous analytical mindset, further deepened through research in Operations Research and Robust Optimization, culminating in a thesis achieving 92% accuracy in malaria cell image classification.
-                    </p>
-                    <div class="about-stat-row">
-                        <div class="stat-item">
-                            <span class="stat-number">3.88</span>
-                            <span class="stat-label">GPA / 4.00</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">4+</span>
-                            <span class="stat-label">Publications</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">900+</span>
-                            <span class="stat-label">Hours ML Training</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-skills">
-                    <span class="skills-label">Technical Skills</span>
-                    <div class="skill-list">
-                        <div class="skill-row">
-                            <span class="skill-name"><i class="fab fa-python skill-icon me-3"></i>Python (Pandas, NumPy, Scikit-learn)</span>
-                            <i class="fas fa-arrow-right skill-icon"></i>
-                        </div>
-                        <div class="skill-row">
-                            <span class="skill-name"><i class="fas fa-database skill-icon me-3"></i>SQL — Trino &amp; ODPS</span>
-                            <i class="fas fa-arrow-right skill-icon"></i>
-                        </div>
-                        <div class="skill-row">
-                            <span class="skill-name"><i class="fab fa-r-project skill-icon me-3"></i>R &amp; LaTeX</span>
-                            <i class="fas fa-arrow-right skill-icon"></i>
-                        </div>
-                        <div class="skill-row">
-                            <span class="skill-name"><i class="fas fa-brain skill-icon me-3"></i>Deep Learning — TensorFlow / Keras</span>
-                            <i class="fas fa-arrow-right skill-icon"></i>
-                        </div>
-                        <div class="skill-row">
-                            <span class="skill-name"><i class="fas fa-rocket skill-icon me-3"></i>MLOps &amp; Model Deployment</span>
-                            <i class="fas fa-arrow-right skill-icon"></i>
-                        </div>
-                        <div class="skill-row">
-                            <span class="skill-name"><i class="fas fa-chart-bar skill-icon me-3"></i>Streamlit &amp; Apache Superset</span>
-                            <i class="fas fa-arrow-right skill-icon"></i>
-                        </div>
-                        <div class="skill-row">
-                            <span class="skill-name"><i class="fas fa-cogs skill-icon me-3"></i>Feature Engineering &amp; Optimization</span>
-                            <i class="fas fa-arrow-right skill-icon"></i>
-                        </div>
-                        <div class="skill-row">
-                            <span class="skill-name"><i class="fas fa-eye skill-icon me-3"></i>SHAP — Explainable AI</span>
-                            <i class="fas fa-arrow-right skill-icon"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <span class="section-label" id="aboutLabel"></span>
+            <h2 class="section-title" id="aboutTitle"></h2>
+          </div>
         </div>
+
+        <div class="about-grid">
+          <div class="about-text">
+            <div id="aboutParagraphs"></div>
+            <div class="about-stat-row" id="aboutStats"></div>
+          </div>
+        </div>
+
+        <div class="skills-showcase">
+          <div class="skills-showcase-header">
+            <div>
+              <span class="skills-label" id="skillsLabel"></span>
+              <h3 class="skills-title" id="skillsTitle"></h3>
+            </div>
+            <p class="skills-hint" id="skillsHint"></p>
+          </div>
+          <div class="skills-showcase-body">
+            <div class="skill-graph-wrap">
+              <svg id="skillGraph" viewBox="0 0 720 520" preserveAspectRatio="xMidYMid meet"></svg>
+            </div>
+            <aside class="skill-evidence" id="skillEvidence"></aside>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- ── Experience ── -->
     <section id="experience" class="experience">
-        <div class="container">
-            <div class="section-header">
-                <div>
-                    <span class="section-label">02 — Experience</span>
-                    <h2 class="section-title">Work<br><em>History</em></h2>
-                </div>
-            </div>
-            <div class="exp-list">
-
-                <!-- BFI Finance -->
-                <div class="exp-item timeline-item">
-                    <div class="exp-meta">
-                        <span class="exp-period">Nov 2024 — Present</span>
-                        <span class="exp-index">01</span>
-                    </div>
-                    <div class="exp-body">
-                        <h4 class="exp-role">Asset Management Data Science &amp; Modelling Specialist</h4>
-                        <p class="exp-company">PT BFI Finance Indonesia, Tbk</p>
-                        <p class="exp-location"><i class="fas fa-map-marker-alt me-2"></i>Tangerang, Banten, Indonesia</p>
-                        <ul class="exp-bullets">
-                            <li>Led end-to-end development of 2 Mortgage Predictive Models classifying 1,500+ monthly contracts — managing the full lifecycle from migrating 200+ features from ODPS to Trino through to management approval.</li>
-                            <li>Orchestrated complex Model Deployment &amp; QA, executing 7 UAT scenarios and 8 rollback contingency scenarios for retail model deployment (Car/MCY) to ensure system stability.</li>
-                            <li>Developed a dual-layer Model Monitoring System: a Streamlit app for Data Science deep-dives and Apache Superset dashboards for business stakeholders, backed by a Trino SQL Datamart.</li>
-                            <li>Re-engineered "Is Success" Model Tracking — transformed feedback loop from a 15-day lag to a Daily Monitoring System, enabling real-time performance evaluation.</li>
-                            <li>Automated infrastructure health checks via G-Chat Integration, monitoring 5 critical tables daily with instant alerts for data pipeline issues or delays.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Research Assistant -->
-                <div class="exp-item timeline-item">
-                    <div class="exp-meta">
-                        <span class="exp-period">Feb 2023 — Feb 2026</span>
-                        <span class="exp-index">02</span>
-                    </div>
-                    <div class="exp-body">
-                        <h4 class="exp-role">Research &amp; Teaching Assistant</h4>
-                        <p class="exp-company">Universitas Padjadjaran <span style="color:var(--ink-faint);font-weight:300;font-size:0.85em;">· with Prof. Diah Chaerani</span></p>
-                        <p class="exp-location"><i class="fas fa-map-marker-alt me-2"></i>Jatinangor, West Java, Indonesia</p>
-                        <ul class="exp-bullets">
-                            <li>Conducted bibliometric analyses on 5+ research topics (robust optimization, machine learning, green economy) using R-Biblioshiny &amp; VOSviewer, analyzing 200+ articles to support 3+ journal publications.</li>
-                            <li>Formatted and revised 15+ manuscripts for international journals (IAENG, Elsevier, Springer) using LaTeX, ensuring compliance with complex templates and incorporating reviewer feedback.</li>
-                            <li>Modernized Optimization &amp; Nonlinear Programming curriculum — migrated from Maple/MATLAB to Python, creating OBE-based lesson plans and assessments for 60+ students.</li>
-                            <li>Contributed to a textbook on "Optimization with Python" including visualization code, indexing, and glossary.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Laboratory Assistant — original content preserved -->
-                <div class="exp-item timeline-item">
-                    <div class="exp-meta">
-                        <span class="exp-period">Jan 2022 — Dec 2023</span>
-                        <span class="exp-index">03</span>
-                    </div>
-                    <div class="exp-body">
-                        <h4 class="exp-role">Laboratory Assistant</h4>
-                        <p class="exp-company">Asisten Laboratorium Matematika Unpad</p>
-                        <p class="exp-location"><i class="fas fa-map-marker-alt me-2"></i>Jatinangor, Jawa Barat, Indonesia</p>
-                    </div>
-                </div>
-
-            </div>
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <span class="section-label" id="expLabel"></span>
+            <h2 class="section-title" id="expTitle"></h2>
+          </div>
         </div>
+        <div class="exp-list timeline" id="experienceList"></div>
+      </div>
     </section>
 
     <!-- ── Projects ── -->
     <section id="projects">
-        <div class="container">
-            <div class="section-header">
-                <div>
-                    <span class="section-label">03 — Work</span>
-                    <h2 class="section-title">Featured<br><em>Projects</em></h2>
-                </div>
-            </div>
-            <div class="projects-grid">
-
-                <!-- Original Project 001 -->
-                <div class="project-card">
-                    <div class="project-img-wrap">
-                        <img src="img/project/dsc/dashboard_fraud_ewalet.gif" alt="Predictive E-wallet Fraud" class="project-img">
-                    </div>
-                    <div class="project-body">
-                        <span class="project-num">Project / 001</span>
-                        <h5 class="project-title">Predictive E-wallet Fraud</h5>
-                        <p class="project-desc">A real-time interactive dashboard for detecting and analyzing fraudulent e-wallet transactions using machine learning and explainable AI (SHAP).</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Dash</span>
-                            <span class="tech-tag">SHAP</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/WibiAnto/AstlaM-DSC2024" target="_blank"><i class="fab fa-github"></i> View on GitHub</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Original Project 002 -->
-                <div class="project-card">
-                    <div class="project-img-wrap">
-                        <img src="img/project/megatrusht/Sentiment_distribution.png" alt="Sentiment Analysis" class="project-img">
-                    </div>
-                    <div class="project-body">
-                        <span class="project-num">Project / 002</span>
-                        <h5 class="project-title">Sentiment Analysis — Megathrust</h5>
-                        <p class="project-desc">Processed 10K+ tweets using NLP pipelines to classify public sentiment on megathrust earthquakes using the Indonesia-BERT model.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">BERT</span>
-                            <span class="tech-tag">NLP</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/Ribhanhadyan/Sentiment-Analysis-Megatrusht" target="_blank"><i class="fab fa-github"></i> View on GitHub</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Original Project 003 -->
-                <div class="project-card">
-                    <div class="project-img-wrap">
-                        <img src="img/project/lifit/lifit.gif" alt="LiFit App" class="project-img">
-                    </div>
-                    <div class="project-body">
-                        <span class="project-num">Project / 003</span>
-                        <h5 class="project-title">LiFit — BMI Detection App</h5>
-                        <p class="project-desc">Capstone mobile app for BMI detection and health tracking with personalized recommendations powered by machine learning.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Kotlin</span>
-                            <span class="tech-tag">TensorFlow</span>
-                            <span class="tech-tag">Firebase</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/Ribhanhadyan/LiFit" target="_blank"><i class="fab fa-github"></i> View on GitHub</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- New Project 004 from CV -->
-                <div class="project-card">
-                    <div class="project-img-wrap project-img-placeholder">
-                        <div class="project-img-icon"><i class="fas fa-chart-line"></i></div>
-                    </div>
-                    <div class="project-body">
-                        <span class="project-num">Project / 004</span>
-                        <h5 class="project-title">Stock Prediction — RNN &amp; LSTM</h5>
-                        <p class="project-desc">Built RNN &amp; LSTM models for stock market analysis. RNN achieved MAE of 0.0249, demonstrating strong time-series forecasting capability.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">RNN</span>
-                            <span class="tech-tag">LSTM</span>
-                            <span class="tech-tag">TensorFlow</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <span class="section-label" id="projLabel"></span>
+            <h2 class="section-title" id="projTitle"></h2>
+          </div>
         </div>
+        <div class="projects-grid" id="projectsGrid"></div>
+      </div>
     </section>
 
-    <!-- ── Publications (NEW) ── -->
-    <section id="publications" style="padding:120px 0; background-color:var(--off-white);">
-        <div class="container">
-            <div class="section-header">
-                <div>
-                    <span class="section-label">04 — Research</span>
-                    <h2 class="section-title">Publications<br><em>&amp; Research</em></h2>
-                </div>
-            </div>
-            <div class="exp-list">
-
-                <div class="exp-item timeline-item">
-                    <div class="exp-meta">
-                        <span class="exp-period">2025</span>
-                        <span class="exp-index">01</span>
-                    </div>
-                    <div class="exp-body">
-                        <h4 class="exp-role">Fruit Ripeness Classification Using CNN &amp; Bibliometric Analysis</h4>
-                        <p class="exp-company" style="color:var(--accent-warm);">IAENG International Journal of Computer Science</p>
-                        <p class="exp-location">CNN · Computer Vision · Bibliometric Analysis</p>
-                    </div>
-                </div>
-
-                <div class="exp-item timeline-item">
-                    <div class="exp-meta">
-                        <span class="exp-period">2025</span>
-                        <span class="exp-index">02</span>
-                    </div>
-                    <div class="exp-body">
-                        <h4 class="exp-role">Benders Decomposition on Multi-objective Integer Adjustable Robust Counterpart Optimization with Polyhedral Uncertainty Set</h4>
-                        <p class="exp-company" style="color:var(--accent-warm);">Engineering Letters</p>
-                        <p class="exp-location">Operations Research · Robust Optimization · Integer Programming</p>
-                    </div>
-                </div>
-
-                <div class="exp-item timeline-item">
-                    <div class="exp-meta">
-                        <span class="exp-period">2025</span>
-                        <span class="exp-index">03</span>
-                    </div>
-                    <div class="exp-body">
-                        <h4 class="exp-role">Lontar Printing Optimization for Ancient Sundanese Manuscript Preservation</h4>
-                        <p class="exp-company" style="color:var(--accent-warm);">Engineering Letters</p>
-                        <p class="exp-location">Optimization · Cultural Heritage · Operations Research</p>
-                    </div>
-                </div>
-
-                <div class="exp-item timeline-item">
-                    <div class="exp-meta">
-                        <span class="exp-period">2024</span>
-                        <span class="exp-index">04</span>
-                    </div>
-                    <div class="exp-body">
-                        <h4 class="exp-role">Fuzzy RBM Feature Extraction on Fashion-MNIST</h4>
-                        <p class="exp-company" style="color:var(--accent-warm);">Jurnal Sistem Informasi Bisnis</p>
-                        <p class="exp-location">Deep Learning · Fuzzy Logic · Feature Extraction</p>
-                    </div>
-                </div>
-
-            </div>
+    <!-- ── Publications ── -->
+    <section id="publications" style="padding: 120px 0; background-color: var(--off-white)">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <span class="section-label" id="pubLabel"></span>
+            <h2 class="section-title" id="pubTitle"></h2>
+          </div>
         </div>
+        <div class="exp-list timeline" id="publicationsList"></div>
+      </div>
     </section>
 
-    <!-- ── Education (NEW) ── -->
-    <section id="education" style="padding:120px 0; background-color:var(--white);">
-        <div class="container">
-            <div class="section-header">
-                <div>
-                    <span class="section-label">05 — Education</span>
-                    <h2 class="section-title">Academic<br><em>Background</em></h2>
-                </div>
-            </div>
-            <div class="exp-list">
-
-                <div class="exp-item timeline-item">
-                    <div class="exp-meta">
-                        <span class="exp-period">Aug 2020 — Jun 2024</span>
-                        <span class="exp-index">01</span>
-                    </div>
-                    <div class="exp-body">
-                        <h4 class="exp-role">Bachelor of Mathematics — <em style="font-style:italic;color:var(--accent-warm);">GPA 3.88 / 4.00</em></h4>
-                        <p class="exp-company">Universitas Padjadjaran</p>
-                        <p class="exp-location"><i class="fas fa-map-marker-alt me-2"></i>Jatinangor, Indonesia</p>
-                        <ul class="exp-bullets">
-                            <li><strong>Thesis:</strong> Implementation of Mixed Accelerated Learning based on Fuzzy Restricted Boltzmann Machines and SVM for Malaria Cell Image Classification — <em>92% Accuracy</em>.</li>
-                            <li><strong>Achievement:</strong> First Runner-Up, Outstanding Mathematics Student Award 2023.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="exp-item timeline-item">
-                    <div class="exp-meta">
-                        <span class="exp-period">Feb 2023 — Jul 2023</span>
-                        <span class="exp-index">02</span>
-                    </div>
-                    <div class="exp-body">
-                        <h4 class="exp-role">Machine Learning Specialization</h4>
-                        <p class="exp-company">Bangkit Academy <span style="color:var(--ink-faint);font-weight:300;font-size:0.85em;">· by Google, GoTo &amp; Traveloka</span></p>
-                        <p class="exp-location"><i class="fas fa-map-marker-alt me-2"></i>Bandung, Indonesia</p>
-                        <ul class="exp-bullets">
-                            <li>Completed 900+ hours of rigorous training in Machine Learning, Deep Learning, and Cloud Deployment.</li>
-                            <li>Achieved <strong>Google TensorFlow Developer Certification</strong> on the first attempt.</li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
+    <!-- ── Education ── -->
+    <section id="education" style="padding: 120px 0; background-color: var(--white)">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <span class="section-label" id="eduLabel"></span>
+            <h2 class="section-title" id="eduTitle"></h2>
+          </div>
         </div>
+        <div class="exp-list timeline" id="educationList"></div>
+      </div>
     </section>
 
     <!-- ── Certificates ── -->
     <section id="certificates">
-        <div class="container">
-            <div class="section-header">
-                <div>
-                    <span class="section-label">06 — Credentials</span>
-                    <h2 class="section-title">Certificates<br><em>&amp; Awards</em></h2>
-                </div>
-            </div>
-            <div class="certs-grid">
-                <!-- Original cert 1 — unchanged -->
-                <div class="certificate-card" data-bs-toggle="modal" data-bs-target="#certificateModal" data-img-src="img/sertifikat1.jpg">
-                    <div class="certificate-img-wrapper">
-                        <img src="img/sertifikat1.jpg" alt="TensorFlow Developer Certificate" class="certificate-img">
-                        <div class="overlay"><i class="fas fa-expand"></i></div>
-                    </div>
-                    <div class="certificate-body">
-                        <h5>TensorFlow Developer Certificate</h5>
-                        <p>Google · Bangkit Academy 2023</p>
-                    </div>
-                </div>
-                <!-- Original cert 2 — unchanged -->
-                <div class="certificate-card" data-bs-toggle="modal" data-bs-target="#certificateModal" data-img-src="img/sertifikat2.jpg">
-                    <div class="certificate-img-wrapper">
-                        <img src="img/sertifikat2.jpg" alt="Laboratory Assistant Certificate" class="certificate-img">
-                        <div class="overlay"><i class="fas fa-expand"></i></div>
-                    </div>
-                    <div class="certificate-body">
-                        <h5>Laboratory Assistant Certificate</h5>
-                        <p>Professional Development</p>
-                    </div>
-                </div>
-                <!-- Original cert 3 — unchanged -->
-                <div class="certificate-card" data-bs-toggle="modal" data-bs-target="#certificateModal" data-img-src="img/sertifikat3.jpg">
-                    <div class="certificate-img-wrapper">
-                        <img src="img/sertifikat3.jpg" alt="Pekan Kreativitas Mahasiswa Certificate" class="certificate-img">
-                        <div class="overlay"><i class="fas fa-expand"></i></div>
-                    </div>
-                    <div class="certificate-body">
-                        <h5>Pekan Kreativitas Mahasiswa Certificate</h5>
-                        <p>Professional Development</p>
-                    </div>
-                </div>
-            </div>
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <span class="section-label" id="certLabel"></span>
+            <h2 class="section-title" id="certTitle"></h2>
+          </div>
         </div>
+        <div class="certs-grid" id="certsGrid"></div>
+      </div>
     </section>
 
     <!-- ── Contact ── -->
     <section id="contact" class="contact">
-        <div class="container">
-            <span class="section-label">07 — Contact</span>
-            <h2 class="section-title">Get In<br><em>Touch</em></h2>
-            <div class="contact-inner">
-                <p class="contact-tagline">
-                    Always open to discussing <strong>new projects</strong>, creative ideas, or <strong>opportunities</strong> to build something remarkable together.
-                </p>
-                <div>
-                    <a href="mailto:ribhanhadyan@gmail.com" class="contact-email">ribhanhadyan@gmail.com</a>
-                    <div class="social-links">
-                        <a href="mailto:ribhanhadyan@gmail.com" class="social-icon">
-                            <i class="fas fa-envelope"></i> Email
-                        </a>
-                        <a href="https://www.linkedin.com/in/ribhanhadyan/" target="_blank" class="social-icon">
-                            <i class="fab fa-linkedin"></i> LinkedIn
-                        </a>
-                        <a href="https://github.com/Ribhanhadyan" target="_blank" class="social-icon">
-                            <i class="fab fa-github"></i> GitHub
-                        </a>
-                        <a href="https://ribhanhadyan.github.io/ribhanhadyan/" target="_blank" class="social-icon">
-                            <i class="fas fa-globe"></i> Website
-                        </a>
-                        <a href="https://linktr.ee/rhadiyan" target="_blank" class="social-icon">
-                            <i class="fas fa-tree"></i> Linktree
-                        </a>
-                    </div>
-                </div>
-            </div>
+      <div class="container">
+        <span class="section-label" id="contactLabel"></span>
+        <h2 class="section-title" id="contactTitle"></h2>
+        <div class="contact-inner">
+          <p class="contact-tagline" id="contactTagline"></p>
+          <div>
+            <a href="#" id="contactEmail" class="contact-email"></a>
+            <div class="social-links" id="socialLinks"></div>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- ── Footer ── -->
     <footer>
-        <div class="container">
-            <div class="footer-inner">
-                <span class="footer-copy">© 2025 Muhammad Ribhan Hadiyan. All Rights Reserved.</span>
-                <span class="footer-copy">Designed with <i class="fas fa-heart"></i> &amp; built with <i class="fas fa-code"></i></span>
-            </div>
+      <div class="container">
+        <div class="footer-inner">
+          <span class="footer-copy" id="footerCopyright"></span>
+          <span class="footer-copy" id="footerTagline"></span>
         </div>
+      </div>
     </footer>
 
     <!-- ── Certificate Modal ── -->
     <div class="modal fade" id="certificateModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center">
-                    <img src="" id="modalImage" class="modal-img" alt="Certificate">
-                </div>
-            </div>
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body text-center">
+            <img src="" id="modalImage" class="modal-img" alt="Certificate" />
+            <a href="" id="modalLink" class="modal-link" target="_blank" rel="noopener" style="display: none">
+              <i class="fas fa-external-link-alt"></i>
+              <span id="modalLinkText">View Original</span>
+            </a>
+          </div>
         </div>
+      </div>
     </div>
 
+    <!-- ★ config.js HARUS dimuat sebelum script.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="config.js"></script>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
