@@ -1,170 +1,315 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     if (typeof CONFIG === 'undefined') {
-        console.error("config.js tidak dimuat! Pastikan <script src='config.js'> ada sebelum script.js");
+        console.error("config.js tidak dimuat!");
         return;
     }
 
     /* ═══════════════════════════════════════════════════════
-       HELPER: bikin link yang aman
+       🌐 i18n HELPER
        ═══════════════════════════════════════════════════════ */
-    function makeLink(url, label, icon, className) {
-        if (!url) return null;
-        const isExternal = /^https?:\/\//i.test(url);
-        const cls = className ? ` class="${className}"` : '';
-        const attrs = isExternal ? ' target="_blank" rel="noopener"' : '';
-        const iconHtml = icon ? `<i class="${icon}"></i> ` : '';
-        return `<a href="${url}"${attrs}${cls}>${iconHtml}${label}</a>`;
+    let LANG = (function () {
+        try { return localStorage.getItem('lang') || CONFIG.i18n.default; }
+        catch (e) { return CONFIG.i18n.default; }
+    })();
+
+    function t(value) {
+        if (value == null) return '';
+        if (typeof value === 'string') return value;
+        if (typeof value === 'object') return value[LANG] ?? value[CONFIG.i18n.default] ?? '';
+        return String(value);
+    }
+
+    function tLabel(key) {
+        const l = CONFIG.i18n.labels[key];
+        return l ? t(l) : key;
     }
 
     /* ═══════════════════════════════════════════════════════
-       1. NAVBAR + BRAND
+       📊 ANALYTICS INIT
        ═══════════════════════════════════════════════════════ */
-    document.getElementById('brandLogo').src = CONFIG.profile.logo;
-    document.getElementById('brandName').textContent = CONFIG.profile.brandName;
+    (function initAnalytics() {
+        const a = CONFIG.analytics;
+        if (!a) return;
 
-    document.getElementById('navMenu').innerHTML = CONFIG.nav.map((item, i) => `
-        <li class="nav-item">
-            <a class="nav-link${i === 0 ? ' active' : ''}" href="#${item.id}">${item.label}</a>
-        </li>
-    `).join('');
+        if (a.plausible && a.plausible.enable) {
+            const s = document.createElement('script');
+            s.defer = true;
+            s.dataset.domain = a.plausible.domain;
+            s.src = a.plausible.src || 'https://plausible.io/js/script.js';
+            document.head.appendChild(s);
+        }
+        if (a.umami && a.umami.enable) {
+            const s = document.createElement('script');
+            s.defer = true;
+            s.dataset.websiteId = a.umami.websiteId;
+            s.src = a.umami.src || 'https://cloud.umami.is/script.js';
+            document.head.appendChild(s);
+        }
+    })();
+
+    function trackEvent(name, props) {
+        try {
+            if (window.plausible) window.plausible(name, { props });
+            if (window.umami && window.umami.track) window.umami.track(name, props);
+        } catch (e) {}
+    }
 
     /* ═══════════════════════════════════════════════════════
-       2. HERO
+       RENDER: NAVBAR + BRAND + NAV + LANG + THEME
        ═══════════════════════════════════════════════════════ */
-    document.getElementById('heroEyebrow').textContent = CONFIG.profile.eyebrow;
-    document.getElementById('heroName').innerHTML =
-        `${CONFIG.profile.firstName}<br /><span class="hero-name-line">${CONFIG.profile.lastName}</span>`;
-    document.getElementById('heroDesc').innerHTML = CONFIG.profile.description;
-    document.getElementById('heroPhoto').src = CONFIG.profile.photo;
-    document.getElementById('heroPhoto').alt = CONFIG.profile.brandName;
+    function renderNav() {
+        document.getElementById('brandLogo').src = CONFIG.profile.logo;
+        document.getElementById('brandName').textContent = CONFIG.profile.brandName;
 
-    document.getElementById('heroActions').innerHTML = `
-        <a href="${CONFIG.profile.ctaPrimary.href}" class="btn-primary-outline">${CONFIG.profile.ctaPrimary.label}</a>
-        <a href="${CONFIG.profile.ctaSecondary.href}" class="btn-text-link">${CONFIG.profile.ctaSecondary.label}</a>
-    `;
+        document.getElementById('navMenu').innerHTML = CONFIG.nav.map((item, i) => `
+            <li class="nav-item">
+                <a class="nav-link${i === 0 ? ' active' : ''}" href="#${item.id}">${t(item.label)}</a>
+            </li>
+        `).join('');
+
+        document.getElementById('langSwitcher').innerHTML = CONFIG.i18n.languages.map(l => `
+            <button class="lang-btn${l.code === LANG ? ' active' : ''}" data-lang="${l.code}">${l.label}</button>
+        `).join('');
+    }
 
     /* ═══════════════════════════════════════════════════════
-       3. ABOUT
+       RENDER: HERO
        ═══════════════════════════════════════════════════════ */
-    document.getElementById('aboutLabel').textContent = CONFIG.about.sectionLabel;
-    document.getElementById('aboutTitle').innerHTML =
-        `${CONFIG.about.titleLine1}<br /><em>${CONFIG.about.titleLine2}</em>`;
+    function renderHero() {
+        document.getElementById('heroEyebrow').textContent = t(CONFIG.profile.eyebrow);
+        document.getElementById('heroName').innerHTML =
+            `${t(CONFIG.profile.firstName)}<br /><span class="hero-name-line">${t(CONFIG.profile.lastName)}</span>`;
+        document.getElementById('heroDesc').innerHTML = t(CONFIG.profile.description);
+        document.getElementById('heroPhoto').src = CONFIG.profile.photo;
+        document.getElementById('heroPhoto').alt = CONFIG.profile.brandName;
 
-    document.getElementById('aboutParagraphs').innerHTML =
-        CONFIG.about.paragraphs.map(p => `<p>${p}</p>`).join('');
+        document.getElementById('heroActions').innerHTML = `
+            <a href="${CONFIG.profile.ctaPrimary.href}" class="btn-primary-outline">${t(CONFIG.profile.ctaPrimary.label)}</a>
+            <a href="${CONFIG.profile.ctaSecondary.href}" class="btn-text-link">${t(CONFIG.profile.ctaSecondary.label)}</a>
+        `;
 
-    document.getElementById('aboutStats').innerHTML = CONFIG.about.stats.map(s => `
-        <div class="stat-item">
-            <span class="stat-number">${s.number}</span>
-            <span class="stat-label">${s.label}</span>
-        </div>
-    `).join('');
+        const el = document.getElementById('typing-text');
+        if (el) {
+            el.innerHTML = '';
+            const roles = (CONFIG.profile.roles && CONFIG.profile.roles[LANG]) || CONFIG.profile.roles.en || [];
+            if (window.__typedInstance) window.__typedInstance.destroy();
+            window.__typedInstance = new Typed('#typing-text', {
+                strings: roles,
+                typeSpeed: 55,
+                backSpeed: 30,
+                backDelay: 2200,
+                loop: true,
+                cursorChar: '|',
+            });
+        }
+    }
 
     /* ═══════════════════════════════════════════════════════
-       4. SKILL SHOWCASE HEADER
+       RENDER: ABOUT
        ═══════════════════════════════════════════════════════ */
-    document.getElementById('skillsLabel').textContent = CONFIG.skills.showcaseLabel;
-    document.getElementById('skillsTitle').innerHTML =
-        `${CONFIG.skills.showcaseTitle} <em>${CONFIG.skills.showcaseTitleAccent}</em>`;
-    document.getElementById('skillsHint').textContent = CONFIG.skills.hint;
+    function renderAbout() {
+        document.getElementById('aboutLabel').textContent = t(CONFIG.about.sectionLabel);
+        document.getElementById('aboutTitle').innerHTML =
+            `${t(CONFIG.about.titleLine1)}<br /><em>${t(CONFIG.about.titleLine2)}</em>`;
+
+        const paras = CONFIG.about.paragraphs[LANG] || CONFIG.about.paragraphs.en || CONFIG.about.paragraphs;
+        document.getElementById('aboutParagraphs').innerHTML =
+            (Array.isArray(paras) ? paras : [paras]).map(p => `<p>${p}</p>`).join('');
+
+        document.getElementById('aboutStats').innerHTML = CONFIG.about.stats.map(s => `
+            <div class="stat-item">
+                <span class="stat-number">${s.number}</span>
+                <span class="stat-label">${t(s.label)}</span>
+            </div>
+        `).join('');
+
+        document.getElementById('skillsLabel').textContent = t(CONFIG.skills.showcaseLabel);
+        document.getElementById('skillsTitle').innerHTML =
+            `${t(CONFIG.skills.showcaseTitle)} <em>${t(CONFIG.skills.showcaseTitleAccent)}</em>`;
+        document.getElementById('skillsHint').textContent = t(CONFIG.skills.hint);
+    }
 
     /* ═══════════════════════════════════════════════════════
-       5. WORK EXPERIENCE
+       RENDER: CAREER TIMELINE (GANTT)
        ═══════════════════════════════════════════════════════ */
-    document.getElementById('expLabel').textContent = CONFIG.experience.sectionLabel;
-    document.getElementById('expTitle').innerHTML =
-        `${CONFIG.experience.titleLine1}<br /><em>${CONFIG.experience.titleLine2}</em>`;
-    renderTimeline('experienceList', CONFIG.experience.items);
+    function parsePeriodToDate(str) {
+        // "Nov 2024" → Date(2024, 10, 1)
+        if (!str) return null;
+        const months = { jan:0, feb:1, mar:2, apr:3, may:4, jun:5, jul:6, aug:7, sep:8, oct:9, nov:10, dec:11 };
+        const m = String(str).trim().toLowerCase().match(/^([a-z]{3})\s+(\d{4})$/);
+        if (!m) return null;
+        const mo = months[m[1]];
+        if (mo === undefined) return null;
+        return new Date(parseInt(m[2], 10), mo, 1);
+    }
+
+    function resolveDates(item) {
+        let start = item.startDate ? new Date(item.startDate + "-01") : null;
+        let end   = item.endDate ? new Date(item.endDate + "-01") : null;
+        if (!start && item.period) {
+            const parts = String(item.period).split(/\s*[—–-]\s*/);
+            start = parsePeriodToDate(parts[0]);
+            if (parts[1] && !/present|sekarang/i.test(parts[1])) {
+                end = parsePeriodToDate(parts[1]);
+            }
+        }
+        if (!end) end = new Date();
+        return { start, end };
+    }
+
+    function renderCareerTimeline() {
+        const labelEl = document.getElementById('careerLabel');
+        const titleEl = document.getElementById('careerTitle');
+        const legendEl = document.getElementById('ganttLegend');
+        const chartEl = document.getElementById('ganttChart');
+        if (!labelEl || !chartEl) return;
+
+        labelEl.textContent = t(CONFIG.career.sectionLabel);
+        titleEl.innerHTML = `${t(CONFIG.career.titleLine1)}<br /><em>${t(CONFIG.career.titleLine2)}</em>`;
+
+        // Legend
+        const legend = CONFIG.career.legend || {};
+        legendEl.innerHTML = Object.keys(legend).map(k => `
+            <span class="legend-item">
+                <span class="legend-dot" style="background:${legend[k].color}"></span>
+                ${t(legend[k])}
+            </span>
+        `).join('');
+
+        // Siapkan data
+        const items = CONFIG.experience.items.map(it => {
+            const { start, end } = resolveDates(it);
+            return { ...it, _start: start, _end: end, _category: it.category || 'work' };
+        }).filter(it => it._start);
+
+        if (!items.length) {
+            chartEl.innerHTML = `<p class="evidence-prompt">No timeline data available.</p>`;
+            return;
+        }
+
+        const minTime = Math.min(...items.map(i => i._start.getTime()));
+        const maxTime = Math.max(...items.map(i => i._end.getTime()), Date.now());
+        const span = maxTime - minTime || 1;
+
+        // Layout: overlap → lane berbeda
+        items.sort((a, b) => a._start - b._start);
+        const lanes = [];
+        items.forEach(it => {
+            let placed = false;
+            for (const lane of lanes) {
+                const last = lane[lane.length - 1];
+                if (it._start >= last._end) { lane.push(it); placed = true; break; }
+            }
+            if (!placed) lanes.push([it]);
+        });
+
+        const flatItems = [];
+        lanes.forEach((lane, laneIdx) => {
+            lane.forEach(it => flatItems.push({ ...it, _lane: laneIdx }));
+        });
+
+        // Render tahun
+        const startYear = new Date(minTime).getFullYear();
+        const endYear   = new Date(maxTime).getFullYear();
+        let axisHtml = '';
+        for (let y = startYear; y <= endYear + 1; y++) {
+            const date = new Date(y, 0, 1).getTime();
+            if (date > maxTime + 1000) break;
+            const pct = ((date - minTime) / span) * 100;
+            if (pct < 0) continue;
+            axisHtml += `<span class="gantt-axis-label" style="left:${pct}%">${y}</span>`;
+        }
+
+        // Gridlines
+        let gridHtml = '';
+        for (let y = startYear; y <= endYear + 1; y++) {
+            const date = new Date(y, 0, 1).getTime();
+            if (date > maxTime + 1000) break;
+            const pct = ((date - minTime) / span) * 100;
+            if (pct < 0) continue;
+            gridHtml += `<span class="gantt-gridline" style="left:${pct}%"></span>`;
+        }
+
+        // Today line
+        const todayPct = ((Date.now() - minTime) / span) * 100;
+        const todayLine = (todayPct >= 0 && todayPct <= 100)
+            ? `<div class="gantt-today" style="left:${todayPct}%">
+                 <span class="gantt-today-label">${tLabel('present')}</span>
+               </div>`
+            : '';
+
+        // Bars
+        const legendMap = CONFIG.career.legend || {};
+        const barsHtml = flatItems.map(it => {
+            const left = ((it._start.getTime() - minTime) / span) * 100;
+            const right = ((it._end.getTime() - minTime) / span) * 100;
+            const width = Math.max(right - left, 1);
+            const color = (legendMap[it._category] && legendMap[it._category].color) || '#c8a96e';
+            const roleLabel = t(it.role);
+            const company = typeof it.company === 'string' ? it.company : t(it.company);
+            const period = it.period || '';
+            const tooltip = `${roleLabel} · ${company} · ${period}`;
+            const isNarrow = width < 12;
+
+            return `
+                <div class="gantt-row">
+                    <div class="gantt-bar${isNarrow ? ' is-narrow' : ''}"
+                         style="left:${left}%;width:${width}%;background:${color}"
+                         title="${tooltip}">
+                        <span class="gantt-bar-label">${roleLabel}</span>
+                        ${!isNarrow ? `<span class="gantt-bar-range">${period}</span>` : ''}
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        chartEl.innerHTML = `
+            <div class="gantt-axis">${axisHtml}</div>
+            ${gridHtml}
+            ${todayLine}
+            ${barsHtml}
+        `;
+
+        // Padding bottom agar tidak overlap dengan today label
+        chartEl.style.minHeight = (lanes.length * 52 + 60) + 'px';
+    }
 
     /* ═══════════════════════════════════════════════════════
-       6. PROJECTS
+       RENDER: TIMELINE (Experience / Publications / Education)
        ═══════════════════════════════════════════════════════ */
-    document.getElementById('projLabel').textContent = CONFIG.projects.sectionLabel;
-    document.getElementById('projTitle').innerHTML =
-        `${CONFIG.projects.titleLine1}<br /><em>${CONFIG.projects.titleLine2}</em>`;
-    renderProjects('projectsGrid', CONFIG.projects.items);
-
-    /* ═══════════════════════════════════════════════════════
-       7. PUBLICATIONS
-       ═══════════════════════════════════════════════════════ */
-    document.getElementById('pubLabel').textContent = CONFIG.publications.sectionLabel;
-    document.getElementById('pubTitle').innerHTML =
-        `${CONFIG.publications.titleLine1}<br /><em>${CONFIG.publications.titleLine2}</em>`;
-    renderTimeline('publicationsList', CONFIG.publications.items);
-
-    /* ═══════════════════════════════════════════════════════
-       8. EDUCATION
-       ═══════════════════════════════════════════════════════ */
-    document.getElementById('eduLabel').textContent = CONFIG.education.sectionLabel;
-    document.getElementById('eduTitle').innerHTML =
-        `${CONFIG.education.titleLine1}<br /><em>${CONFIG.education.titleLine2}</em>`;
-    renderTimeline('educationList', CONFIG.education.items);
-
-    /* ═══════════════════════════════════════════════════════
-       9. CERTIFICATES
-       ═══════════════════════════════════════════════════════ */
-    document.getElementById('certLabel').textContent = CONFIG.certificates.sectionLabel;
-    document.getElementById('certTitle').innerHTML =
-        `${CONFIG.certificates.titleLine1}<br /><em>${CONFIG.certificates.titleLine2}</em>`;
-    renderCertificates('certsGrid', CONFIG.certificates.items);
-
-    /* ═══════════════════════════════════════════════════════
-       10. CONTACT
-       ═══════════════════════════════════════════════════════ */
-    document.getElementById('contactLabel').textContent = CONFIG.contact.sectionLabel;
-    document.getElementById('contactTitle').innerHTML =
-        `${CONFIG.contact.titleLine1}<br /><em>${CONFIG.contact.titleLine2}</em>`;
-    document.getElementById('contactTagline').innerHTML = CONFIG.contact.tagline;
-
-    const emailEl = document.getElementById('contactEmail');
-    emailEl.href = `mailto:${CONFIG.contact.email}`;
-    emailEl.textContent = CONFIG.contact.email;
-
-    document.getElementById('socialLinks').innerHTML = CONFIG.contact.links.map(l => {
-        const isExternal = l.href.startsWith('http');
-        return `<a href="${l.href}"${isExternal ? ' target="_blank" rel="noopener"' : ''} class="social-icon">
-            <i class="${l.icon}"></i> ${l.label}
-        </a>`;
-    }).join('');
-
-    /* ═══════════════════════════════════════════════════════
-       11. FOOTER
-       ═══════════════════════════════════════════════════════ */
-    document.getElementById('footerCopyright').textContent = CONFIG.footer.copyright;
-    document.getElementById('footerTagline').innerHTML = CONFIG.footer.tagline;
-
-    /* ═══════════════════════════════════════════════════════
-       RENDER HELPERS
-       ═══════════════════════════════════════════════════════ */
-
-    function renderTimeline(containerId, items) {
+    function renderTimeline(containerId, section, items) {
         const el = document.getElementById(containerId);
         if (!el) return;
+
         el.innerHTML = items.map(item => {
-            // role: jika ada url → bungkus sebagai link
             const roleText = item.roleNote
-                ? `${item.role} — <em class="role-note">${item.roleNote}</em>`
-                : item.role;
+                ? `${t(item.role)} — <em class="role-note">${t(item.roleNote)}</em>`
+                : t(item.role);
             const roleHtml = item.url
                 ? `<a href="${item.url}" target="_blank" rel="noopener" class="role-link">${roleText}<i class="fas fa-external-link-alt link-icon"></i></a>`
                 : roleText;
 
-            // company: companyUrl atau (fallback) company link dari item.url? → tidak, keep terpisah
-            let companyInner = item.company || '';
+            let companyInner = item.company ? t(item.company) : '';
             if (item.companyUrl) {
                 companyInner = `<a href="${item.companyUrl}" target="_blank" rel="noopener" class="company-link">${companyInner}<i class="fas fa-external-link-alt link-icon"></i></a>`;
             }
             const companyHtml = item.company
-                ? `<p class="exp-company">${companyInner}${item.companyNote ? ` <span class="company-note">· ${item.companyNote}</span>` : ''}</p>`
+                ? `<p class="exp-company">${companyInner}${item.companyNote ? ` <span class="company-note">· ${t(item.companyNote)}</span>` : ''}</p>`
                 : '';
+
+            const bullets = item.bullets ? (item.bullets[LANG] || item.bullets.en || item.bullets) : null;
+            const bulletsArr = Array.isArray(bullets) ? bullets : (bullets ? [bullets] : []);
+
+            const location = item.location ? t(item.location) : '';
+            const period = item.period ? t(item.period) : '';
 
             return `
                 <div class="exp-item timeline-item">
                     <span class="exp-dot"></span>
                     <button class="exp-header" aria-expanded="false">
                         <div class="exp-header-main">
-                            <span class="exp-period">${item.period}</span>
+                            <span class="exp-period">${period}</span>
                             <h4 class="exp-role">${roleHtml}</h4>
                             ${companyHtml}
                         </div>
@@ -172,45 +317,55 @@ document.addEventListener("DOMContentLoaded", function () {
                     </button>
                     <div class="exp-details">
                         <div class="exp-details-inner">
-                            ${item.location ? `<p class="exp-location"><i class="fas fa-map-marker-alt me-2"></i>${item.location}</p>` : ''}
-                            ${item.bullets && item.bullets.length ? `
-                                <ul class="exp-bullets">
-                                    ${item.bullets.map(b => `<li>${b}</li>`).join('')}
-                                </ul>` : ''}
+                            ${location ? `<p class="exp-location"><i class="fas fa-map-marker-alt me-2"></i>${location}</p>` : ''}
+                            ${bulletsArr.length ? `<ul class="exp-bullets">${bulletsArr.map(b => `<li>${b}</li>`).join('')}</ul>` : ''}
                         </div>
                     </div>
                 </div>
             `;
         }).join('');
+
+        // observer untuk reveal
+        const revealObs = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => entry.target.classList.add('is-visible'), i * 80);
+                }
+            });
+        }, { threshold: 0.1 });
+        el.querySelectorAll('.timeline-item').forEach(it => revealObs.observe(it));
     }
 
-    function renderProjects(containerId, items) {
-        const el = document.getElementById(containerId);
+    /* ═══════════════════════════════════════════════════════
+       RENDER: PROJECTS
+       ═══════════════════════════════════════════════════════ */
+    function renderProjects() {
+        const el = document.getElementById('projectsGrid');
         if (!el) return;
-        el.innerHTML = items.map(p => {
+        el.innerHTML = CONFIG.projects.items.map(p => {
+            const title = t(p.title);
+            const desc  = t(p.description);
+
             const imgBlock = p.image
-                ? `<div class="project-img-wrap">
-                       <img src="${p.image}" alt="${p.title}" class="project-img" />
-                   </div>`
+                ? `<div class="project-img-wrap"><img src="${p.image}" alt="${title}" class="project-img" /></div>`
                 : `<div class="project-img-wrap project-img-placeholder">
                        <div class="project-img-icon"><i class="${p.icon || 'fas fa-cube'}"></i></div>
                    </div>`;
 
             const techBlock = (p.tech && p.tech.length)
-                ? `<div class="project-tech">${p.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}</div>`
+                ? `<div class="project-tech">${p.tech.map(tt => `<span class="tech-tag">${tt}</span>`).join('')}</div>`
                 : '';
 
-            // Prioritaskan `link` object; kalau tidak ada tapi `url` ada → pakai url
             const linkObj = p.link || (p.url ? {
                 href: p.url,
-                label: p.urlLabel || "View Project",
-                icon: p.urlIcon || "fas fa-external-link-alt"
+                label: p.urlLabel || tLabel('viewProject'),
+                icon: p.urlIcon || 'fas fa-external-link-alt'
             } : null);
 
             const linkBlock = linkObj
                 ? `<div class="project-links">
                        <a href="${linkObj.href}" target="_blank" rel="noopener">
-                           <i class="${linkObj.icon || 'fab fa-github'}"></i> ${linkObj.label}
+                           <i class="${linkObj.icon || 'fab fa-github'}"></i> ${t(linkObj.label)}
                        </a>
                    </div>`
                 : '';
@@ -220,8 +375,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     ${imgBlock}
                     <div class="project-body">
                         ${p.num ? `<span class="project-num">${p.num}</span>` : ''}
-                        <h5 class="project-title">${p.title}</h5>
-                        <p class="project-desc">${p.description}</p>
+                        <h5 class="project-title">${title}</h5>
+                        <p class="project-desc">${desc}</p>
                         ${techBlock}
                         ${linkBlock}
                     </div>
@@ -230,67 +385,251 @@ document.addEventListener("DOMContentLoaded", function () {
         }).join('');
     }
 
-    function renderCertificates(containerId, items) {
-        const el = document.getElementById(containerId);
+    /* ═══════════════════════════════════════════════════════
+       RENDER: CERTIFICATES
+       ═══════════════════════════════════════════════════════ */
+    function renderCertificates() {
+        const el = document.getElementById('certsGrid');
         if (!el) return;
-        el.innerHTML = items.map(c => `
+        el.innerHTML = CONFIG.certificates.items.map(c => `
             <div class="certificate-card"
                  data-bs-toggle="modal"
                  data-bs-target="#certificateModal"
                  data-img-src="${c.image}"
                  data-url="${c.url || ''}"
-                 data-url-label="${c.urlLabel || 'View Original'}">
+                 data-url-label="${c.urlLabel ? t(c.urlLabel) : tLabel('viewOriginal')}">
                 <div class="certificate-img-wrapper">
-                    <img src="${c.image}" alt="${c.title}" class="certificate-img" />
+                    <img src="${c.image}" alt="${t(c.title)}" class="certificate-img" />
                     <div class="overlay"><i class="fas fa-expand"></i></div>
                 </div>
                 <div class="certificate-body">
-                    <h5>${c.title}</h5>
-                    <p>${c.subtitle}</p>
+                    <h5>${t(c.title)}</h5>
+                    <p>${t(c.subtitle)}</p>
                 </div>
             </div>
         `).join('');
     }
 
     /* ═══════════════════════════════════════════════════════
-       INTERACTIONS
+       RENDER: CONTACT + FOOTER
        ═══════════════════════════════════════════════════════ */
+    function renderContactFooter() {
+        document.getElementById('contactLabel').textContent = t(CONFIG.contact.sectionLabel);
+        document.getElementById('contactTitle').innerHTML =
+            `${t(CONFIG.contact.titleLine1)}<br /><em>${t(CONFIG.contact.titleLine2)}</em>`;
+        document.getElementById('contactTagline').innerHTML = t(CONFIG.contact.tagline);
 
-    // ── Typed.js ──
-    if (CONFIG.profile.roles && CONFIG.profile.roles.length) {
-        new Typed('#typing-text', {
-            strings: CONFIG.profile.roles,
-            typeSpeed: 55,
-            backSpeed: 30,
-            backDelay: 2200,
-            loop: true,
-            cursorChar: '|',
+        const emailEl = document.getElementById('contactEmail');
+        emailEl.href = `mailto:${CONFIG.contact.email}`;
+        emailEl.textContent = CONFIG.contact.email;
+
+        document.getElementById('socialLinks').innerHTML = CONFIG.contact.links.map(l => {
+            const isExt = l.href.startsWith('http');
+            return `<a href="${l.href}"${isExt ? ' target="_blank" rel="noopener"' : ''} class="social-icon">
+                <i class="${l.icon}"></i> ${t(l.label)}
+            </a>`;
+        }).join('');
+
+        document.getElementById('footerCopyright').textContent = t(CONFIG.footer.copyright);
+        document.getElementById('footerTagline').innerHTML = t(CONFIG.footer.tagline);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       RENDER: SECTION HEADERS (Experience, Publications, Education, Certificates)
+       ═══════════════════════════════════════════════════════ */
+    function renderSectionHeaders() {
+        const map = [
+            ['exp',  CONFIG.experience],
+            ['pub',  CONFIG.publications],
+            ['edu',  CONFIG.education],
+            ['cert', CONFIG.certificates]
+        ];
+        map.forEach(([prefix, cfg]) => {
+            const lbl = document.getElementById(prefix + 'Label');
+            const ttl = document.getElementById(prefix + 'Title');
+            if (lbl) lbl.textContent = t(cfg.sectionLabel);
+            if (ttl) ttl.innerHTML = `${t(cfg.titleLine1)}<br /><em>${t(cfg.titleLine2)}</em>`;
         });
     }
 
-    // ── Navbar on scroll ──
+    /* ═══════════════════════════════════════════════════════
+       MASTER RENDER
+       ═══════════════════════════════════════════════════════ */
+    function renderAll() {
+        document.documentElement.setAttribute('lang', LANG);
+        renderNav();
+        renderHero();
+        renderAbout();
+        renderCareerTimeline();
+        renderSectionHeaders();
+
+        renderTimeline('experienceList', CONFIG.experience, CONFIG.experience.items);
+        renderProjects();
+        renderTimeline('publicationsList', CONFIG.publications, CONFIG.publications.items);
+        renderTimeline('educationList', CONFIG.education, CONFIG.education.items);
+        renderCertificates();
+        renderContactFooter();
+
+        // Reveal & modal observers butuh refresh setelah render
+        initReveal();
+        initGallery('projectsGrid');
+        initGallery('certsGrid');
+        initSkillGraph();
+    }
+
+    renderAll();
+
+    /* ═══════════════════════════════════════════════════════
+       LANGUAGE SWITCHER
+       ═══════════════════════════════════════════════════════ */
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.lang-btn');
+        if (!btn) return;
+        const lang = btn.dataset.lang;
+        if (!lang || lang === LANG) return;
+        LANG = lang;
+        try { localStorage.setItem('lang', lang); } catch (err) {}
+        renderAll();
+        trackEvent('Language Switch', { lang });
+    });
+
+    /* ═══════════════════════════════════════════════════════
+       THEME TOGGLE
+       ═══════════════════════════════════════════════════════ */
+    const themeToggle = document.getElementById('themeToggle');
+    const htmlEl = document.documentElement;
+
+    function initParticles() {
+        const el = document.getElementById('particles-js');
+        if (!el || typeof particlesJS === 'undefined') return;
+        el.innerHTML = '';
+        const isDark = htmlEl.getAttribute('data-theme') === 'dark';
+        const dotColor = isDark ? '#e8e8e2' : '#111110';
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 40, density: { enable: true, value_area: 1000 } },
+                color: { value: dotColor },
+                shape: { type: 'circle' },
+                opacity: { value: 0.15, random: true },
+                size: { value: 2, random: true },
+                line_linked: { enable: true, distance: 160, color: dotColor, opacity: 0.06, width: 1 },
+                move: { enable: true, speed: 0.8, direction: 'none', random: true, straight: false, out_mode: 'out', bounce: false }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: { onhover: { enable: true, mode: 'grab' }, onclick: { enable: false }, resize: true },
+                modes: { grab: { distance: 140, line_linked: { opacity: 0.15 } } }
+            },
+            retina_detect: true
+        });
+    }
+
+    function applyTheme(theme) {
+        if (theme === 'dark') htmlEl.setAttribute('data-theme', 'dark');
+        else htmlEl.removeAttribute('data-theme');
+        try { localStorage.setItem('theme', theme); } catch (e) {}
+        initParticles();
+    }
+
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const current = htmlEl.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+            applyTheme(current === 'dark' ? 'light' : 'dark');
+        });
+    }
+
+    window.addEventListener('storage', (e) => {
+        if (e.key === 'theme') {
+            const nt = e.newValue === 'dark' ? 'dark' : 'light';
+            applyTheme(nt);
+        }
+        if (e.key === 'lang') {
+            const nl = e.newValue || CONFIG.i18n.default;
+            if (nl !== LANG) { LANG = nl; renderAll(); }
+        }
+    });
+
+    initParticles();
+
+    /* ═══════════════════════════════════════════════════════
+       SCROLL REVEAL
+       ═══════════════════════════════════════════════════════ */
+    function initReveal() {
+        const items = document.querySelectorAll('.timeline-item');
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => entry.target.classList.add('is-visible'), i * 80);
+                }
+            });
+        }, { threshold: 0.1 });
+        items.forEach(it => obs.observe(it));
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       TIMELINE TOGGLE (delegated)
+       ═══════════════════════════════════════════════════════ */
+    document.addEventListener('click', (e) => {
+        if (e.target.closest('.role-link, .company-link')) return;
+        const header = e.target.closest('.exp-header');
+        if (!header) return;
+        const item = header.closest('.exp-item');
+        if (!item) return;
+        const willOpen = !item.classList.contains('is-open');
+        item.classList.toggle('is-open', willOpen);
+        header.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    });
+
+    /* ═══════════════════════════════════════════════════════
+       NAVBAR SCROLL + ACTIVE LINK
+       ═══════════════════════════════════════════════════════ */
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
         navbar.classList.toggle('scrolled', window.scrollY > 40);
     });
 
-    // ── Active nav link on scroll ──
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-link');
-    const sectionObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const id = entry.target.getAttribute('id');
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${id}`) link.classList.add('active');
-                });
-            }
-        });
-    }, { threshold: 0.4 });
-    sections.forEach(s => sectionObserver.observe(s));
+    function initSectionObserver() {
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) link.classList.add('active');
+                    });
+                }
+            });
+        }, { threshold: 0.4 });
+        sections.forEach(s => obs.observe(s));
+    }
+    initSectionObserver();
 
-    // ── Certificate Modal (dengan link opsional) ──
+    /* ═══════════════════════════════════════════════════════
+       SECTION READ TRACKING (analytics)
+       ═══════════════════════════════════════════════════════ */
+    if (CONFIG.analytics && CONFIG.analytics.trackSections) {
+        const readTimers = {};
+        const trackObs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const id = entry.target.id;
+                if (!id) return;
+                if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+                    readTimers[id] = setTimeout(() => {
+                        trackEvent('Section Read', { section: id });
+                    }, 4000);
+                } else {
+                    clearTimeout(readTimers[id]);
+                }
+            });
+        }, { threshold: [0, 0.5, 1] });
+        document.querySelectorAll('section[id]').forEach(s => trackObs.observe(s));
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       CERTIFICATE MODAL
+       ═══════════════════════════════════════════════════════ */
     const certificateModal = document.getElementById('certificateModal');
     const modalImage = document.getElementById('modalImage');
     const modalLink  = document.getElementById('modalLink');
@@ -300,9 +639,8 @@ document.addEventListener("DOMContentLoaded", function () {
         certificateModal.addEventListener('show.bs.modal', function (event) {
             const card = event.relatedTarget;
             modalImage.src = card.getAttribute('data-img-src');
-
             const url = card.getAttribute('data-url');
-            const urlLabel = card.getAttribute('data-url-label') || 'View Original';
+            const urlLabel = card.getAttribute('data-url-label') || tLabel('viewOriginal');
             if (url) {
                 modalLink.href = url;
                 modalLinkText.textContent = urlLabel;
@@ -314,80 +652,50 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // ── Tooltips ──
+    /* ═══════════════════════════════════════════════════════
+       TOOLTIPS
+       ═══════════════════════════════════════════════════════ */
     [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         .forEach(el => new bootstrap.Tooltip(el));
 
-    // ── Particles.js ──
-    if (document.getElementById('particles-js')) {
-        particlesJS('particles-js', {
-            particles: {
-                number: { value: 40, density: { enable: true, value_area: 1000 } },
-                color: { value: "#111110" },
-                shape: { type: "circle" },
-                opacity: { value: 0.15, random: true },
-                size: { value: 2, random: true },
-                line_linked: { enable: true, distance: 160, color: "#111110", opacity: 0.06, width: 1 },
-                move: { enable: true, speed: 0.8, direction: "none", random: true, straight: false, out_mode: "out", bounce: false }
-            },
-            interactivity: {
-                detect_on: "canvas",
-                events: { onhover: { enable: true, mode: "grab" }, onclick: { enable: false }, resize: true },
-                modes: { grab: { distance: 140, line_linked: { opacity: 0.15 } } }
-            },
-            retina_detect: true
+    /* ═══════════════════════════════════════════════════════
+       SMOOTH SCROLL
+       ═══════════════════════════════════════════════════════ */
+    document.addEventListener('click', (e) => {
+        const anchor = e.target.closest('a[href^="#"]');
+        if (!anchor) return;
+        const href = anchor.getAttribute('href');
+        if (href === '#' || href.length < 2) return;
+        const target = document.querySelector(href);
+        if (!target) return;
+        e.preventDefault();
+        const top = target.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top, behavior: 'smooth' });
+        const navCollapse = document.getElementById('navbarNav');
+        if (navCollapse && navCollapse.classList.contains('show')) {
+            const bsCollapse = bootstrap.Collapse.getInstance(navCollapse);
+            if (bsCollapse) bsCollapse.hide();
+        }
+    });
+
+    /* ═══════════════════════════════════════════════════════
+       ⬆️ BACK TO TOP
+       ═══════════════════════════════════════════════════════ */
+    const backToTop = document.getElementById('backToTop');
+    if (backToTop) {
+        backToTop.setAttribute('title', tLabel('backToTop'));
+        window.addEventListener('scroll', () => {
+            backToTop.classList.toggle('is-visible', window.scrollY > 600);
+        }, { passive: true });
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            trackEvent('Back To Top');
         });
     }
 
-    // ── Scroll reveal timeline ──
-    const revealItems = document.querySelectorAll('.timeline-item');
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry, i) => {
-            if (entry.isIntersecting) {
-                setTimeout(() => entry.target.classList.add('is-visible'), i * 80);
-            }
-        });
-    }, { threshold: 0.1 });
-    revealItems.forEach(item => revealObserver.observe(item));
-
-    // ── Toggle timeline item ──
-    document.addEventListener('click', (e) => {
-        // Jika klik link di dalam header → biarkan browser buka link, jangan toggle
-        if (e.target.closest('.role-link, .company-link')) return;
-
-        const header = e.target.closest('.exp-header');
-        if (!header) return;
-        const item = header.closest('.exp-item');
-        if (!item) return;
-        const willOpen = !item.classList.contains('is-open');
-        item.classList.toggle('is-open', willOpen);
-        header.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
-    });
-
-    // ── Smooth scroll ──
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const href = this.getAttribute('href');
-            if (href === '#' || href.length < 2) return;
-            const target = document.querySelector(href);
-            if (!target) return;
-            e.preventDefault();
-            const top = target.getBoundingClientRect().top + window.scrollY - 80;
-            window.scrollTo({ top, behavior: 'smooth' });
-            const navCollapse = document.getElementById('navbarNav');
-            if (navCollapse && navCollapse.classList.contains('show')) {
-                const bsCollapse = bootstrap.Collapse.getInstance(navCollapse);
-                if (bsCollapse) bsCollapse.hide();
-            }
-        });
-    });
-
-        /* ═══════════════════════════════════════════════════════
-       GALLERY: horizontal scroll + drag + arrows
+    /* ═══════════════════════════════════════════════════════
+       GALLERY (horizontal scroll + drag + arrows)
        ═══════════════════════════════════════════════════════ */
-    initGallery('projectsGrid');
-    initGallery('certsGrid');
-
     function initGallery(gridId) {
         const grid = document.getElementById(gridId);
         if (!grid) return;
@@ -395,7 +703,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const section = grid.closest('section');
         const header  = section ? section.querySelector('.section-header') : null;
 
-        // ── Suntikkan tombol panah ke section-header ──
+        // Hapus panah lama (saat re-render bahasa)
+        if (header) {
+            const oldNav = header.querySelector('.gallery-nav');
+            if (oldNav) oldNav.remove();
+        }
+
         let prevBtn, nextBtn;
         if (header && !header.querySelector('.gallery-nav')) {
             const nav = document.createElement('div');
@@ -423,7 +736,6 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
 
-        // ── Update state tombol disabled berdasarkan posisi scroll ──
         function updateArrows() {
             if (!prevBtn || !nextBtn) return;
             const maxScroll = grid.scrollWidth - grid.clientWidth;
@@ -435,54 +747,38 @@ document.addEventListener("DOMContentLoaded", function () {
         grid.addEventListener('scroll', () => {
             window.requestAnimationFrame(updateArrows);
         }, { passive: true });
-
-        window.addEventListener('resize', updateArrows);
         setTimeout(updateArrows, 100);
 
-        // ── Drag-to-scroll (mouse) ──
-        let isDown = false;
-        let startX = 0;
-        let startScroll = 0;
-        let moved = false;
+        // Drag-to-scroll (idempotent — pakai flag)
+        if (!grid._dragBound) {
+            grid._dragBound = true;
+            let isDown = false, startX = 0, startScroll = 0, moved = false;
 
-        grid.addEventListener('mousedown', (e) => {
-            // Jangan drag kalau yang diklik adalah link / tombol / img
-            if (e.target.closest('a, button')) return;
-            isDown = true;
-            moved = false;
-            startX = e.pageX;
-            startScroll = grid.scrollLeft;
-            grid.classList.add('is-dragging');
-        });
-
-        window.addEventListener('mouseup', () => {
-            isDown = false;
-            grid.classList.remove('is-dragging');
-        });
-
-        window.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            const dx = e.pageX - startX;
-            if (Math.abs(dx) > 5) moved = true;
-            grid.scrollLeft = startScroll - dx;
-        });
-
-        // Cegah klik tak sengaja setelah drag
-        grid.addEventListener('click', (e) => {
-            if (moved) {
-                e.preventDefault();
-                e.stopPropagation();
-                moved = false;
-            }
-        }, true);
-
-        // ── Keyboard navigation (← / →) saat grid dalam viewport ──
-        // (opsional — biarkan default kalau user tidak butuh)
+            grid.addEventListener('mousedown', (e) => {
+                if (e.target.closest('a, button')) return;
+                isDown = true; moved = false;
+                startX = e.pageX; startScroll = grid.scrollLeft;
+                grid.classList.add('is-dragging');
+            });
+            window.addEventListener('mouseup', () => {
+                isDown = false;
+                grid.classList.remove('is-dragging');
+            });
+            window.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                const dx = e.pageX - startX;
+                if (Math.abs(dx) > 5) moved = true;
+                grid.scrollLeft = startScroll - dx;
+            });
+            grid.addEventListener('click', (e) => {
+                if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; }
+            }, true);
+        }
     }
-    
-    // ── Skill Graph ──
-    initSkillGraph();
 
+    /* ═══════════════════════════════════════════════════════
+       SKILL GRAPH
+       ═══════════════════════════════════════════════════════ */
     function initSkillGraph() {
         const svgEl = document.getElementById('skillGraph');
         const panel = document.getElementById('skillEvidence');
@@ -523,13 +819,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         textSel.each(function (d) {
             const el = d3.select(this);
-            const words = d.label.split(' ');
-            if (words.length > 1 && d.label.length > 10) {
+            const label = t(d.label);
+            const words = label.split(' ');
+            if (words.length > 1 && label.length > 10) {
                 const mid = Math.ceil(words.length / 2);
                 el.append('tspan').attr('x', 0).attr('dy', '-0.45em').text(words.slice(0, mid).join(' '));
                 el.append('tspan').attr('x', 0).attr('dy', '1.25em').text(words.slice(mid).join(' '));
             } else {
-                el.append('tspan').attr('x', 0).attr('dy', '0.32em').text(d.label);
+                el.append('tspan').attr('x', 0).attr('dy', '0.32em').text(label);
             }
         });
 
@@ -537,8 +834,6 @@ document.addEventListener("DOMContentLoaded", function () {
             const textNode = this.querySelector('text');
             let bbox = { width: 60, height: 20 };
             try { bbox = textNode.getBBox(); } catch (e) {}
-            d._w = bbox.width;
-            d._h = bbox.height;
             d._r = Math.max(bbox.width, bbox.height) / 2 + 18;
             d3.select(this).select('.sg-hit').attr('r', d._r);
         });
@@ -574,9 +869,9 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             const neighbors = new Set([focusId]);
             links.forEach(l => {
-                const s = l.source.id, t = l.target.id;
-                if (s === focusId) neighbors.add(t);
-                if (t === focusId) neighbors.add(s);
+                const s = l.source.id, tt = l.target.id;
+                if (s === focusId) neighbors.add(tt);
+                if (tt === focusId) neighbors.add(s);
             });
             nodeSel
                 .classed('is-dim', d => !neighbors.has(d.id))
@@ -591,15 +886,15 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!items.length) {
                 panel.innerHTML = `
                     <span class="evidence-kicker">Evidence</span>
-                    <h4 class="evidence-title">${skill.label}</h4>
+                    <h4 class="evidence-title">${t(skill.label)}</h4>
                     <p class="evidence-sub">${skill.sub}</p>
-                    <p class="evidence-prompt">No evidence entries yet for this skill.</p>
+                    <p class="evidence-prompt">No evidence entries yet.</p>
                 `;
                 return;
             }
             panel.innerHTML = `
                 <span class="evidence-kicker">Evidence</span>
-                <h4 class="evidence-title">${skill.label}</h4>
+                <h4 class="evidence-title">${t(skill.label)}</h4>
                 <p class="evidence-sub">${skill.sub}</p>
                 <div class="evidence-list">
                     ${items.map((it, i) => {
@@ -621,13 +916,19 @@ document.addEventListener("DOMContentLoaded", function () {
         nodeSel
             .on('mouseenter', (e, d) => { hoverId = d.id; refreshHighlight(); })
             .on('mouseleave', () => { hoverId = null; refreshHighlight(); })
-            .on('click', (e, d) => { e.stopPropagation(); selectedId = d.id; refreshHighlight(); renderEvidence(d); });
+            .on('click', (e, d) => {
+                e.stopPropagation();
+                selectedId = d.id;
+                refreshHighlight();
+                renderEvidence(d);
+                trackEvent('Skill Click', { skill: d.id });
+            });
 
-        const firstSkill = skills[0];
-        if (firstSkill) {
-            selectedId = firstSkill.id;
+        const first = skills[0];
+        if (first) {
+            selectedId = first.id;
             refreshHighlight();
-            renderEvidence(firstSkill);
+            renderEvidence(first);
         }
     }
 

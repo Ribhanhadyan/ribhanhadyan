@@ -1,395 +1,493 @@
 /* ═══════════════════════════════════════════════════════════════
    ✏️  EDIT FILE INI SAJA
    ─────────────────────────────────────────────────────────────
-   Semua konten website dikendalikan dari file ini.
+   🌐 BILINGUAL: setiap field text bisa berupa:
+      - "Hello"                          → dipakai untuk semua bahasa
+      - { en: "Hello", id: "Halo" }      → versi per bahasa
 
-   🔗 ATRIBUT URL (opsional, bisa ditambahkan di banyak tempat):
-   - url          : alamat link (https://..., mailto:..., dsb)
-   - urlLabel     : teks label (opsional, ada default per section)
+   📅 CAREER TIMELINE: setiap experience item butuh:
+      - startDate : "YYYY-MM" (contoh: "2024-11")
+      - endDate   : "YYYY-MM" atau null untuk "Present"
+      - category  : "work" | "research" | "education" | "internship"
+        (untuk warna bar di Gantt chart)
+      Kalau tidak diisi, akan otomatis di-parse dari field `period`.
 
-   Contoh penerapan:
-   - Publications → url ke DOI / halaman jurnal
-   - Certificates → url ke halaman verifikasi / PDF
-   - Experience   → url ke website perusahaan
-   - Education    → url ke website kampus
-   - Projects     → url shortcut (atau pakai `link` lengkap)
-   - Skills evidence → url ke sumber referensi
+   📊 ANALYTICS: isi salah satu atau keduanya di `analytics`.
    ═══════════════════════════════════════════════════════════════ */
 
 const CONFIG = {
+  /* ─────────────────────────────────────────────────────────────
+     0. LANGUAGE / i18n
+     ───────────────────────────────────────────────────────────── */
+  i18n: {
+    default: "en",
+    languages: [
+      { code: "en", label: "EN" },
+      { code: "id", label: "ID" }
+    ],
+    labels: {
+      backToTop:     { en: "Back to top",       id: "Kembali ke atas" },
+      viewProject:   { en: "View Project",      id: "Lihat Proyek" },
+      viewOriginal:  { en: "View Original",     id: "Lihat Asli" },
+      verifyCert:    { en: "Verify Certificate", id: "Verifikasi Sertifikat" },
+      present:       { en: "Present",           id: "Sekarang" }
+    }
+  },
+
+  /* ─────────────────────────────────────────────────────────────
+     0b. ANALYTICS (privacy-first)
+     ───────────────────────────────────────────────────────────── */
+  analytics: {
+    // Plausible — isi `domain` dengan domain Anda di Plausible
+    plausible: {
+      enable: false,
+      domain: "ribhanhadyan.com",
+      src: "https://plausible.io/js/script.js"
+    },
+    // Umami Cloud / self-hosted
+    umami: {
+      enable: false,
+      websiteId: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+      src: "https://cloud.umami.is/script.js"
+    },
+    // Track durasi baca per section (>4 detik dianggap "read")
+    trackSections: true
+  },
+
   /* ─────────────────────────────────────────────────────────────
      1. IDENTITAS & HERO
      ───────────────────────────────────────────────────────────── */
   profile: {
     brandName: "Ribhan Hadiyan",
     logo: "img/logo_hadyan.png",
-    firstName: "Muhammad",
-    lastName: "Ribhan Hadiyan",
-    eyebrow: "Portfolio · 2026",
-    roles: ["Data Scientist", "Mathematician", "Operations Research Enthusiast", "Problem Solver","Longlife Learner"],
-    description:
-      "Data Science &amp; Modelling Specialist at BFI Finance, blending a Mathematics background (GPA 3.88/4.00) with hands-on experience in building models that drive business results. I developed the team's first behavior-based collection model. Driven by curiosity and a constant desire to learn and grow.",
+    firstName: { en: "Muhammad", id: "Muhammad" },
+    lastName:  { en: "Ribhan Hadiyan", id: "Ribhan Hadiyan" },
+    eyebrow:   { en: "Portfolio · 2026", id: "Portofolio · 2026" },
+    roles: {
+      en: ["Data Scientist", "Mathematician", "Operations Research Enthusiast", "Problem Solver"],
+      id: ["Data Scientist", "Matematikawan", "Penggemar Operations Research", "Pemecah Masalah"]
+    },
+    description: {
+      en: "Data Science &amp; Modelling Specialist at BFI Finance with a Mathematics background (GPA 3.88/4.00). Built the team's first behavior-based collection model, lifting Telecollection success rate from 70% to 90%.",
+      id: "Spesialis Data Science &amp; Modelling di BFI Finance dengan latar belakang Matematika (IPK 3.88/4.00). Membangun model collection pertama berbasis behavior di tim, meningkatkan success rate Telecollection dari 70% ke 90%."
+    },
     photo: "img/ribhanhadiyan.png",
-    ctaPrimary: { label: "View Projects", href: "#projects" },
-    ctaSecondary: { label: "Let's connect →", href: "#contact" },
+    ctaPrimary:   { label: { en: "View Projects", id: "Lihat Proyek" },   href: "#projects" },
+    ctaSecondary: { label: { en: "Let's connect →", id: "Hubungi saya →" }, href: "#contact" }
   },
 
   /* ─────────────────────────────────────────────────────────────
      2. NAVIGASI
      ───────────────────────────────────────────────────────────── */
   nav: [
-    { id: "home", label: "Home" },
-    { id: "about", label: "About" },
-    { id: "experience", label: "Experience" },
-    { id: "projects", label: "Projects" },
-    { id: "publications", label: "Publications" },
-    { id: "education", label: "Education" },
-    { id: "certificates", label: "Certificates" },
-    { id: "contact", label: "Contact" },
+    { id: "home",         label: { en: "Home",         id: "Beranda" } },
+    { id: "about",        label: { en: "About",        id: "Tentang" } },
+    { id: "career",       label: { en: "Career",       id: "Karier" } },
+    { id: "experience",   label: { en: "Experience",   id: "Pengalaman" } },
+    { id: "projects",     label: { en: "Projects",     id: "Proyek" } },
+    { id: "publications", label: { en: "Publications", id: "Publikasi" } },
+    { id: "education",    label: { en: "Education",    id: "Pendidikan" } },
+    { id: "certificates", label: { en: "Certificates", id: "Sertifikat" } },
+    { id: "contact",      label: { en: "Contact",      id: "Kontak" } }
   ],
 
   /* ─────────────────────────────────────────────────────────────
      3. ABOUT
      ───────────────────────────────────────────────────────────── */
   about: {
-    sectionLabel: "01 — About",
-    titleLine1: "My Journey",
-    titleLine2: "in Data",
-    paragraphs: [
-      "<strong>Data Science &amp; Modelling Specialist</strong> at BFI Finance, and a lifelong learner. My Mathematics background (GPA 3.88/4.00, focus on stochastic modelling) taught me to approach problems with curiosity, rigor, and humility—because there is always more to understand.",
-      "At work, I had the opportunity to help build and deploy my team’s first behavior-based collection model for PBF Product. I’m grateful to the team and business stakeholders who made that progress possible. I work with SQL in ODPS and Trino, develop monitoring systems with Streamlit and Apache Superset, and enjoy turning analysis into decisions together with others.",
-      "As a Certified TensorFlow Developer, I’m interested in bridging research and practical financial solutions—especially in Deep Learning (Fuzzy RBM) and Robust Optimization. My academic journey at Universitas Padjadjaran, including a thesis that reached 92% accuracy in malaria cell image classification, shaped my analytical mindset while reminding me how much I still have to learn. I hope to keep growing, contributing, and learning from the people around me.",
-    ],
+    sectionLabel: { en: "01 — About", id: "01 — Tentang" },
+    titleLine1:   { en: "My Journey", id: "Perjalanan Saya" },
+    titleLine2:   { en: "in Data",    id: "di Dunia Data" },
+    paragraphs: {
+      en: [
+        "<strong>Data Science &amp; Modelling Specialist</strong> at BFI Finance with a Mathematics background (GPA 3.88/4.00, stochastic modelling focus). I built and deployed the first behavior-based collection model in my team, lifting Telecollection success rate from <strong>70% to 90%</strong>.",
+        "I work across SQL in ODPS and Trino, model monitoring systems (Streamlit, Apache Superset), and turning analysis into decisions together with business stakeholders. As a Certified TensorFlow Developer, I also bridge research in Deep Learning (Fuzzy RBM) and Robust Optimization with practical financial solutions.",
+        "My academic journey at Universitas Padjadjaran forged a rigorous analytical mindset, further deepened through research in Operations Research and Robust Optimization, culminating in a thesis achieving 92% accuracy in malaria cell image classification."
+      ],
+      id: [
+        "<strong>Spesialis Data Science &amp; Modelling</strong> di BFI Finance dengan latar belakang Matematika (IPK 3.88/4.00, fokus pemodelan stokastik). Saya membangun dan men-deploy model collection pertama berbasis behavior di tim, meningkatkan success rate Telecollection dari <strong>70% ke 90%</strong>.",
+        "Saya bekerja di SQL di ODPS dan Trino, sistem monitoring model (Streamlit, Apache Superset), dan menerjemahkan analisis menjadi keputusan bersama stakeholder bisnis. Sebagai Certified TensorFlow Developer, saya juga menjembatani riset Deep Learning (Fuzzy RBM) dan Robust Optimization dengan solusi finansial praktis.",
+        "Perjalanan akademis saya di Universitas Padjadjaran membentuk pola pikir analitis yang ketat, diperdalam melalui riset di Operations Research dan Robust Optimization, memuncak pada skripsi dengan akurasi 92% untuk klasifikasi sel malaria."
+      ]
+    },
     stats: [
-      { number: "3.88", label: "GPA / 4.00" },
-      { number: "4+", label: "Publications" },
-    ],
+      { number: "3.88", label: { en: "GPA / 4.00",        id: "IPK / 4.00" } },
+      { number: "4+",   label: { en: "Publications",      id: "Publikasi" } },
+      { number: "90%",  label: { en: "Tele Success Rate", id: "Tele Success Rate" } }
+    ]
   },
 
   /* ─────────────────────────────────────────────────────────────
      4. SKILL GRAPH
-        Setiap evidence item boleh punya `url` (opsional).
      ───────────────────────────────────────────────────────────── */
   skills: {
-    showcaseLabel: "Technical Skills",
-    showcaseTitle: "Skill Graph",
-    showcaseTitleAccent: "& Evidence",
-    hint: "Hover a node to highlight related skills · Click to reveal where it was applied",
+    showcaseLabel:       { en: "Technical Skills", id: "Keahlian Teknis" },
+    showcaseTitle:       { en: "Skill Graph",      id: "Peta Keahlian" },
+    showcaseTitleAccent: { en: "& Evidence",       id: "& Bukti" },
+    hint: {
+      en: "Hover a node to highlight related skills · Click to reveal where it was applied",
+      id: "Arahkan ke node untuk menyorot skill terkait · Klik untuk melihat penerapannya"
+    },
 
     nodes: [
-      { id: "python", label: "Python", sub: "Pandas · NumPy · Scikit-learn" },
-      { id: "sql", label: "SQL", sub: "Trino · ODPS" },
-      { id: "r", label: "R & LaTeX", sub: "Biblioshiny · Typesetting" },
-      { id: "dl", label: "Deep Learning", sub: "TensorFlow · Keras" },
-      { id: "fe", label: "Feature Engineering", sub: "Statistical Modeling" },
-      { id: "shap", label: "Explainable AI", sub: "SHAP" },
-      { id: "mlops", label: "MLOps", sub: "Deployment · UAT/PAT · Monitoring" },
-      { id: "viz", label: "Visualization", sub: "Streamlit · Superset · Tableau" },
+      { id: "python", label: { en: "Python",              id: "Python" },              sub: "Pandas · NumPy · Scikit-learn" },
+      { id: "sql",    label: { en: "SQL",                 id: "SQL" },                 sub: "Trino · ODPS" },
+      { id: "r",      label: { en: "R & LaTeX",           id: "R & LaTeX" },           sub: "Biblioshiny · Typesetting" },
+      { id: "dl",     label: { en: "Deep Learning",       id: "Deep Learning" },       sub: "TensorFlow · Keras" },
+      { id: "fe",     label: { en: "Feature Engineering", id: "Feature Engineering" }, sub: "Statistical Modeling" },
+      { id: "shap",   label: { en: "Explainable AI",      id: "Explainable AI" },      sub: "SHAP" },
+      { id: "mlops",  label: { en: "MLOps",               id: "MLOps" },               sub: "Deployment · UAT/PAT · Monitoring" },
+      { id: "viz",    label: { en: "Visualization",       id: "Visualisasi" },         sub: "Streamlit · Superset · Tableau" }
     ],
 
     links: [
-      { source: "python", target: "dl" },
-      { source: "python", target: "fe" },
-      { source: "python", target: "viz" },
-      { source: "python", target: "shap" },
-      { source: "python", target: "r" },
-      { source: "sql", target: "fe" },
-      { source: "sql", target: "mlops" },
-      { source: "sql", target: "viz" },
-      { source: "dl", target: "shap" },
-      { source: "dl", target: "fe" },
-      { source: "fe", target: "shap" },
-      { source: "mlops", target: "viz" },
-      { source: "mlops", target: "dl" },
-      { source: "r", target: "fe" },
+      { source: "python", target: "dl" },   { source: "python", target: "fe" },
+      { source: "python", target: "viz" },  { source: "python", target: "shap" },
+      { source: "python", target: "r" },    { source: "sql",    target: "fe" },
+      { source: "sql",    target: "mlops" },{ source: "sql",    target: "viz" },
+      { source: "dl",     target: "shap" }, { source: "dl",     target: "fe" },
+      { source: "fe",     target: "shap" }, { source: "mlops",  target: "viz" },
+      { source: "mlops",  target: "dl" },   { source: "r",      target: "fe" }
     ],
 
     evidence: {
       python: [
-        { type: "Work · BFI Finance", title: "Mortgage Predictive Models", desc: "Built & deployed 2 models classifying 1,500+ monthly contracts; migrated 200+ features from ODPS to Trino." },
-        { type: "Project · DSC 2024", title: "Predictive E-wallet Fraud", desc: "Real-time interactive dashboard for detecting fraudulent e-wallet transactions using ML + SHAP.", url: "https://github.com/WibiAnto/AstlaM-DSC2024" },
+        { type: "Work · BFI Finance",  title: "Mortgage Predictive Models",      desc: "Built & deployed 2 models classifying 1,500+ monthly contracts; migrated 200+ features from ODPS to Trino." },
+        { type: "Project · DSC 2024",  title: "Predictive E-wallet Fraud",       desc: "Real-time interactive dashboard for detecting fraudulent e-wallet transactions using ML + SHAP.", url: "https://github.com/WibiAnto/AstlaM-DSC2024" },
         { type: "Thesis · Unpad 2024", title: "Fuzzy RBM + SVM — Malaria Cells", desc: "Hybrid deep feature extraction + SVM classifier reaching 92% accuracy on malaria cell images." },
-        { type: "Project", title: "Stock Prediction — RNN & LSTM", desc: "Time-series forecasting models with RNN achieving MAE of 0.0249." },
+        { type: "Project",             title: "Stock Prediction — RNN & LSTM",   desc: "Time-series forecasting models with RNN achieving MAE of 0.0249." }
       ],
       sql: [
-        { type: "Work · BFI Finance", title: "ODPS → Trino Migration", desc: "Translated queries and mapped tables — reduced a 1-month+ manual backfill to 2 weeks while keeping deployment on schedule." },
-        { type: "Work · BFI Finance", title: "Monitoring Datamart", desc: "Trino SQL datamart powering Streamlit & Superset monitoring, replacing manual Excel VLOOKUP workflows." },
+        { type: "Work · BFI Finance", title: "ODPS → Trino Migration", desc: "Translated queries and mapped tables — reduced a 1-month+ manual backfill to 2 weeks." },
+        { type: "Work · BFI Finance", title: "Monitoring Datamart",    desc: "Trino SQL datamart powering Streamlit & Superset monitoring." }
       ],
       r: [
-        { type: "Research · Unpad", title: "Bibliometric Analyses", desc: "R-Biblioshiny + VOSviewer across 5+ research topics and 200+ articles, supporting 3+ journal publications." },
-        { type: "Publications", title: "LaTeX Manuscripts", desc: "Formatted and revised 15+ manuscripts for IAENG, Elsevier and Springer journals." },
+        { type: "Research · Unpad", title: "Bibliometric Analyses", desc: "R-Biblioshiny + VOSviewer across 5+ research topics and 200+ articles." },
+        { type: "Publications",     title: "LaTeX Manuscripts",     desc: "Formatted and revised 15+ manuscripts for IAENG, Elsevier and Springer journals." }
       ],
       dl: [
         { type: "Thesis · Unpad 2024", title: "Fuzzy Restricted Boltzmann Machine", desc: "Combined fuzzy logic with RBM feature extraction for malaria cell image classification (92%)." },
-        { type: "Project · Bangkit", title: "LiFit — BMI Detection App", desc: "Capstone mobile app with TensorFlow-powered BMI detection and personalized health recommendations.", url: "https://github.com/Ribhanhadyan/LiFit" },
-        { type: "Project", title: "Stock Prediction — RNN & LSTM", desc: "Recurrent networks for stock-market time-series forecasting." },
+        { type: "Project · Bangkit",   title: "LiFit — BMI Detection App",          desc: "Capstone mobile app with TensorFlow-powered BMI detection.", url: "https://github.com/Ribhanhadyan/LiFit" },
+        { type: "Project",             title: "Stock Prediction — RNN & LSTM",      desc: "Recurrent networks for stock-market time-series forecasting." }
       ],
       fe: [
         { type: "Work · BFI Finance", title: "Behavior-Based Collection Model", desc: "Engineered features driving the first behavior-based collection model — lifted Tele success rate from 70% to 90%." },
-        { type: "Work · BFI Finance", title: "Feature Migration (200+)", desc: "Migrated and selected 200+ features from ODPS to Trino for mortgage predictive models." },
-        { type: "Project · DSC 2024", title: "E-wallet Fraud Features", desc: "Engineered behavioral and transaction features for real-time fraud detection." },
+        { type: "Work · BFI Finance", title: "Feature Migration (200+)",        desc: "Migrated and selected 200+ features from ODPS to Trino." },
+        { type: "Project · DSC 2024", title: "E-wallet Fraud Features",         desc: "Engineered behavioral and transaction features for real-time fraud detection." }
       ],
       shap: [
         { type: "Project · DSC 2024", title: "E-wallet Fraud Explainability", desc: "Applied SHAP to explain model predictions in a real-time fraud dashboard.", url: "https://github.com/WibiAnto/AstlaM-DSC2024" },
-        { type: "Work · BFI Finance", title: "Model Explainability", desc: "Translated model outputs into business-actionable insights for stakeholder decisions." },
+        { type: "Work · BFI Finance", title: "Model Explainability",          desc: "Translated model outputs into business-actionable insights." }
       ],
       mlops: [
-        { type: "Work · BFI Finance", title: "Deployment & QA", desc: "Managed Car/MCY retail model deployment with UAT (7 scenarios) and PAT (8 rollback scenarios)." },
-        { type: "Work · BFI Finance", title: "Model Monitoring System", desc: "Streamlit + Superset dashboards backed by a Trino datamart — automated persona monitoring across the portfolio." },
-        { type: "Work · BFI Finance", title: '"Is Success" Tracking Rebuild', desc: "Reduced the feedback loop from a 15-day lag to daily monitoring for management." },
-        { type: "Work · BFI Finance", title: "G-Chat Health Alerts", desc: "Integrated G-Chat alerts for readiness of 5 critical pipeline tables to catch issues earlier." },
+        { type: "Work · BFI Finance", title: "Deployment & QA",               desc: "Managed Car/MCY retail model deployment with UAT (7 scenarios) and PAT (8 rollback scenarios)." },
+        { type: "Work · BFI Finance", title: "Model Monitoring System",       desc: "Streamlit + Superset dashboards backed by a Trino datamart." },
+        { type: "Work · BFI Finance", title: '"Is Success" Tracking Rebuild', desc: "Reduced the feedback loop from a 15-day lag to daily monitoring." },
+        { type: "Work · BFI Finance", title: "G-Chat Health Alerts",          desc: "Integrated G-Chat alerts for readiness of 5 critical pipeline tables." }
       ],
       viz: [
-        { type: "Work · BFI Finance", title: "Streamlit & Superset", desc: "Two-part monitoring system: DS-facing Streamlit app + business-facing Apache Superset dashboards." },
-        { type: "Project · DSC 2024", title: "Dash Fraud Dashboard", desc: "Real-time interactive dashboard visualizing fraud detection results and SHAP explanations.", url: "https://github.com/WibiAnto/AstlaM-DSC2024" },
-        { type: "Research · Unpad", title: "Optimization Visualizations", desc: "Python visualizations of optimization models (convex hull, demand/capacity) and textbook contributions." },
-      ],
-    },
+        { type: "Work · BFI Finance", title: "Streamlit & Superset",        desc: "Two-part monitoring system: DS-facing Streamlit app + business-facing Superset dashboards." },
+        { type: "Project · DSC 2024", title: "Dash Fraud Dashboard",        desc: "Real-time interactive dashboard visualizing fraud detection results and SHAP explanations.", url: "https://github.com/WibiAnto/AstlaM-DSC2024" },
+        { type: "Research · Unpad",   title: "Optimization Visualizations", desc: "Python visualizations of optimization models (convex hull, demand/capacity)." }
+      ]
+    }
   },
 
   /* ─────────────────────────────────────────────────────────────
-     5. WORK EXPERIENCE
-        Field opsional:
-        - roleNote, companyNote, location, bullets (HTML allowed)
-        - url        : link opsional (mis. website perusahaan)
-        - urlLabel   : label custom untuk link (default: "Visit site")
+     5. CAREER TIMELINE (Gantt)
+     ───────────────────────────────────────────────────────────── */
+  career: {
+    sectionLabel: { en: "02 — Career Path", id: "02 — Jalur Karier" },
+    titleLine1:   { en: "Career",           id: "Timeline" },
+    titleLine2:   { en: "Timeline",         id: "Karier" },
+    legend: {
+      work:       { en: "Work",       id: "Kerja",      color: "#c8a96e" },
+      research:   { en: "Research",   id: "Riset",      color: "#8a9bae" },
+      education:  { en: "Education",  id: "Pendidikan", color: "#7a8f6a" },
+      internship: { en: "Internship", id: "Magang",     color: "#b58a9c" }
+    }
+  },
+
+  /* ─────────────────────────────────────────────────────────────
+     6. WORK EXPERIENCE
+        startDate, endDate, category WAJIB untuk Gantt chart.
      ───────────────────────────────────────────────────────────── */
   experience: {
-    sectionLabel: "02 — Experience",
-    titleLine1: "Work",
-    titleLine2: "History",
+    sectionLabel: { en: "03 — Experience", id: "03 — Pengalaman" },
+    titleLine1:   { en: "Work",            id: "Riwayat" },
+    titleLine2:   { en: "History",         id: "Kerja" },
     items: [
       {
         period: "Nov 2024 — Present",
-        role: "Asset Management Data Science & Modelling Specialist",
+        startDate: "2024-11",
+        endDate: null,
+        category: "work",
+        role: { en: "Asset Management Data Science & Modelling Specialist", id: "Spesialis Data Science & Modelling Asset Management" },
         company: "PT BFI Finance Indonesia, Tbk",
-        companyUrl: "https://www.bfi.co.id", // ← klik nama perusahaan
-        location: "Tangerang, Banten, Indonesia",
-        bullets: [
-          "Built and deployed the <strong>first behavior-based collection model</strong> for the PBF/mortgage portfolio, replacing a duration-based routing rule (Tele vs. Field) and raising <strong>Tele success rate from 70% to 90%</strong> by routing high-risk contracts to Field/ARO from day one of delinquency.",
-          "Led end-to-end development of 2 mortgage predictive models classifying 1,500+ monthly contracts: migrating 200+ features from <strong>ODPS to Trino</strong>, feature engineering/selection, modelling, and getting management approval for rollout.",
-          "Handled an ODPS-to-Trino cost constraint with a query-translation and table-mapping approach, reducing a projected <strong>1-month+ manual backfill to 2 weeks</strong> and keeping the PBF model deployment on schedule.",
-          "Resolved a disagreement on the self-cure label definition (7 vs. 13 days past due) by building and comparing two parallel models on success rate, giving management a data-based reference for the final decision.",
-          "Managed <strong>model deployment and QA</strong> for Car/MCY retail models with Data Management on UAT (Features &amp; Models) and PAT, covering 7 UAT scenarios and 8 rollback contingency scenarios.",
-          "Built a two-part <strong>model monitoring system</strong>: a Streamlit app for Data Science analysis and Apache Superset dashboards for business stakeholders, backed by a Trino SQL datamart that automated persona monitoring and replaced manual Excel VLOOKUP work.",
-          'Rebuilt the <strong>"Is Success" model tracking</strong> pipeline, reducing the feedback loop from a 15-day lag to <strong>daily monitoring</strong> for management.',
-          "Built a <strong>G-Chat integration</strong> for infrastructure health checks, sending alerts on the readiness of 5 critical tables to catch pipeline issues earlier.",
-        ],
+        companyUrl: "https://www.bfi.co.id",
+        location: { en: "Tangerang, Banten, Indonesia", id: "Tangerang, Banten, Indonesia" },
+        bullets: {
+          en: [
+            "Built and deployed the <strong>first behavior-based collection model</strong> for the PBF/mortgage portfolio, replacing a duration-based routing rule (Tele vs. Field) and raising <strong>Tele success rate from 70% to 90%</strong> by routing high-risk contracts to Field/ARO from day one of delinquency.",
+            "Led end-to-end development of 2 mortgage predictive models classifying 1,500+ monthly contracts: migrating 200+ features from <strong>ODPS to Trino</strong>, feature engineering/selection, modelling, and getting management approval for rollout.",
+            "Handled an ODPS-to-Trino cost constraint with a query-translation and table-mapping approach, reducing a projected <strong>1-month+ manual backfill to 2 weeks</strong> and keeping the PBF model deployment on schedule.",
+            "Resolved a disagreement on the self-cure label definition (7 vs. 13 days past due) by building and comparing two parallel models on success rate, giving management a data-based reference for the final decision.",
+            "Managed <strong>model deployment and QA</strong> for Car/MCY retail models with Data Management on UAT (Features &amp; Models) and PAT, covering 7 UAT scenarios and 8 rollback contingency scenarios.",
+            "Built a two-part <strong>model monitoring system</strong>: a Streamlit app for Data Science analysis and Apache Superset dashboards for business stakeholders, backed by a Trino SQL datamart that automated persona monitoring and replaced manual Excel VLOOKUP work.",
+            'Rebuilt the <strong>"Is Success" model tracking</strong> pipeline, reducing the feedback loop from a 15-day lag to <strong>daily monitoring</strong> for management.',
+            "Built a <strong>G-Chat integration</strong> for infrastructure health checks, sending alerts on the readiness of 5 critical tables to catch pipeline issues earlier."
+          ],
+          id: [
+            "Membangun dan men-deploy <strong>model collection pertama berbasis behavior</strong> untuk portofolio PBF/mortgage, menggantikan aturan routing berbasis durasi (Tele vs. Field) dan meningkatkan <strong>success rate Tele dari 70% ke 90%</strong> dengan routing kontrak berisiko tinggi ke Field/ARO sejak hari pertama keterlambatan.",
+            "Memimpin pengembangan end-to-end 2 model prediktif mortgage yang mengklasifikasikan 1.500+ kontrak bulanan: migrasi 200+ fitur dari <strong>ODPS ke Trino</strong>, feature engineering/selection, pemodelan, dan mendapatkan persetujuan manajemen untuk rollout.",
+            "Mengatasi kendala biaya ODPS-to-Trino dengan pendekatan query-translation dan table-mapping, memangkas <strong>backfill manual 1 bulan+ menjadi 2 minggu</strong> dan menjaga deployment model PBF sesuai jadwal.",
+            "Menyelesaikan perbedaan pendapat tentang definisi label self-cure (7 vs. 13 hari keterlambatan) dengan membangun dan membandingkan dua model paralel pada success rate, memberi manajemen referensi berbasis data.",
+            "Mengelola <strong>deployment dan QA model</strong> untuk model retail Car/MCY bersama Data Management pada UAT (Features &amp; Models) dan PAT, mencakup 7 skenario UAT dan 8 skenario rollback.",
+            "Membangun <strong>sistem monitoring model</strong> dua bagian: aplikasi Streamlit untuk analisis Data Science dan dashboard Apache Superset untuk stakeholder bisnis, didukung datamart Trino SQL yang mengotomasi monitoring persona dan menggantikan pekerjaan VLOOKUP Excel manual.",
+            'Membangun ulang pipeline <strong>tracking model "Is Success"</strong>, memangkas feedback loop dari jeda 15 hari menjadi <strong>monitoring harian</strong> untuk manajemen.',
+            "Membangun <strong>integrasi G-Chat</strong> untuk health check infrastruktur, mengirim alert kesiapan 5 tabel kritis untuk mendeteksi masalah pipeline lebih dini."
+          ]
+        }
       },
       {
         period: "Feb 2023 — Feb 2026",
-        role: "Research & Teaching Assistant",
+        startDate: "2023-02",
+        endDate: "2026-02",
+        category: "research",
+        role: { en: "Research & Teaching Assistant", id: "Asisten Riset & Pengajaran" },
         company: "Universitas Padjadjaran",
         companyUrl: "https://www.unpad.ac.id",
-        companyNote: "with Prof. Diah Chaerani",
-        location: "Bandung, Indonesia",
-        bullets: [
-          "Conducted literature reviews and bibliometric analyses across 5+ research topics (robust optimization, machine learning, green economy) using R-Biblioshiny &amp; VOSviewer, analyzing 200+ articles to support 3+ journal publications.",
-          "Formatted and revised 15+ manuscripts for international journals (IAENG, Elsevier, Springer) in LaTeX, ensuring template compliance and incorporating reviewer feedback.",
-          "Modernized the Optimization and Nonlinear Programming practicum curriculum, migrating from Maple/MATLAB to Python and designing OBE-based lesson plans and assessments for 60+ students.",
-          'Built Python visualizations for optimization models (convex hull, demand/capacity) and contributed to a textbook on "Optimization with Python," including indexing and glossary.',
-          "Supported accreditation documentation for the Doctoral Program in Mathematics, including layout and compilation.",
-        ],
+        companyNote: { en: "with Prof. Diah Chaerani", id: "bersama Prof. Diah Chaerani" },
+        location: { en: "Bandung, Indonesia", id: "Bandung, Indonesia" },
+        bullets: {
+          en: [
+            "Conducted literature reviews and bibliometric analyses across 5+ research topics (robust optimization, machine learning, green economy) using R-Biblioshiny &amp; VOSviewer, analyzing 200+ articles to support 3+ journal publications.",
+            "Formatted and revised 15+ manuscripts for international journals (IAENG, Elsevier, Springer) in LaTeX, ensuring template compliance and incorporating reviewer feedback.",
+            "Modernized the Optimization and Nonlinear Programming practicum curriculum, migrating from Maple/MATLAB to Python and designing OBE-based lesson plans and assessments for 60+ students.",
+            'Built Python visualizations for optimization models (convex hull, demand/capacity) and contributed to a textbook on "Optimization with Python," including indexing and glossary.',
+            "Supported accreditation documentation for the Doctoral Program in Mathematics, including layout and compilation."
+          ],
+          id: [
+            "Melakukan literature review dan analisis bibliometrik di 5+ topik riset (robust optimization, machine learning, green economy) menggunakan R-Biblioshiny &amp; VOSviewer, menganalisis 200+ artikel untuk mendukung 3+ publikasi jurnal.",
+            "Memformat dan merevisi 15+ manuskrip untuk jurnal internasional (IAENG, Elsevier, Springer) dalam LaTeX, memastikan kepatuhan template dan menerapkan feedback reviewer.",
+            "Memodernisasi kurikulum praktikum Optimization dan Nonlinear Programming, migrasi dari Maple/MATLAB ke Python dan merancang RPS serta asesmen berbasis OBE untuk 60+ mahasiswa.",
+            'Membangun visualisasi Python untuk model optimisasi (convex hull, demand/capacity) dan berkontribusi pada buku teks "Optimization with Python", termasuk indexing dan glossary.',
+            "Mendukung dokumentasi akreditasi Program Doktor Matematika, termasuk layout dan kompilasi."
+          ]
+        }
       },
       {
         period: "Jan 2022 — Dec 2023",
-        role: "Laboratory Assistant",
+        startDate: "2022-01",
+        endDate: "2023-12",
+        category: "work",
+        role: { en: "Laboratory Assistant", id: "Asisten Laboratorium" },
         company: "Asisten Laboratorium Matematika Unpad",
-        location: "Jatinangor, Jawa Barat, Indonesia",
-        bullets: ["Assisted students in mathematics laboratory sessions and practical coursework.", "Supported preparation of laboratory materials and grading."],
-      },
-    ],
+        location: { en: "Jatinangor, Jawa Barat, Indonesia", id: "Jatinangor, Jawa Barat, Indonesia" },
+        bullets: {
+          en: ["Assisted students in mathematics laboratory sessions and practical coursework.", "Supported preparation of laboratory materials and grading."],
+          id: ["Membantu mahasiswa dalam sesi laboratorium matematika dan praktikum.", "Mendukung persiapan materi laboratorium dan penilaian."]
+        }
+      }
+    ]
   },
 
   /* ─────────────────────────────────────────────────────────────
-     6. PROJECTS
-        - image : path gambar (opsional). Jika kosong → placeholder icon.
-        - icon  : class FontAwesome untuk placeholder (opsional)
-        - link  : { href, label, icon } → tampil sebagai tombol link
-        - url   : shortcut — otomatis jadi link "View on GitHub"
+     7. PROJECTS
      ───────────────────────────────────────────────────────────── */
   projects: {
-    sectionLabel: "03 — Work",
-    titleLine1: "Featured",
-    titleLine2: "Projects",
+    sectionLabel: { en: "04 — Work",     id: "04 — Karya" },
+    titleLine1:   { en: "Featured",      id: "Proyek" },
+    titleLine2:   { en: "Projects",      id: "Pilihan" },
     items: [
       {
         num: "Project / 001",
-        title: "Predictive E-wallet Fraud",
-        description: "A real-time interactive dashboard for detecting and analyzing fraudulent e-wallet transactions using machine learning and explainable AI (SHAP).",
+        title: { en: "Predictive E-wallet Fraud", id: "Prediksi Fraud E-wallet" },
+        description: {
+          en: "A real-time interactive dashboard for detecting and analyzing fraudulent e-wallet transactions using machine learning and explainable AI (SHAP).",
+          id: "Dashboard interaktif real-time untuk mendeteksi dan menganalisis transaksi fraud e-wallet menggunakan machine learning dan explainable AI (SHAP)."
+        },
         image: "img/project/dsc/dashboard_fraud_ewalet.gif",
         tech: ["Python", "Dash", "SHAP"],
-        link: { href: "https://github.com/WibiAnto/AstlaM-DSC2024", label: "View on GitHub", icon: "fab fa-github" },
+        link: { href: "https://github.com/WibiAnto/AstlaM-DSC2024", label: { en: "View on GitHub", id: "Lihat di GitHub" }, icon: "fab fa-github" }
       },
       {
         num: "Project / 002",
-        title: "Sentiment Analysis — Megathrust",
-        description: "Processed 10K+ tweets using NLP pipelines to classify public sentiment on megathrust earthquakes using the Indonesia-BERT model.",
+        title: { en: "Sentiment Analysis — Megathrust", id: "Analisis Sentimen — Megathrust" },
+        description: {
+          en: "Processed 10K+ tweets using NLP pipelines to classify public sentiment on megathrust earthquakes using the Indonesia-BERT model.",
+          id: "Memproses 10K+ tweet menggunakan pipeline NLP untuk klasifikasi sentimen publik tentang gempa megathrust menggunakan model Indonesia-BERT."
+        },
         image: "img/project/megatrusht/Sentiment_distribution.png",
         tech: ["Python", "BERT", "NLP"],
-        // Shortcut: `url` + opsional `urlLabel`
-        url: "https://github.com/Ribhanhadyan/Sentiment-Analysis-Megatrusht",
+        url: "https://github.com/Ribhanhadyan/Sentiment-Analysis-Megatrusht"
       },
       {
         num: "Project / 003",
-        title: "LiFit — BMI Detection App",
-        description: "Capstone mobile app for BMI detection and health tracking with personalized recommendations powered by machine learning.",
+        title: { en: "LiFit — BMI Detection App", id: "LiFit — Aplikasi Deteksi BMI" },
+        description: {
+          en: "Capstone mobile app for BMI detection and health tracking with personalized recommendations powered by machine learning.",
+          id: "Aplikasi mobile capstone untuk deteksi BMI dan pelacakan kesehatan dengan rekomendasi personal berbasis machine learning."
+        },
         image: "img/project/lifit/lifit.gif",
         tech: ["Kotlin", "TensorFlow", "Firebase"],
-        link: { href: "https://github.com/Ribhanhadyan/LiFit", label: "View on GitHub", icon: "fab fa-github" },
+        link: { href: "https://github.com/Ribhanhadyan/LiFit", label: { en: "View on GitHub", id: "Lihat di GitHub" }, icon: "fab fa-github" }
       },
       {
         num: "Project / 004",
-        title: "Stock Prediction — RNN & LSTM",
-        description: "Built RNN & LSTM models for stock market analysis. RNN achieved MAE of 0.0249, demonstrating strong time-series forecasting capability.",
+        title: { en: "Stock Prediction — RNN & LSTM", id: "Prediksi Saham — RNN & LSTM" },
+        description: {
+          en: "Built RNN & LSTM models for stock market analysis. RNN achieved MAE of 0.0249, demonstrating strong time-series forecasting capability.",
+          id: "Membangun model RNN & LSTM untuk analisis pasar saham. RNN mencapai MAE 0.0249, menunjukkan kemampuan peramalan time-series yang kuat."
+        },
         icon: "fas fa-chart-line",
-        tech: ["Python", "RNN", "LSTM", "TensorFlow"],
-      },
-    ],
+        tech: ["Python", "RNN", "LSTM", "TensorFlow"]
+      }
+    ]
   },
 
   /* ─────────────────────────────────────────────────────────────
-     7. PUBLICATIONS
-        url → link ke DOI / jurnal. Title otomatis jadi clickable.
-        urlLabel → opsional (default: "View Publication")
+     8. PUBLICATIONS
      ───────────────────────────────────────────────────────────── */
   publications: {
-    sectionLabel: "04 — Research",
-    titleLine1: "Publications",
-    titleLine2: "& Research",
+    sectionLabel: { en: "05 — Research",     id: "05 — Riset" },
+    titleLine1:   { en: "Publications",      id: "Publikasi" },
+    titleLine2:   { en: "& Research",        id: "& Riset" },
     items: [
-        {
-        period: "2026",
-        role: "Integrating Dynamic Programming and Machine Learning for Spatial Land Use Allocation: A Systematic Literature Review Toward Green Economy Goals",
-        company: "Engineering Letters",
-        location: "Dynamic Programming · Machine Learning · Bibliometric Analysis · Deep Reinforcement Learning · Robust Optimization",
-        url: "https://www.engineeringletters.com/issues_v34/issue_10/EL_34_10_44.pdf", // ← ganti dengan DOI asli
-      },
-    {
-        period: "2026",
-        role: "A Systematic Review of Robust Optimization and Machine Learning Integration for Sustainable Resource Allocation Problems",
-        company: "IJAM",
-        location: "Robust Optimization · Machine Learning · Bibliometric Analysis",
-        url: "https://www.iaeng.org/IJAM/issues_v56/issue_8/IJAM_56_8_02.pdf", // ← ganti dengan DOI asli
-      },
       {
         period: "2025",
         role: "Fruit Ripeness Classification Using CNN & Bibliometric Analysis",
         company: "IAENG International Journal of Computer Science",
         location: "CNN · Computer Vision · Bibliometric Analysis",
-        url: "https://www.iaeng.org/IJCS/issues_v52/issue_11/IJCS_52_11_43.pdf", // ← ganti dengan DOI asli
+        url: "https://doi.org/10.5281/zenodo.example1"
       },
       {
         period: "2025",
         role: "Implementing Benders Decomposition Method on Multi-objective Integer Adjustable Robust Counterpart Optimization Model with Polyhedral Uncertainty Set",
         company: "Engineering Letters",
         location: "Operations Research · Robust Optimization · Integer Programming",
-        url: "https://www.engineeringletters.com/issues_v33/issue_10/EL_33_10_28.pdf",
+        url: "https://doi.org/10.5281/zenodo.example2"
       },
       {
         period: "2025",
         role: "A Study on Lontar Printing Optimization Method for Ancient Sundanese Manuscript Preservation",
         company: "Engineering Letters",
         location: "Optimization · Cultural Heritage · Operations Research",
-        url: "https://www.engineeringletters.com/issues_v33/issue_12/EL_33_12_20.pdf",
+        url: "https://doi.org/10.5281/zenodo.example3"
       },
       {
         period: "2024",
         role: "Fuzzy RBM Feature Extraction on Fashion-MNIST",
         company: "Jurnal Sistem Informasi Bisnis",
         location: "Deep Learning · Fuzzy Logic · Feature Extraction",
-        url: "https://jurnalunibi.unibi.ac.id/ojs/index.php/SisInfo/article/view/876",
-      },
-    ],
+        url: "https://doi.org/10.5281/zenodo.example4"
+      }
+    ]
   },
 
   /* ─────────────────────────────────────────────────────────────
-     8. EDUCATION
-        url → link ke website kampus.
+     9. EDUCATION
      ───────────────────────────────────────────────────────────── */
   education: {
-    sectionLabel: "05 — Education",
-    titleLine1: "Academic",
-    titleLine2: "Background",
+    sectionLabel: { en: "06 — Education", id: "06 — Pendidikan" },
+    titleLine1:   { en: "Academic",       id: "Latar" },
+    titleLine2:   { en: "Background",     id: "Belakang" },
     items: [
       {
         period: "Aug 2020 — Jun 2024",
-        role: "Bachelor of Mathematics",
-        roleNote: "GPA 3.88 / 4.00",
+        role: { en: "Bachelor of Mathematics", id: "Sarjana Matematika" },
+        roleNote: { en: "GPA 3.88 / 4.00", id: "IPK 3.88 / 4.00" },
         company: "Universitas Padjadjaran",
         companyUrl: "https://www.unpad.ac.id",
-        location: "Jatinangor, Indonesia",
-        bullets: [
-          "<strong>Thesis:</strong> Implementation of Mixed Accelerated Learning based on Fuzzy Restricted Boltzmann Machines and SVM for Malaria Cell Image Classification — <em>92% Accuracy</em>.",
-          "<strong>Achievement:</strong> First Runner-Up, Outstanding Mathematics Student Award 2023.",
-          "<strong>Achievement:</strong> 1st Place, HIMATIKA National Scientific Writing Competition 2023.",
-        ],
+        location: { en: "Jatinangor, Indonesia", id: "Jatinangor, Indonesia" },
+        bullets: {
+          en: [
+            "<strong>Thesis:</strong> Implementation of Mixed Accelerated Learning based on Fuzzy Restricted Boltzmann Machines and SVM for Malaria Cell Image Classification — <em>92% Accuracy</em>.",
+            "<strong>Achievement:</strong> First Runner-Up, Outstanding Mathematics Student Award 2023.",
+            "<strong>Achievement:</strong> 1st Place, HIMATIKA National Scientific Writing Competition 2023."
+          ],
+          id: [
+            "<strong>Skripsi:</strong> Implementasi Mixed Accelerated Learning berbasis Fuzzy Restricted Boltzmann Machines dan SVM untuk Klasifikasi Citra Sel Malaria — <em>Akurasi 92%</em>.",
+            "<strong>Prestasi:</strong> Juara 2, Outstanding Mathematics Student Award 2023.",
+            "<strong>Prestasi:</strong> Juara 1, Lomba Karya Tulis Ilmiah Nasional HIMATIKA 2023."
+          ]
+        }
       },
       {
         period: "Feb 2023 — Jul 2023",
-        role: "Machine Learning Specialization",
+        role: { en: "Machine Learning Specialization", id: "Spesialisasi Machine Learning" },
         company: "Bangkit Academy",
         companyUrl: "https://grow.google/bangkit/",
-        companyNote: "by Google, GoTo & Traveloka",
-        location: "Bandung, Indonesia",
-        bullets: ["Completed 900+ hours of training in Machine Learning, Deep Learning, and Cloud Deployment.", "Earned <strong>Google TensorFlow Developer Certification</strong> on the first attempt."],
-      },
-    ],
+        companyNote: { en: "by Google, GoTo & Traveloka", id: "oleh Google, GoTo & Traveloka" },
+        location: { en: "Bandung, Indonesia", id: "Bandung, Indonesia" },
+        bullets: {
+          en: [
+            "Completed 900+ hours of training in Machine Learning, Deep Learning, and Cloud Deployment.",
+            "Earned <strong>Google TensorFlow Developer Certification</strong> on the first attempt."
+          ],
+          id: [
+            "Menyelesaikan 900+ jam pelatihan Machine Learning, Deep Learning, dan Cloud Deployment.",
+            "Mendapatkan <strong>Google TensorFlow Developer Certification</strong> pada percobaan pertama."
+          ]
+        }
+      }
+    ]
   },
 
   /* ─────────────────────────────────────────────────────────────
-     9. CERTIFICATES
-        url → jika ada, tampil tombol "View Original" di modal.
+     10. CERTIFICATES
      ───────────────────────────────────────────────────────────── */
   certificates: {
-    sectionLabel: "06 — Credentials",
-    titleLine1: "Certificates",
-    titleLine2: "& Awards",
+    sectionLabel: { en: "07 — Credentials", id: "07 — Kredensial" },
+    titleLine1:   { en: "Certificates",     id: "Sertifikat" },
+    titleLine2:   { en: "& Awards",         id: "& Penghargaan" },
     items: [
       {
         image: "img/sertifikat1.jpg",
-        title: "TensorFlow Developer Certificate",
+        title: { en: "TensorFlow Developer Certificate", id: "Sertifikat TensorFlow Developer" },
         subtitle: "Google · Bangkit Academy 2023",
         url: "https://www.credential.net/example-tf-cert",
-        urlLabel: "Verify Certificate",
+        urlLabel: { en: "Verify Certificate", id: "Verifikasi Sertifikat" }
       },
       {
         image: "img/sertifikat2.jpg",
-        title: "Laboratory Assistant Certificate",
-        subtitle: "Professional Development",
-        // url opsional — bisa dihilangkan
+        title: { en: "Laboratory Assistant Certificate", id: "Sertifikat Asisten Laboratorium" },
+        subtitle: { en: "Professional Development", id: "Pengembangan Profesional" }
       },
       {
         image: "img/sertifikat3.jpg",
-        title: "Pekan Kreativitas Mahasiswa Certificate",
-        subtitle: "Professional Development",
-      },
-    ],
+        title: { en: "Pekan Kreativitas Mahasiswa Certificate", id: "Sertifikat Pekan Kreativitas Mahasiswa" },
+        subtitle: { en: "Professional Development", id: "Pengembangan Profesional" }
+      }
+    ]
   },
 
   /* ─────────────────────────────────────────────────────────────
-     10. CONTACT
+     11. CONTACT
      ───────────────────────────────────────────────────────────── */
   contact: {
-    sectionLabel: "07 — Contact",
-    titleLine1: "Get In",
-    titleLine2: "Touch",
-    tagline: "Always open to discussing <strong>new projects</strong>, creative ideas, or <strong>opportunities</strong> to build something remarkable together.",
+    sectionLabel: { en: "08 — Contact", id: "08 — Kontak" },
+    titleLine1:   { en: "Get In",       id: "Mari" },
+    titleLine2:   { en: "Touch",        id: "Terhubung" },
+    tagline: {
+      en: "Always open to discussing <strong>new projects</strong>, creative ideas, or <strong>opportunities</strong> to build something remarkable together.",
+      id: "Selalu terbuka untuk mendiskusikan <strong>proyek baru</strong>, ide kreatif, atau <strong>peluang</strong> untuk membangun sesuatu yang luar biasa bersama."
+    },
     email: "ribhanhadyan@gmail.com",
     links: [
-      { icon: "fas fa-envelope", label: "Email", href: "mailto:ribhanhadyan@gmail.com" },
-      { icon: "fab fa-linkedin", label: "LinkedIn", href: "https://www.linkedin.com/in/ribhanhadyan/" },
-      { icon: "fab fa-github", label: "GitHub", href: "https://github.com/Ribhanhadyan" },
-      { icon: "fas fa-globe", label: "Website", href: "https://ribhanhadyan.github.io/ribhanhadyan/" },
-      { icon: "fas fa-tree", label: "Linktree", href: "https://linktr.ee/rhadiyan" },
-    ],
+      { icon: "fas fa-envelope", label: { en: "Email",    id: "Email" },    href: "mailto:ribhanhadyan@gmail.com" },
+      { icon: "fab fa-linkedin", label: { en: "LinkedIn", id: "LinkedIn" }, href: "https://www.linkedin.com/in/ribhanhadyan/" },
+      { icon: "fab fa-github",   label: { en: "GitHub",   id: "GitHub" },   href: "https://github.com/Ribhanhadyan" },
+      { icon: "fas fa-globe",    label: { en: "Website",  id: "Website" },  href: "https://ribhanhadyan.github.io/ribhanhadyan/" },
+      { icon: "fas fa-tree",     label: { en: "Linktree", id: "Linktree" }, href: "https://linktr.ee/rhadiyan" }
+    ]
   },
 
   /* ─────────────────────────────────────────────────────────────
-     11. FOOTER
+     12. FOOTER
      ───────────────────────────────────────────────────────────── */
   footer: {
-    copyright: "© 2026 Muhammad Ribhan Hadiyan. All Rights Reserved.",
-    tagline: 'Designed with <i class="fas fa-heart"></i> &amp; built with <i class="fas fa-code"></i>',
-  },
+    copyright: { en: "© 2026 Muhammad Ribhan Hadiyan. All Rights Reserved.", id: "© 2026 Muhammad Ribhan Hadiyan. Hak Cipta Dilindungi." },
+    tagline:   { en: 'Designed with <i class="fas fa-heart"></i> &amp; built with <i class="fas fa-code"></i>', id: 'Dirancang dengan <i class="fas fa-heart"></i> &amp; dibangun dengan <i class="fas fa-code"></i>' }
+  }
 };

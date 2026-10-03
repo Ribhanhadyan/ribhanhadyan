@@ -4,7 +4,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Muhammad Ribhan Hadiyan — Data Scientist & Mathematician</title>
+    <meta name="description" content="Data Science & Modelling Specialist at BFI Finance with a Mathematics background. Building behavior-based collection models, monitoring systems, and ML solutions." />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Muhammad Ribhan Hadiyan — Data Scientist & Mathematician" />
+    <meta property="og:description" content="Data Science & Modelling Specialist at BFI Finance · TensorFlow Certified · 4+ Publications" />
+    <meta property="og:image" content="img/ribhanhadiyan.png" />
+    <meta property="og:type" content="website" />
+
     <link rel="icon" href="img/logo_hadyan.png" type="image/x-icon" />
+
+    <!-- ⚡ Anti-flash: set theme SEBELUM CSS dimuat -->
+    <script>
+      (function () {
+        try {
+          if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+          }
+          var lang = localStorage.getItem('lang');
+          if (lang) document.documentElement.setAttribute('lang', lang);
+        } catch (e) {}
+      })();
+    </script>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
@@ -14,6 +35,7 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+
     <!-- ── Navbar ── -->
     <nav class="navbar navbar-expand-lg fixed-top" id="navbar">
       <div class="container">
@@ -26,6 +48,17 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto" id="navMenu"></ul>
+
+          <div class="nav-controls">
+            <!-- 🌐 Language Switcher -->
+            <div class="lang-switcher" id="langSwitcher"></div>
+
+            <!-- 🎛️ Theme Toggle -->
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">
+              <i class="fas fa-moon icon-moon"></i>
+              <i class="fas fa-sun icon-sun"></i>
+            </button>
+          </div>
         </div>
       </div>
     </nav>
@@ -85,6 +118,22 @@
             </div>
             <aside class="skill-evidence" id="skillEvidence"></aside>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Career Timeline (Gantt) ── -->
+    <section id="career" class="career-timeline">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <span class="section-label" id="careerLabel"></span>
+            <h2 class="section-title" id="careerTitle"></h2>
+          </div>
+        </div>
+        <div class="gantt-wrap">
+          <div class="gantt-legend" id="ganttLegend"></div>
+          <div class="gantt-chart" id="ganttChart"></div>
         </div>
       </div>
     </section>
@@ -179,6 +228,11 @@
       </div>
     </footer>
 
+    <!-- ⬆️ Back to Top -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top" type="button">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+
     <!-- ── Certificate Modal ── -->
     <div class="modal fade" id="certificateModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -188,7 +242,7 @@
           </div>
           <div class="modal-body text-center">
             <img src="" id="modalImage" class="modal-img" alt="Certificate" />
-            <a href="" id="modalLink" class="modal-link" target="_blank" rel="noopener" style="display: none">
+            <a href="" id="modalLink" class="modal-link" target="_blank" rel="noopener" style="display: none;">
               <i class="fas fa-external-link-alt"></i>
               <span id="modalLinkText">View Original</span>
             </a>
@@ -197,7 +251,6 @@
       </div>
     </div>
 
-    <!-- ★ config.js HARUS dimuat sebelum script.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
