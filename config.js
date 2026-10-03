@@ -68,8 +68,8 @@ const CONFIG = {
       id: ["Data Scientist", "Matematikawan", "Penggemar Operations Research", "Pemecah Masalah"],
     },
     description: {
-      en: "Data Science &amp; Modelling Specialist at BFI Finance with a Mathematics background (GPA 3.88/4.00). Built the team's first behavior-based collection model, lifting Telecollection success rate from 70% to 90%.",
-      id: "Spesialis Data Science &amp; Modelling di BFI Finance dengan latar belakang Matematika (IPK 3.88/4.00). Membangun model collection pertama berbasis behavior di tim, meningkatkan success rate Telecollection dari 70% ke 90%.",
+      en: "Data Science &amp; Modelling Specialist at BFI Finance with a Mathematics background (GPA 3.88/4.00). Built the team's first behavior-based collection model.",
+      id: "Spesialis Data Science &amp; Modelling di BFI Finance dengan latar belakang Matematika (IPK 3.88/4.00). Membangun model collection pertama berbasis behavior di tim.",
     },
     photo: "img/ribhanhadiyan.png",
     ctaPrimary: { label: { en: "View Projects", id: "Lihat Proyek" }, href: "#projects" },
@@ -100,20 +100,19 @@ const CONFIG = {
     titleLine2: { en: "in Data", id: "di Dunia Data" },
     paragraphs: {
       en: [
-        "<strong>Data Science &amp; Modelling Specialist</strong> at BFI Finance with a Mathematics background (GPA 3.88/4.00, stochastic modelling focus). I built and deployed the first behavior-based collection model in my team, lifting Telecollection success rate from <strong>70% to 90%</strong>.",
+        "<strong>Data Science &amp; Modelling Specialist</strong> at BFI Finance with a Mathematics background (GPA 3.88/4.00, stochastic modelling focus). I built and deployed the first behavior-based collection model for PBF Product in my team.",
         "I work across SQL in ODPS and Trino, model monitoring systems (Streamlit, Apache Superset), and turning analysis into decisions together with business stakeholders. As a Certified TensorFlow Developer, I also bridge research in Deep Learning (Fuzzy RBM) and Robust Optimization with practical financial solutions.",
         "My academic journey at Universitas Padjadjaran forged a rigorous analytical mindset, further deepened through research in Operations Research and Robust Optimization, culminating in a thesis achieving 92% accuracy in malaria cell image classification.",
       ],
       id: [
-        "<strong>Spesialis Data Science &amp; Modelling</strong> di BFI Finance dengan latar belakang Matematika (IPK 3.88/4.00, fokus pemodelan stokastik). Saya membangun dan men-deploy model collection pertama berbasis behavior di tim, meningkatkan success rate Telecollection dari <strong>70% ke 90%</strong>.",
+        "<strong>Spesialis Data Science &amp; Modelling</strong> di BFI Finance dengan latar belakang Matematika (IPK 3.88/4.00, fokus pemodelan stokastik). Saya membangun dan men-deploy model collection pertama berbasis behavior untuk product PBF di tim.",
         "Saya bekerja di SQL di ODPS dan Trino, sistem monitoring model (Streamlit, Apache Superset), dan menerjemahkan analisis menjadi keputusan bersama stakeholder bisnis. Sebagai Certified TensorFlow Developer, saya juga menjembatani riset Deep Learning (Fuzzy RBM) dan Robust Optimization dengan solusi finansial praktis.",
         "Perjalanan akademis saya di Universitas Padjadjaran membentuk pola pikir analitis yang ketat, diperdalam melalui riset di Operations Research dan Robust Optimization, memuncak pada skripsi dengan akurasi 92% untuk klasifikasi sel malaria.",
       ],
     },
     stats: [
       { number: "3.88", label: { en: "GPA / 4.00", id: "IPK / 4.00" } },
-      { number: "4+", label: { en: "Publications", id: "Publikasi" } },
-      { number: "90%", label: { en: "Tele Success Rate", id: "Tele Success Rate" } },
+      { number: "5+", label: { en: "Publications", id: "Publikasi" } },
     ],
   },
 
