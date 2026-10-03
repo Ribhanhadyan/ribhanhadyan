@@ -18,11 +18,11 @@
     <script>
       (function () {
         try {
-          if (localStorage.getItem('theme') === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
+          if (localStorage.getItem("theme") === "dark") {
+            document.documentElement.setAttribute("data-theme", "dark");
           }
-          var lang = localStorage.getItem('lang');
-          if (lang) document.documentElement.setAttribute('lang', lang);
+          var lang = localStorage.getItem("lang");
+          if (lang) document.documentElement.setAttribute("lang", lang);
         } catch (e) {}
       })();
     </script>
@@ -35,7 +35,6 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-
     <!-- ── Navbar ── -->
     <nav class="navbar navbar-expand-lg fixed-top" id="navbar">
       <div class="container">
@@ -242,7 +241,7 @@
           </div>
           <div class="modal-body text-center">
             <img src="" id="modalImage" class="modal-img" alt="Certificate" />
-            <a href="" id="modalLink" class="modal-link" target="_blank" rel="noopener" style="display: none;">
+            <a href="" id="modalLink" class="modal-link" target="_blank" rel="noopener" style="display: none">
               <i class="fas fa-external-link-alt"></i>
               <span id="modalLinkText">View Original</span>
             </a>

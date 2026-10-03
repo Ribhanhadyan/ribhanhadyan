@@ -355,32 +355,46 @@ const CONFIG = {
     titleLine2:   { en: "& Research",        id: "& Riset" },
     items: [
       {
-        period: "2025",
-        role: "Fruit Ripeness Classification Using CNN & Bibliometric Analysis",
-        company: "IAENG International Journal of Computer Science",
-        location: "CNN · Computer Vision · Bibliometric Analysis",
-        url: "https://doi.org/10.5281/zenodo.example1"
+        period: "2026",
+        role: "Integrating Dynamic Programming and Machine Learning for Spatial Land Use Allocation: A Systematic Literature Review Toward Green Economy Goals",
+        company: "Engineering Letters",
+        location: "Dynamic Programming · Machine Learning · Systematic Literature Review",
+        url: "https://www.engineeringletters.com/issues_v34/issue_10/EL_34_10_44.pdf"
       },
       {
-        period: "2025",
-        role: "Implementing Benders Decomposition Method on Multi-objective Integer Adjustable Robust Counterpart Optimization Model with Polyhedral Uncertainty Set",
-        company: "Engineering Letters",
-        location: "Operations Research · Robust Optimization · Integer Programming",
-        url: "https://doi.org/10.5281/zenodo.example2"
+        period: "2026",
+        role: "A Systematic Review of Robust Optimization and Machine Learning Integration for Sustainable Resource Allocation Problems",
+        company: "IAENG International Journal of Applied Mathematics",
+        location: "Robust Optimization · Machine Learning · Systematic Review",
+        url: "https://www.iaeng.org/IJAM/issues_v56/issue_8/IJAM_56_8_02.pdf"
       },
       {
         period: "2025",
         role: "A Study on Lontar Printing Optimization Method for Ancient Sundanese Manuscript Preservation",
         company: "Engineering Letters",
         location: "Optimization · Cultural Heritage · Operations Research",
-        url: "https://doi.org/10.5281/zenodo.example3"
+        url: "https://www.engineeringletters.com/issues_v33/issue_12/EL_33_12_20.pdf"
+      },
+      {
+        period: "2025",
+        role: "Classification of Fruit Ripeness Levels using Convolutional Neural Network (CNN) and Graph Neural Network (GNN) Methods",
+        company: "IAENG International Journal of Computer Science",
+        location: "CNN · Graph Neural Network · Computer Vision",
+        url: "https://www.iaeng.org/IJCS/issues_v52/issue_11/IJCS_52_11_43.pdf"
+      },
+      {
+        period: "2025",
+        role: "Implementing Benders Decomposition Method on Multi-objective Integer Adjustable Robust Counterpart Optimization Model with Polyhedral Uncertainty Set",
+        company: "Engineering Letters",
+        location: "Operations Research · Robust Optimization · Integer Programming",
+        url: "https://www.engineeringletters.com/issues_v33/issue_10/EL_33_10_28.pdf"
       },
       {
         period: "2024",
-        role: "Fuzzy RBM Feature Extraction on Fashion-MNIST",
-        company: "Jurnal Sistem Informasi Bisnis",
+        role: "Ekstraksi Fitur Berdasarkan Fuzzy Restricted Boltzmann Machine Pada Klasifikasi Fashion-MNIST Dengan Dan Tanpa Noise",
+        company: "SisInfo: Jurnal Sistem Informasi dan Informatika",
         location: "Deep Learning · Fuzzy Logic · Feature Extraction",
-        url: "https://doi.org/10.5281/zenodo.example4"
+        url: "https://doi.org/10.37278/sisinfo.v6i2.876"
       }
     ]
   },
